@@ -1,0 +1,81 @@
+.fondo {
+    background-color: white;
+}
+
+.tituloh2{
+    padding: 20px 0px;
+}
+
+/*DIV CENTRAL*/
+.contenedor{
+    margin: 0% auto;
+    overflow: hidden;
+    background-color: #fff;
+}
+
+/*SIDEBAR*/
+aside{
+    width: 15%;
+    float: left;
+    
+    background-color: #22282D;
+    color: #fff;
+}
+
+.block_aside{
+    background-color: #22282D;
+    display: block;
+    height: 40px;
+    font-size: 2em;
+    padding-left: 15px;
+    vertical-align: middle;
+}
+
+.block_aside:hover{
+    background-color: #31363B;
+}
+
+/*CONTENIDO PRINCIPAL DE LA PÁGINA*/
+.contenidoPrincipal{
+    width: 85%;
+    float: right;
+    padding: 20px;
+}
+
+table{
+    background-color: #f1f1f1;
+}
+
+/*FOOTER*/
+footer{
+    background-color: red;
+    padding: 20px;
+}
+
+.botonPublicaciones{
+    float: right;
+}
+
+.cabecera_principal{
+    color: #fff;
+    background-color: #22282D;
+    text-align: center;
+}
+
+.logotipo{
+    color: #fff;
+    font-size: 3em;
+    font-weight: bold;
+}
+
+.logotipo:hover{
+    color: #D10024;
+}
+
+
+.enviarsugerencia{
+    display: flex;
+        align-items: center;
+}
+
+

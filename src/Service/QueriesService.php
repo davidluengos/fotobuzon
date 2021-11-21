@@ -6,6 +6,7 @@ use App\Library\DbConnection;
 use App\Model\Publicacion;
 use App\Model\Comentario;
 use App\Model\Imagen;
+use App\Model\Usuario;
 use Exception;
 
 class QueriesService
@@ -49,15 +50,7 @@ class QueriesService
         }
     }
 
-    public function getNombreCategoriaEnPublicacion (int $id_publicacion){
-        try {
-        $sql = "SELECT categoria FROM categorias C, publicaciones P WHERE P.id_categoria = C.id_categoria AND P.id_publicacion = $id_publicacion;";
-        $resultado = $this->dbConnection->ejecutarQueryConUnResultado($sql);
-            return $resultado['categoria'];
-        } catch (\Exception $e) {
-            echo "ERROR - No se pudo obtener ninguna familia " . $e->getMessage();
-        }
-    }
+   
 
     public function getNombreEstado(int $id_estado = null): string
     {
@@ -138,5 +131,48 @@ class QueriesService
         } catch (\Exception $e) {
             throw new Exception("ERROR - No se pudo obtener ninguna publicación " . $e->getMessage());
         }
+    }
+
+    public function getUsuariosQueComentanPublicacion($id_publicacion){
+        try {
+            $sql = "SELECT * FROM usuarios U, comentarios C WHERE C.id_publicacion = $id_publicacion AND U.id_usuario = C.autor_comentario ORDER BY C.id_comentario DESC;";
+            $usuarios = $this->dbConnection->ejecutarQueryConResultado($sql);
+            foreach ($usuarios as $key => $usuario) {
+                $usuarios[$key] = new Usuario($usuario);
+            }
+            return $usuarios;
+        } catch (\Exception $e) {
+            throw new Exception("ERROR - No se pudo obtener ningún usuario " . $e->getMessage());
+        }
+    }
+
+    public function getContarComentariosDePublicacion($id_publicacion){
+        try {
+            $sql = "SELECT count(comentario) FROM comentarios WHERE id_publicacion = $id_publicacion;";
+            $resultado = $this->dbConnection->ejecutarQueryConUnResultado($sql);
+            return $resultado; 
+        } catch (\Exception $e) {
+            throw new Exception("ERROR - No se pudo obtener ninguna publicación " . $e->getMessage());
+        }
+    }
+
+    public function getNombreCategoriaEnPublicacion (int $id_publicacion){
+        try {
+        $sql = "SELECT categoria FROM categorias C, publicaciones P WHERE P.id_categoria = C.id_categoria AND P.id_publicacion = $id_publicacion;";
+        $resultado = $this->dbConnection->ejecutarQueryConUnResultado($sql);
+            return $resultado['categoria'];
+        } catch (\Exception $e) {
+            echo "ERROR - No se pudo obtener ninguna familia " . $e->getMessage();
+        }
+    }
+
+    public function getNombreEstadoDePublicacion ($id_publicacion){
+        try {
+            $sql = "SELECT estado FROM estados E, publicaciones P WHERE P.id_estado = E.id_estado AND P.id_publicacion = $id_publicacion;";
+            $resultado = $this->dbConnection->ejecutarQueryConUnResultado($sql);
+                return $resultado;
+            } catch (\Exception $e) {
+                echo "ERROR - No se pudo obtener ninguna familia " . $e->getMessage();
+            }
     }
 }

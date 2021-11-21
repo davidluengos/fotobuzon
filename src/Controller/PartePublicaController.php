@@ -33,13 +33,20 @@ class PartePublicaController
         $publicacion = $this->queryService->getPublicacion($id_publicacion);
         $comentarios = $this->queryService->getComentarios($id_publicacion);
         $imagenes = $this->queryService->getImagenes($id_publicacion);
+        $usuariosDeComentarios = $this->queryService->getUsuariosQueComentanPublicacion($id_publicacion);
         $nombreCategoria = $this->queryService->getNombreCategoriaEnPublicacion($id_publicacion);
+        $numeroComentariosDePublicacion = $this->queryService->getContarComentariosDePublicacion($id_publicacion);
+        $estadoDePublicacion = $this->queryService->getNombreEstadoDePublicacion($id_publicacion);
         $variablesParaPasarAVista = [
             'publicacion' => $publicacion,
             'comentarios' => $comentarios,
             'imagenes' => $imagenes,
-            'categoria' => $nombreCategoria
+            'categoria' => $nombreCategoria,
+            'usuariosDeComentarios' => $usuariosDeComentarios,
+            'numeroComentarios'=>$numeroComentariosDePublicacion,
+            'estadoDePublicacion'=>$estadoDePublicacion
         ];
+        
         return MostrarVista::mostrarVistaPublica('publicoPublicacionVista.php', $variablesParaPasarAVista);
     }
 }

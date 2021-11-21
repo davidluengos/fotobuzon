@@ -1,3 +1,12 @@
+<?php
+	echo "<pre>";
+	print_r($datos['estadoDePublicacion'][0]);
+	echo "</pre>";
+
+?>
+	
+	
+	
 	<!-- SECTION -->
 	<div class="section">
 	    <!-- container -->
@@ -42,8 +51,12 @@
 	                            <i class="fa fa-star"></i>
 	                            <i class="fa fa-star-o"></i>
 	                        </div>-->
-	                        <a class="review-link" href="#">10 Review(s)  </a>
-							<p><?php echo $publicacion->getFecha_Publicacion(); ?></p>
+	                        <a class="review-link" href="#"><?php echo $datos['numeroComentarios'][0]; ?> Comentario(s)  </a>
+							<p>Publicada el <?php echo $publicacion->getFecha_Publicacion(); ?></p>
+							<div class="product-label">
+								<p class="new"><?php echo $datos['estadoDePublicacion'][0]; ?></p>
+								</div>
+								
 	                    </div>
 	                    <div>
 	                        <h3 class="product-price"><?php echo $datos['categoria']; ?> </h3>
@@ -113,7 +126,7 @@
 	                    <!-- product tab nav -->
 	                    <ul class="tab-nav">
 	                        
-	                        <li><a data-toggle="tab" href="#tab1">Comentarios (3)</a></li>
+	                        <li><a data-toggle="tab" href="#tab1">Comentarios (<?php echo $datos['numeroComentarios'][0]; ?>)</a></li>
 	                    </ul>
 	                    <!-- /product tab nav -->
 
@@ -137,7 +150,12 @@
 											
 												<li>
 	                                                <div class="review-heading">
-	                                                    <h5 class="name"><?php echo $comentario->getAutor_comentario();?></h5>
+	                                                    <h5 class="name">
+														<?php foreach ($datos['usuariosDeComentarios'] as $autor) {
+
+                                                            echo $autor->getNombre(). " ". $autor->getApellidos();
+                                                        } ?></h5>
+														
 	                                                    <p class="date"><?php echo $comentario->getFecha_comentario();?></p>
 	                                                    <!--<div class="review-rating">
 	                                                        <i class="fa fa-star"></i>

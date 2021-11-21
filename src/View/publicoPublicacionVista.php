@@ -1,13 +1,4 @@
-<?php
-	echo "<pre>";
-	print_r($datos['estadoDePublicacion'][0]);
-	echo "</pre>";
-
-?>
-	
-	
-	
-	<!-- SECTION -->
+<!-- SECTION -->
 	<div class="section">
 	    <!-- container -->
 	    <div class="container">
@@ -42,6 +33,7 @@
 	            <!-- Product details -->
 	            <div class="col-md-5">
 	                <div class="product-details">
+						<p class="categoria-producto"><?php echo $datos['categoria']; ?> </p>
 	                    <h2 class="product-name"><?php echo $publicacion->getTitulo(); ?></h2>
 	                    <div>
 	                    	<!--    <div class="product-rating">
@@ -51,68 +43,26 @@
 	                            <i class="fa fa-star"></i>
 	                            <i class="fa fa-star-o"></i>
 	                        </div>-->
-	                        <a class="review-link" href="#"><?php echo $datos['numeroComentarios'][0]; ?> Comentario(s)  </a>
-							<p>Publicada el <?php echo $publicacion->getFecha_Publicacion(); ?></p>
+	                        <p><?php echo $datos['numeroComentarios'][0]; ?> Comentario(s)  </p>
+							
 							<div class="product-label">
-								<p class="new"><?php echo $datos['estadoDePublicacion'][0]; ?></p>
-								</div>
+								<p class="estado_color"><?php echo $datos['estadoDePublicacion'][0]; ?></p>
+							</div>
 								
 	                    </div>
 	                    <div>
-	                        <h3 class="product-price"><?php echo $datos['categoria']; ?> </h3>
-	                        <span class="product-available"><?php 
+							<p class="product-available"><?php 
 								$theDate = $publicacion->getFecha_publicacion();
 								$fecha = date('d-m-Y', strtotime($theDate));
 								echo $fecha; 
-							?></span>
+								?></p>
+							
+							
+
+							<p class="autor_publicacion"><?php echo $datos['autor']['nombre']. " ". $datos['autor']['apellidos']; ?> </p>
+							<p><?php echo $publicacion->getDescripcion(); ?></p>
 	                    </div>
-	                    <p><?php echo $publicacion->getDescripcion(); ?></p>
-						<!--
-	                    <div class="product-options">
-	                        <label>
-	                            Size
-	                            <select class="input-select">
-	                                <option value="0">X</option>
-	                            </select>
-	                        </label>
-	                        <label>
-	                            Color
-	                            <select class="input-select">
-	                                <option value="0">Red</option>
-	                            </select>
-	                        </label>
-	                    </div>
-
-	                    <div class="add-to-cart">
-	                        <div class="qty-label">
-	                            Qty
-	                            <div class="input-number">
-	                                <input type="number">
-	                                <span class="qty-up">+</span>
-	                                <span class="qty-down">-</span>
-	                            </div>
-	                        </div>
-	                        <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-	                    </div>
-
-	                    <ul class="product-btns">
-	                        <li><a href="#"><i class="fa fa-heart-o"></i> add to wishlist</a></li>
-	                        <li><a href="#"><i class="fa fa-exchange"></i> add to compare</a></li>
-	                    </ul>
-
-	                    <ul class="product-links">
-	                        <li>Category:</li>
-	                        <li><a href="#">Headphones</a></li>
-	                        <li><a href="#">Accessories</a></li>
-	                    </ul>
-
-	                    <ul class="product-links">
-	                        <li>Share:</li>
-	                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-	                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-	                        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-	                        <li><a href="#"><i class="fa fa-envelope"></i></a></li>
-	                    </ul>-->
+						
 	                <?php
                             } ?>
 
@@ -172,38 +122,7 @@
 												<?php
 											}
 											?> 
-	                                            <li>
-	                                                <div class="review-heading">
-	                                                    <h5 class="name">John</h5>
-	                                                    <p class="date">27 DEC 2018, 8:0 PM</p>
-	                                                     <!--<div class="review-rating">
-	                                                        <i class="fa fa-star"></i>
-	                                                        <i class="fa fa-star"></i>
-	                                                        <i class="fa fa-star"></i>
-	                                                        <i class="fa fa-star"></i>
-	                                                        <i class="fa fa-star-o empty"></i>
-	                                                    </div>-->
-	                                                </div>
-	                                                <div class="review-body">
-	                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-	                                                </div>
-	                                            </li>
-	                                            <li>
-	                                                <div class="review-heading">
-	                                                    <h5 class="name">John</h5>
-	                                                    <p class="date">27 DEC 2018, 8:0 PM</p>
-	                                                     <!--<div class="review-rating">
-	                                                        <i class="fa fa-star"></i>
-	                                                        <i class="fa fa-star"></i>
-	                                                        <i class="fa fa-star"></i>
-	                                                        <i class="fa fa-star"></i>
-	                                                        <i class="fa fa-star-o empty"></i>
-	                                                    </div>-->
-	                                                </div>
-	                                                <div class="review-body">
-	                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-	                                                </div>
-	                                            </li>
+	                                            
 	                                        </ul>
 	                                        <ul class="reviews-pagination">
 	                                            <li class="active">1</li>

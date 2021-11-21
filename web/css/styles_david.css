@@ -78,4 +78,25 @@ footer{
         align-items: center;
 }
 
+.estado_color {
+    background-color: #D10024;
+    border-color: #D10024;
+    color: #FFF;
+    border: 2px solid;
+  padding: 2px 10px;
+  font-size: 12px;
+  position: absolute;
+  top: 100px;
+  right: 20px;
+  }
 
+.categoria-producto{
+    text-align: right; 
+    color: #D10024;
+    font-weight: bold;
+    font-size: 1.6em;
+}
+
+.autor_publicacion{
+    font-weight: bold;
+}

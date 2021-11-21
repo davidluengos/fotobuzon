@@ -175,4 +175,16 @@ class QueriesService
                 echo "ERROR - No se pudo obtener ninguna familia " . $e->getMessage();
             }
     }
+
+    public function getNombreAutorDePublicacion ($id_publicacion){
+        try {
+            $sql = "SELECT * FROM usuarios U, publicaciones P WHERE P.id_autor = U.id_usuario AND P.id_publicacion = $id_publicacion;";
+            $resultado = $this->dbConnection->ejecutarQueryConUnResultado($sql);
+                return $resultado;
+            } catch (\Exception $e) {
+                echo "ERROR - No se pudo obtener ninguna familia " . $e->getMessage();
+            }
+    }
+
+
 }

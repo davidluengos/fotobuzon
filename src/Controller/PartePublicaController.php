@@ -37,6 +37,7 @@ class PartePublicaController
         $nombreCategoria = $this->queryService->getNombreCategoriaEnPublicacion($id_publicacion);
         $numeroComentariosDePublicacion = $this->queryService->getContarComentariosDePublicacion($id_publicacion);
         $estadoDePublicacion = $this->queryService->getNombreEstadoDePublicacion($id_publicacion);
+        $autorDePublicacion = $this->queryService->getNombreAutorDePublicacion($id_publicacion);
         $variablesParaPasarAVista = [
             'publicacion' => $publicacion,
             'comentarios' => $comentarios,
@@ -44,7 +45,8 @@ class PartePublicaController
             'categoria' => $nombreCategoria,
             'usuariosDeComentarios' => $usuariosDeComentarios,
             'numeroComentarios'=>$numeroComentariosDePublicacion,
-            'estadoDePublicacion'=>$estadoDePublicacion
+            'estadoDePublicacion'=>$estadoDePublicacion,
+            'autor'=>$autorDePublicacion
         ];
         
         return MostrarVista::mostrarVistaPublica('publicoPublicacionVista.php', $variablesParaPasarAVista);

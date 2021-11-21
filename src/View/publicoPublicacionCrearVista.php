@@ -3,14 +3,14 @@
 	<div class="container">
 		<!-- row -->
 		<div class="row">
+			<div class="section-title">
+				<h3 class="title">Registrar una nueva publicación</h3>
+			</div>
 
 			<div class="col-md-7">
 				<!-- Billing Details -->
 				<div class="billing-details">
 					<form id="contact-form" name="contact-form" action="" method="POST">
-						<div class="section-title">
-							<h3 class="title">Registar una nueva publicación</h3>
-						</div>
 						<input type="hidden" value="<?php echo $datos['id_publicacion']; ?>" name="id_publicacion" />
 						<div class="form-group">
 							<input class="input" type="text" name="titulo" placeholder="Título">

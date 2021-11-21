@@ -48,6 +48,17 @@ class QueriesService
             echo "ERROR - No se pudo obtener ninguna familia " . $e->getMessage();
         }
     }
+
+    public function getNombreCategoriaEnPublicacion (int $id_publicacion){
+        try {
+        $sql = "SELECT categoria FROM categorias C, publicaciones P WHERE P.id_categoria = C.id_categoria AND P.id_publicacion = $id_publicacion;";
+        $resultado = $this->dbConnection->ejecutarQueryConUnResultado($sql);
+            return $resultado['categoria'];
+        } catch (\Exception $e) {
+            echo "ERROR - No se pudo obtener ninguna familia " . $e->getMessage();
+        }
+    }
+
     public function getNombreEstado(int $id_estado = null): string
     {
         if ($id_estado == null) {

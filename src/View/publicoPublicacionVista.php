@@ -46,7 +46,7 @@
 							<p><?php echo $publicacion->getFecha_Publicacion(); ?></p>
 	                    </div>
 	                    <div>
-	                        <h3 class="product-price"><?php echo $publicacion->getCategoria(); ?> </h3>
+	                        <h3 class="product-price"><?php echo $datos['categoria']; ?> </h3>
 	                        <span class="product-available"><?php 
 								$theDate = $publicacion->getFecha_publicacion();
 								$fecha = date('d-m-Y', strtotime($theDate));
@@ -137,8 +137,8 @@
 											
 												<li>
 	                                                <div class="review-heading">
-	                                                    <h5 class="name"><?php echo $comentario->getComentario();?></h5>
-	                                                    <p class="date">27 DEC 2018, 8:0 PM</p>
+	                                                    <h5 class="name"><?php echo $comentario->getAutor_comentario();?></h5>
+	                                                    <p class="date"><?php echo $comentario->getFecha_comentario();?></p>
 	                                                    <!--<div class="review-rating">
 	                                                        <i class="fa fa-star"></i>
 	                                                        <i class="fa fa-star"></i>
@@ -148,7 +148,7 @@
 	                                                    </div>-->
 	                                                </div>
 	                                                <div class="review-body">
-	                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
+	                                                    <p><?php echo $comentario->getComentario();?></p>
 	                                                </div>
 	                                            </li>
 												<?php

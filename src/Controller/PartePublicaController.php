@@ -33,10 +33,12 @@ class PartePublicaController
         $publicacion = $this->queryService->getPublicacion($id_publicacion);
         $comentarios = $this->queryService->getComentarios($id_publicacion);
         $imagenes = $this->queryService->getImagenes($id_publicacion);
+        $nombreCategoria = $this->queryService->getNombreCategoriaEnPublicacion($id_publicacion);
         $variablesParaPasarAVista = [
             'publicacion' => $publicacion,
             'comentarios' => $comentarios,
-            'imagenes' => $imagenes
+            'imagenes' => $imagenes,
+            'categoria' => $nombreCategoria
         ];
         return MostrarVista::mostrarVistaPublica('publicoPublicacionVista.php', $variablesParaPasarAVista);
     }

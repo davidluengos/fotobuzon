@@ -92,21 +92,15 @@
 	                                <div class="col-md-8">
 	                                    <div id="reviews">
 	                                        <ul class="reviews">
-	                                        <?php foreach ($datos['comentarios'] as $comentario){
+	                                        <?php foreach ($datos['comentariosConNombre'] as $comentario){
 											?>	
-											   
-											
-											
-											
 												<li>
 	                                                <div class="review-heading">
 	                                                    <h5 class="name">
-														<?php foreach ($datos['usuariosDeComentarios'] as $autor) {
-
-                                                            echo $autor->getNombre(). " ". $autor->getApellidos();
-                                                        } ?></h5>
-														
-	                                                    <p class="date"><?php echo $comentario->getFecha_comentario();?></p>
+														<?php 
+                                                            echo $comentario['nombre']." ".$comentario['apellidos'];
+                                                         ?></h5>
+	                                                    <p class="date"><?php echo $comentario['fecha_comentario'];?></p>
 	                                                    <!--<div class="review-rating">
 	                                                        <i class="fa fa-star"></i>
 	                                                        <i class="fa fa-star"></i>
@@ -116,7 +110,7 @@
 	                                                    </div>-->
 	                                                </div>
 	                                                <div class="review-body">
-	                                                    <p><?php echo $comentario->getComentario();?></p>
+	                                                    <p><?php echo $comentario['comentario'];?></p>
 	                                                </div>
 	                                            </li>
 												<?php
@@ -138,10 +132,9 @@
 	                                <!-- Review Form -->
 	                                <div class="col-md-4">
 	                                    <div id="review-form">
-	                                        <form class="review-form">
-	                                            <input class="input" type="text" placeholder="Tu nombre">
-	                                            <input class="input" type="email" placeholder="Tu email">
-	                                            <textarea class="input" placeholder="Tu comentario"></textarea>
+	                                        <form class="review-form" method="post">
+	                                            <p>Realiza aquí tu comentario. Debes haber iniciado la sesión.</p>
+	                                            <textarea class="input" name="textoComentario" placeholder="Tu comentario"></textarea>
 	                                            <!--<div class="input-rating">
 	                                                <span>Your Rating: </span>
 	                                                <div class="stars">
@@ -152,7 +145,7 @@
 	                                                    <input id="star1" name="rating" value="1" type="radio"><label for="star1"></label>
 	                                                </div>
 	                                            </div>-->
-	                                            <button class="primary-btn">Submit</button>
+	                                            <button class="primary-btn" name="submit">Submit</button>
 	                                        </form>
 	                                    </div>
 	                                </div>

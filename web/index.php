@@ -24,7 +24,7 @@ $queriesService = new QueriesService($dbConnection);
 $seguridadService = new SeguridadService($dbConnection);
 
 // Cargar los controladores con los servicios inyectados
-$partePublicaController = new PartePublicaController($queriesService);
+$partePublicaController = new PartePublicaController($dbConnection, $queriesService, $seguridadService);
 $publicacionController = new PublicacionController($dbConnection, $queriesService, $seguridadService);
 $usuarioController = new UsuarioController($dbConnection, $queriesService, $seguridadService);
 $categoriaController = new CategoriaController($dbConnection, $queriesService, $seguridadService);

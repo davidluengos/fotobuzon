@@ -102,7 +102,7 @@ class QueriesService
             throw new Exception("ERROR - No se pudo obtener ninguna publicación " . $e->getMessage());
         }
     }
-
+/*
     public function getComentarios($id_publicacion)
     {
 
@@ -111,6 +111,22 @@ class QueriesService
             $comentarios = $this->dbConnection->ejecutarQueryConResultado($sql);
             foreach ($comentarios as $key => $comentario) {
                 $comentarios[$key] = new Comentario($comentario);
+            }
+            return $comentarios;
+        } catch (\Exception $e) {
+            throw new Exception("ERROR - No se pudo obtener ninguna publicación " . $e->getMessage());
+        }
+    }*/
+
+    // Construyo un array con los datos que necesito para mostrar los comentarios en una publicación
+    public function getComentariosConNombreAutor($id_publicacion)
+    {
+
+        try {
+            $sql = "SELECT C.fecha_comentario, U.nombre, U.apellidos, C.comentario FROM comentarios C, usuarios U WHERE C.id_publicacion = $id_publicacion AND C.autor_comentario=U.id_usuario ORDER BY id_comentario DESC;";
+            $comentarios = $this->dbConnection->ejecutarQueryConResultado($sql);
+            foreach ($comentarios as $key => $comentario) {
+                $comentarios[$key] = $comentario;
             }
             return $comentarios;
         } catch (\Exception $e) {
@@ -132,7 +148,7 @@ class QueriesService
             throw new Exception("ERROR - No se pudo obtener ninguna publicación " . $e->getMessage());
         }
     }
-
+/*
     public function getUsuariosQueComentanPublicacion($id_publicacion){
         try {
             $sql = "SELECT * FROM usuarios U, comentarios C WHERE C.id_publicacion = $id_publicacion AND U.id_usuario = C.autor_comentario ORDER BY C.id_comentario DESC;";
@@ -144,7 +160,7 @@ class QueriesService
         } catch (\Exception $e) {
             throw new Exception("ERROR - No se pudo obtener ningún usuario " . $e->getMessage());
         }
-    }
+    }*/
 
     public function getContarComentariosDePublicacion($id_publicacion){
         try {

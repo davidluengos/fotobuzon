@@ -11,11 +11,11 @@ class MostrarVista{
         echo "<body class='fondo'>";
         include('../src/View/header.php');
         include('../src/View/publicoNav.php');
-        echo "<div class=contenedor>";
+        //echo "<div class=contenedor>";
         //include('../src/View/sidebar.php');
         include('../src/View/'.$rutaVista);
-        echo "</div>";
-        include('../src/View/footer.php');
+        //echo "</div>";
+        include('../src/View/publicoFooter.php');
         echo "</body>";
         echo "</html>";
         $var=ob_get_contents(); 

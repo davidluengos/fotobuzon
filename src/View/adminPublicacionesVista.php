@@ -1,20 +1,20 @@
-<section class="contenidoPrincipal">
+<section class="section">
+<div class="container">
 
-
-   <div class="table-responsive fondo">
-     <div class="encabezado">
-       <h2 class="tituloh2">
-         <?php
-          if ($datos['titulo']) {
-            echo $datos['titulo'];
-          }
-          ?>
-       </h2>
+  <div class="table-responsive fondo">
+    <div class="encabezado">
+      <h2 class="tituloh2">
+        <?php
+        if ($datos['titulo']) {
+          echo $datos['titulo'];
+        }
+        ?>
+      </h2>
 
       <a class="btn btn-primary botonPublicaciones" href="/admin/publicacion/crear" role="button">Nueva Publicación</a>
     </div>
     <table class="table  table-hover table-sm">
-      <caption>List of users</caption>
+      <caption>Lista de publicaciones</caption>
       <thead class="">
         <tr>
           <th scope="col">id</th>
@@ -56,5 +56,6 @@
         ?>
       </tbody>
     </table>
+    </div>
   </div>
 </section>

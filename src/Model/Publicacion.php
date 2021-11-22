@@ -16,6 +16,9 @@ class Publicacion {
     private $nombreEstado;
     private $nombreAutor;
 
+    private $numeroComentarios;
+    private $imagenPrincipal;
+
     public function __construct(array $row){
         $this->id_publicacion = $row['id_publicacion'];
         $this->fecha_publicacion = $row['fecha_publicacion'];
@@ -149,6 +152,46 @@ class Publicacion {
     public function setNombreAutor($nombreAutor)
     {
         $this->nombreAutor = $nombreAutor;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of numeroComentarios
+     */ 
+    public function getNumeroComentarios()
+    {
+        return $this->numeroComentarios;
+    }
+
+    /**
+     * Set the value of numeroComentarios
+     *
+     * @return  self
+     */ 
+    public function setNumeroComentarios($numeroComentarios)
+    {
+        $this->numeroComentarios = $numeroComentarios;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of imagenPrincipal
+     */ 
+    public function getImagenPrincipal()
+    {
+        return $this->imagenPrincipal;
+    }
+
+    /**
+     * Set the value of imagenPrincipal
+     *
+     * @return  self
+     */ 
+    public function setImagenPrincipal($imagenPrincipal)
+    {
+        $this->imagenPrincipal = $imagenPrincipal;
 
         return $this;
     }

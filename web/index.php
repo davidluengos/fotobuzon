@@ -6,6 +6,7 @@ use App\Controller\CategoriaController;
 use App\Controller\PalabraProhibidaController;
 use App\Controller\SeguridadController;
 use App\Controller\PartePublicaController;
+use App\Controller\EstadoController;
 use App\Library\DbConnection;
 use App\Library\MostrarVista;
 use App\Service\QueriesService;
@@ -30,6 +31,7 @@ $usuarioController = new UsuarioController($dbConnection, $queriesService, $segu
 $categoriaController = new CategoriaController($dbConnection, $queriesService, $seguridadService);
 $palabraProhibidaController = new PalabraProhibidaController($dbConnection, $queriesService, $seguridadService);
 $seguridadController = new SeguridadController($dbConnection);
+$estadoController = new EstadoController($dbConnection, $seguridadService);
 
 
 // Enrutamiento. Cada url apunta a un método del controlador correspondiente
@@ -86,6 +88,12 @@ try{
         case "admin/palabraprohibida/editar":
             echo $palabraProhibidaController->editarPalabraProhibida($_GET['id']);
             break;
+        case "admin/estados":
+            echo $estadoController->mostrarEstados();
+            break;
+        case "admin/estado/editar":
+            echo $estadoController->editarEstado($_GET['id']);
+            break;    
         case "login":
             echo $seguridadController->loginUsuario();
             break;

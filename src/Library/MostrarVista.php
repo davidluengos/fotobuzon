@@ -30,7 +30,7 @@ class MostrarVista{
         include('../src/View/publicoHead.php');
         echo "<body>";
         include('../src/View/publicoHeader.php');
-        include('../src/View/publicoNav.php');
+        //include('../src/View/publicoNav.php');
         include('../src/View/'.$rutaVista);
         include('../src/View/publicoFooter.php');
         echo "</body>";

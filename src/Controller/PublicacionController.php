@@ -147,7 +147,7 @@ class PublicacionController
         $this->seguridadService->regirigeALoginSiNoEresRol(["Admin"]);
 
         try {
-            $sql = "SELECT * FROM publicaciones ORDER BY id_publicacion DESC;";
+            $sql = "SELECT * FROM publicaciones WHERE esta_creada = 1 ORDER BY id_publicacion DESC;";
             $publicaciones = $this->dbConnection->ejecutarQueryConResultado($sql);
             foreach ($publicaciones as $key => $publicacion) {
                 $id_estado = $publicacion['id_estado'];

@@ -43,10 +43,12 @@
             <td><?php echo $publicacion->getNombreAutor(); ?></td>
             <td><?php echo $publicacion->getLocalizacion(); ?></td>
             <td>
-              <a href="/admin/publicacion/editar?id=<?php echo $publicacion->getId_Publicacion(); ?>"><button>Editar</button></a>
+              <a href="/admin/publicacion/ver?id=<?php echo $publicacion->getId_Publicacion(); ?>"><i class="fa fa-eye"> Ver</i></a>
+              <a href="/admin/publicacion/editar?id=<?php echo $publicacion->getId_Publicacion(); ?>"><i class="fa fa-edit"> Editar</i></a>
               <form action="/admin/publicacion/eliminar" method="post">
                 <input type="hidden" name="eliminarporpost" value="<?php echo $publicacion->getId_Publicacion(); ?>">
                 <input type="submit" name="eliminar" value="Eliminar">
+                
 
               </form>
             </td>

@@ -47,6 +47,9 @@ try{
         case "publicacion/crear":
             echo $publicacionController->crearPublicacion();
             break;
+        case "admin/publicacion/ver":
+            //echo $publicacionController->verPublicacion($_GET['id']);
+            break;
         case "admin/publicacion/editar":
             echo $publicacionController->editarPublicacion($_GET['id']);
             break;

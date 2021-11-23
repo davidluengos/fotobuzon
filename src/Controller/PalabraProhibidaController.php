@@ -36,7 +36,7 @@ class PalabraProhibidaController
             echo "ERROR - No se pudieron obtener las publicaciones: " . $e->getMessage();
         }
         $variablesParaPasarAVista = [ //llevamos dos variables, el título a mostrar en la página y el array de objetos 'publicaciones'
-            'titulo' => 'Mostramos las Palabras Prohibidas',
+            'titulo' => 'Administración de Palabras Prohibidas',
             'palabras' => $palabras,
         ];
         return MostrarVista::mostrarVista('adminPalabrasProhibidasVista.php', $variablesParaPasarAVista);

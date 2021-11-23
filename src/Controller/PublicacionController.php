@@ -165,7 +165,7 @@ class PublicacionController
             echo "ERROR - No se pudieron obtener las publicaciones: " . $e->getMessage();
         }
         $variablesParaPasarAVista = [ //llevamos dos variables, el título a mostrar en la página y el array de objetos 'publicaciones'
-            'titulo' => 'Mostramos las Publicaciones',
+            'titulo' => 'Administración de Publicaciones',
             'publicaciones' => $publicaciones,
         ];
         return MostrarVista::mostrarVista('adminPublicacionesVista.php', $variablesParaPasarAVista);

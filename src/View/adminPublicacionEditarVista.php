@@ -68,7 +68,7 @@
                 </form>
 
                 <div class="text-center text-md-left">
-                    <a class="btn btn-primary" onclick="document.getElementById('contact-form').submit();">Actualizar Publicación</a>
+                    <a class="primary-btn cta-btn" onclick="document.getElementById('contact-form').submit();">Actualizar Publicación</a>
                 </div>
                 <div class="status"></div>
             </div>

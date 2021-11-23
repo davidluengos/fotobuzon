@@ -12,7 +12,7 @@
 
       </div>
       <table class="table  table-hover table-sm">
-        <caption>Lista de estados</caption>
+        <caption>Lista de Estados</caption>
         <thead class="">
           <tr>
             <th scope="col">id</th>

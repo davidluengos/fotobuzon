@@ -10,11 +10,10 @@
         }
         ?>
       </h2>
-
-      <a class="btn btn-primary botonPublicaciones" href="/admin/publicacion/crear" role="button">Nueva Publicación</a>
+      <a class="primary-btn cta-btn botonPublicaciones" href="/admin/publicacion/crear">Nueva Publicación</a>
     </div>
     <table class="table  table-hover table-sm">
-      <caption>Lista de publicaciones</caption>
+      <caption>Lista de Publicaciones</caption>
       <thead class="">
         <tr>
           <th scope="col">id</th>

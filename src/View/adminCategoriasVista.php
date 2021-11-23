@@ -10,10 +10,11 @@
           ?>
         </h2>
 
-        <a class="btn btn-primary botonPublicaciones" href="/admin/categoria/crear" role="button">Nueva Categoría</a>
-      </div>
+        <a class="primary-btn cta-btn botonPublicaciones" href="/admin/categoria/crear">Nueva Categoría</a>
+
+        
       <table class="table  table-hover table-sm">
-        <caption>List of users</caption>
+        <caption>Lista de Categorías</caption>
         <thead class="">
           <tr>
             <th scope="col">id</th>

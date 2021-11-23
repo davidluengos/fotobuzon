@@ -10,7 +10,7 @@
           ?>
         </h2>
 
-        <a class="btn btn-primary botonPublicaciones" href="/admin/palabraprohibida/crear" role="button">Nueva Palabra Prohibida</a>
+        <a class="primary-btn cta-btn botonPublicaciones" href="/admin/palabraprohibida/crear" >Nueva Palabra Prohibida</a>
       </div>
       <table class="table  table-hover table-sm">
         <caption>Lista de Palabras Prohibidas</caption>

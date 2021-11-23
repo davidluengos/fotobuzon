@@ -2,7 +2,7 @@
     <div class="container">
 
         <!--Section heading-->
-        <h2 class="h1-responsive font-weight-bold text-center my-4">Registro de nuevo usuario</h2>
+        <h2 class="h1-responsive font-weight-bold text-center my-4">Registro de nueva categoría</h2>
         <!--Section description-->
         <p class="text-center w-responsive mx-auto mb-5">Do you have any questions? Please do not hesitate to contact us directly. Our team will come back to you within
             a matter of hours to help you.</p>
@@ -26,7 +26,7 @@
                 </form>
 
                 <div class="text-center text-md-left">
-                    <a class="btn btn-primary" onclick="document.getElementById('contact-form').submit();">Enviar</a>
+                    <a class="primary-btn cta-btn" onclick="document.getElementById('contact-form').submit();">Enviar</a>
                 </div>
                 <div class="status"></div>
             </div>

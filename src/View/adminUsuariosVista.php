@@ -9,11 +9,11 @@
           }
           ?>
         </h2>
-
-        <a class="btn btn-primary botonPublicaciones" href="/admin/usuario/crear" role="button">Nuevo Usuario</a>
+          
+        <a class="primary-btn cta-btn botonPublicaciones" href="/admin/usuario/crear" >Nuevo Usuario</a>
       </div>
       <table class="table  table-hover table-sm">
-        <caption>Lista de usuarios</caption>
+        <caption>Lista de Usuarios</caption>
         <thead class="">
           <tr>
             <th scope="col">id</th>

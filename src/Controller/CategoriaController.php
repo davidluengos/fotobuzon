@@ -35,7 +35,7 @@ class CategoriaController
             echo "ERROR - No se pudieron obtener las publicaciones: " . $e->getMessage();
         }
         $variablesParaPasarAVista = [ //llevamos dos variables, el título a mostrar en la página y el array de objetos 'publicaciones'
-            'titulo' => 'Mostramos las Categorías',
+            'titulo' => 'Administración de Categorías',
             'categorias' => $categorias,
         ];
         return MostrarVista::mostrarVista('adminCategoriasVista.php', $variablesParaPasarAVista);

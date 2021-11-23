@@ -34,7 +34,7 @@ class EstadoController
             echo "ERROR - No se pudieron obtener los estados: " . $e->getMessage();
         }
         $variablesParaPasarAVista = [ 
-            'titulo' => 'Mostramos los estados',
+            'titulo' => 'Administración de Estados',
             'estados' => $estados
         ];
         return MostrarVista::mostrarVista('adminEstadosVista.php', $variablesParaPasarAVista);

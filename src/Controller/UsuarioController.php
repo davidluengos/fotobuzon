@@ -36,7 +36,7 @@ class UsuarioController
             echo "ERROR - No se pudieron obtener los usuarios: " . $e->getMessage();
         }
         $variablesParaPasarAVista = [ //llevamos dos variables, el título a mostrar en la página y el array de objetos 'publicaciones'
-            'titulo' => 'Mostramos los Usuarios',
+            'titulo' => 'Administración de Usuarios',
             'usuarios' => $usuarios,
         ];
         return MostrarVista::mostrarVista('adminUsuariosVista.php', $variablesParaPasarAVista);

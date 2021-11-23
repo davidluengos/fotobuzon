@@ -24,7 +24,12 @@ class SeguridadController
             if($usuarioLogueado->getId_usuario()){
                 setcookie("emailCookie", $usuarioLogueado->getEmail(), time()+3600);
             }
-            header("location:/");
+            if($usuarioLogueado->getRol() == "Admin"){
+                header("location:/admin/publicaciones");
+            }
+            if($usuarioLogueado->getRol() == "Usuario"){
+                header("location:/");
+            }
         }
         return MostrarVista::mostrarVistaPublica('loginVista.php');
     }

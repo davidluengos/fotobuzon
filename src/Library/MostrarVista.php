@@ -9,7 +9,7 @@ class MostrarVista{
         echo "<html lang='en'>";
         include('../src/View/publicoHead.php');
         echo "<body class='fondo'>";
-        include('../src/View/header.php');
+        include('../src/View/publicoHeader.php');
         include('../src/View/publicoNav.php');
         //echo "<div class=contenedor>";
         //include('../src/View/sidebar.php');

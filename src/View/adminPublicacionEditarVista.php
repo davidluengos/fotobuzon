@@ -1,99 +1,86 @@
-<section class="section">
+<div class="section">
     <div class="container">
-        <!--Section: Contact v.2-->
-
-
-        <!--Section heading-->
-        <h2 class="h1-responsive font-weight-bold text-center my-4">Editar publicación con id: <?php echo $datos['publicacion']->getId_Publicacion(); ?></h2>
-        <!--Section description-->
-        <p class="text-center w-responsive mx-auto mb-5">Do you have any questions? Please do not hesitate to contact us directly. Our team will come back to you within
-            a matter of hours to help you.</p>
-
         <div class="row">
-
-            <!--Grid column-->
-            <div class="col-md-9 mb-md-0 mb-5">
+            <div class="section-title">
+                <h3 class="title">Editar publicación</h3>
+                <p>
+                    <ul>
+                        <li>Identificador: <?php echo $datos['publicacion']->getId_Publicacion(); ?></li>
+                        <li>Fecha de publicación: <?php echo $datos['publicacion']->getFecha_publicacion(); ?></li>
+                        <li>Autor: <?php echo $datos['autor']; ?></li>
+                    </ul>
+                </p>
+            </div>
+            <div>
                 <form id="contact-form" name="contact-form" action="" method="POST">
-
-
-
-                    <!--Grid row-->
                     <div class="row">
-                        <div class="col-md-12">
-                            <div class="md-form mb-0">
-                                <label for="titulo" class="">Título</label>
-                                <input type="text" id="titulo" name="tituloEditado" class="form-control" value="<?php echo $datos['publicacion']->getTitulo(); ?>">
-                            </div>
-                        </div>
-                    </div>
-                    <!--Grid row-->
-
-                    <!--Grid row-->
-                    <div class="row">
-
-                        <!--Grid column-->
-                        <div class="col-md-12">
-
-                            <div class="md-form">
-                                <label for="message">Descripción</label>
-                                <textarea type="text" id="message" name="descripcionEditada" rows="2" class="form-control md-textarea"><?php echo $datos['publicacion']->getDescripcion(); ?></textarea>
-                            </div>
-
-                        </div>
-                    </div>
-                    <!--Grid row-->
-                    <div class="row">
-                        <!--Grid column-->
-                        <div class="md-form mb-0">
-                            <label for="categoria" class="">Categoría</label>
-                            <select name="categoriaEditada" class="form-control">
-                                <?php
-                                foreach ($datos['categorias'] as $categoria) {
-                                    //para cada item del array $categoria imprimo el nombre con el código como su value
-                                    echo '<option value="' . $categoria['id_categoria'] . '">' . $categoria['categoria'] . '</option>';
-                                }
-                                ?>
-                            </select>
-
-                        </div>
-                        <!--Grid column-->
                         <div class="col-md-6">
-                            <div class="md-form mb-0">
-                                <label for="localizacion" class="">Localización</label>
-                                <input type="text" id="localizacion" name="localizacionEditada" class="form-control" value="<?php echo $datos['publicacion']->getLocalizacion(); ?>">
+                            <div class="billing-details">
+                                <div class="form-group">
+                                    <label for="titulo" class="">Título</label>
+                                    <input type="text" id="titulo" name="tituloEditado" class="form-control" value="<?php echo $datos['publicacion']->getTitulo(); ?>">
+                                </div>
+                                <div class="form-group">
+                                    <label for="message">Descripción</label>
+                                    <textarea type="text" id="message" name="descripcionEditada" rows="2" class="form-control md-textarea"><?php echo $datos['publicacion']->getDescripcion(); ?></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="localizacion" class="">Localización</label>
+                                    <input type="text" id="localizacion" name="localizacionEditada" class="form-control" value="<?php echo $datos['publicacion']->getLocalizacion(); ?>">
+                                </div>
+
                             </div>
                         </div>
+                        
+                        <div class="col-md-6">
+                            <div class="billing-details">
+                                <div class="form-group">
+                                    <label for="categoria" class="">Categoría</label>
+                                        
+                                        
+                                    <?php
+                                            
+                                            $idCategoria = $datos['publicacion']->getCategoria();
+                                            echo "Id de categoría en la publicación: ".$idCategoria;
+                                            $idPosicionCategoriaEnArray = $idCategoria-1;
+                                            echo ". Posición en el array: ".$idPosicionCategoriaEnArray;
+                                    ?>
+                                    <?php echo "<pre>"; print_r($datos['categorias'][$idCategoria]['categoria']); echo "</pre>";?>
+                                    <select name="categoriaEditada" class="form-control" >
+                                        <?php
+                                        echo "<option selected>". $datos['categorias'][$idPosicionCategoriaEnArray]['categoria'] ."</option>";
+                                        foreach ($datos['categorias'] as $categoria) {
+                                            //para cada item del array $categoria imprimo el nombre con el código como su value
+                                            echo '<option value="' . $categoria['id_categoria'] . '">' . $categoria['categoria'] . '</option>';
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="estado" class="">Estado</label>
+                                    <select name="estadoEditado" class="form-control">
+                                        <?php
+                                        foreach ($datos['estados'] as $estado) {
+                                            //para cada item del array $categoria imprimo el nombre con el código como su value
+                                            echo '<option value="' . $estado['id_estado'] . '">' . $estado['estado'] . '</option>';
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center text-md-left">
+                        <a class="primary-btn order-submit" onclick="document.getElementById('contact-form').submit();">Actualizar Publicación</a>
                     </div>
                 </form>
 
-                <div class="text-center text-md-left">
-                    <a class="primary-btn cta-btn" onclick="document.getElementById('contact-form').submit();">Actualizar Publicación</a>
-                </div>
-                <div class="status"></div>
             </div>
-            <!--Grid column-->
-
-            <!--Grid column-->
-            <div class="col-md-3 text-center">
-                <ul class="list-unstyled mb-0">
-                    <li><i class="fas fa-map-marker-alt fa-2x"></i>
-                        <p>San Francisco, CA 94126, USA</p>
-                    </li>
-
-                    <li><i class="fas fa-phone mt-4 fa-2x"></i>
-                        <p>+ 01 234 567 89</p>
-                    </li>
-
-                    <li><i class="fas fa-envelope mt-4 fa-2x"></i>
-                        <p>contact@mdbootstrap.com</p>
-                    </li>
-                </ul>
-            </div>
-            <!--Grid column-->
-
-
         </div>
+        <!-- /row -->
     </div>
-</section>
-<!--Section: Contact v.2-->
+    <!-- /container -->
+</div>
+<!-- /SECTION -->
+

@@ -119,21 +119,30 @@ class PublicacionController
     {
         $this->seguridadService->regirigeALoginSiNoEresRol(["Admin"]);
         $categorias = $this->queryService->getCategorias();
-
+        $estados = $this->queryService->getEstados();
 
         $sql = "SELECT * FROM publicaciones WHERE id_publicacion = $idPublicacion";
         $publicacionArray = $this->dbConnection->ejecutarQueryConUnResultado($sql);
         $publicacionObjeto = new Publicacion($publicacionArray);
+        $idAutor = $publicacionObjeto->getAutor_publicacion(); 
+        $nombreAutor = $this->queryService->getNombreAutor($idAutor);
         $variablesParaPasarAVista = [  //solamente hay una variable, que es la publicación
             'publicacion' => $publicacionObjeto,
-            'categorias' => $categorias
+            'categorias' => $categorias,
+            'estados' => $estados,
+            'autor' => $nombreAutor
         ];
-
 
         if (!empty($_POST['tituloEditado']) & !empty($_POST['descripcionEditada'])) {
             try {
-                $sql = "UPDATE publicaciones SET titulo = '" . $_POST['tituloEditado'] . "', descripcion = '" . $_POST['descripcionEditada'] . "', id_categoria ='" . $_POST['categoriaEditada'] . "' , localizacion = '" . $_POST['localizacionEditada'] . "' WHERE id_publicacion = " . $idPublicacion . " ";
-                $publicaciones = $this->dbConnection->ejecutarQuery($sql);
+                $sql = "UPDATE publicaciones SET 
+                titulo = '" . $_POST['tituloEditado'] . "', 
+                descripcion = '" . $_POST['descripcionEditada'] . "', 
+                id_categoria ='" . $_POST['categoriaEditada'] . "' , 
+                id_estado ='" . $_POST['estadoEditado'] ."', 
+                localizacion = '" . $_POST['localizacionEditada'] . "' 
+                WHERE  id_publicacion = " . $idPublicacion . " ";
+                $this->dbConnection->ejecutarQuery($sql);
                 header("location:/admin/publicaciones"); //redirijo a la página de publicaciones después de editar
             } catch (\PDOException $e) {
                 echo "ERROR - No se pudieron obtener los productos: " . $e->getMessage();

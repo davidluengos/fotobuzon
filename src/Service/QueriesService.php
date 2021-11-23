@@ -35,6 +35,21 @@ class QueriesService
         }
     }
 
+    //tenemos un servicio que devuelve los estados
+    public function getEstados(): array
+    {
+        try {
+            $sql = "SELECT * FROM estados;";
+            $resultados = $this->dbConnection->ejecutarQueryConResultado($sql);
+            foreach ($resultados as $resultado) {
+                $estados[] = $resultado;
+            }
+            return $estados; //Devolvemos el array con todos los datos
+        } catch (\Exception $e) {
+            echo "ERROR - No se pudo obtener ninguna familia " . $e->getMessage();
+        }
+    }
+
     public function getNombreCategoria(int $id_categoria = null): string
     {
         if ($id_categoria == null) {

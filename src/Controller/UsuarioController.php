@@ -49,7 +49,7 @@ class UsuarioController
         if (!empty($_POST['nombre']) & !empty($_POST['apellidos'])) {
             try {
                 $sql = "INSERT INTO usuarios (rol, nombre, apellidos, email, telefono, direccion, codigo_postal, municipio, provincia)
-                    VALUES ('$rol','" . $_POST['nombre'] . "','" . $_POST['apellidos'] . "','" . $_POST['email'] . "','" . $_POST['telefono'] . "','" . $_POST['direccion'] . "','" . $_POST['cp'] . "','" . $_POST['municipio'] . "','" . $_POST['provincia'] . "');";
+                    VALUES ('$rol','" . $_POST['nombre'] . "','" . $_POST['apellidos'] . "','" . $_POST['email'] . "','" . $_POST['telefono'] . "','" . $_POST['direccion'] . "','" . $_POST['cpostal'] . "','" . $_POST['municipio'] . "','" . $_POST['provincia'] . "');";
                 $publicaciones = $this->dbConnection->ejecutarQuery($sql);
                 header("location:/admin/usuarios");
             } catch (\PDOException $e) {

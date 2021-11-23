@@ -143,11 +143,33 @@ class PublicacionController
                 localizacion = '" . $_POST['localizacionEditada'] . "' 
                 WHERE  id_publicacion = " . $idPublicacion . " ";
                 $this->dbConnection->ejecutarQuery($sql);
+                //
+                //
+                //
                 header("location:/admin/publicaciones"); //redirijo a la página de publicaciones después de editar
             } catch (\PDOException $e) {
-                echo "ERROR - No se pudieron obtener los productos: " . $e->getMessage();
+                echo "ERROR - No se pudieron obtener los productos de la fase 1: " . $e->getMessage();
             }
         }
+        $estadoInicial = $publicacionObjeto->getCategoria();
+        if (!empty($_POST['estadoEditado']) && ($_POST['estadoEditado'] != $estadoInicial)){
+            $estadoFinal = $_POST['estadoEditado'];
+            $categoria = $_POST['categoriaEditada'];
+            $fecha_cambio = date('Y-m-d H:i:s');
+            try {
+                $sql2 = "INSERT INTO cambios_estado (id_publicacion, id_categoria, estado_inicial, estado_final, fecha_cambio) 
+            VALUES ($idPublicacion, $categoria, $estadoInicial, $estadoFinal, '$fecha_cambio')";
+                $this->dbConnection->ejecutarQuery($sql2);
+                //
+                //
+                //
+                //
+                header("location:/admin/publicaciones"); //redirijo a la página de publicaciones después de editar
+            } catch (\PDOException $e) {
+                echo "ERROR - : " . $e->getMessage();
+            }
+        }
+
         return MostrarVista::mostrarVista('adminPublicacionEditarVista.php', $variablesParaPasarAVista);
     }
 

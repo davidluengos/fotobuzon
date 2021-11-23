@@ -49,6 +49,9 @@ try{
         case "publicacion/crear":
             echo $publicacionController->crearPublicacion();
             break;
+        case "usuario/crear":
+            echo $partePublicaController->crearUsuario();
+            break;
         case "admin/publicacion/ver":
             //echo $publicacionController->verPublicacion($_GET['id']);
             break;

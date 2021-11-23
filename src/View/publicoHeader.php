@@ -20,6 +20,7 @@
 
 								//" <a href='/logout'>"."    &nbsp&nbsp&nbsp "."<i class='fa fa-sign-out'></i>Salir</a>";
 							} else{
+								echo "<li><a href='/usuario/crear'><i class='fa fa-user-o'></i>Nuevo Usuario</a></li>";
 								echo "<li><a href='/login'><i class='fa fa-user-o'></i>Login</a></li>";
 							}
 						?>

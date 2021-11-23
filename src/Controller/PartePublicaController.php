@@ -73,4 +73,21 @@ class PartePublicaController
             return MostrarVista::mostrarVistaPublica('publicoPublicacionVista.php', $variablesParaPasarAVista);
         
     }
+
+    public function crearUsuario(): string
+    {
+        $rol = 'Usuario';
+        if (!empty($_POST['nombre']) & !empty($_POST['apellidos'])) {
+            try {
+                $sql = "INSERT INTO usuarios (rol, nombre, apellidos, email, password,  telefono, direccion, codigo_postal, municipio, provincia)
+                    VALUES ('$rol','" . $_POST['nombre'] . "','" . $_POST['apellidos'] . "','" . $_POST['email'] . "','" . $_POST['password'] . "','" . $_POST['telefono'] . "','" . $_POST['direccion'] . "','" . $_POST['cpostal'] . "','" . $_POST['municipio'] . "','" . $_POST['provincia'] . "');";
+                $this->dbConnection->ejecutarQuery($sql);
+                header("location:/login");
+            } catch (\PDOException $e) {
+                echo "ERROR - No se pudieron obtener los usuarios: " . $e->getMessage();
+            }
+        } else {
+            return MostrarVista::mostrarVistaPublica('publicoUsuarioCrearVista.php');
+        }
+    }
 }

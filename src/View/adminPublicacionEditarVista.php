@@ -45,13 +45,12 @@
                                             $idPosicionCategoriaEnArray = $idCategoria-1;
                                             echo ". Posición en el array: ".$idPosicionCategoriaEnArray;
                                     ?>
-                                    <?php echo "<pre>"; print_r($datos['categorias'][$idCategoria]['categoria']); echo "</pre>";?>
+                                    <?php //echo "<pre>"; print_r($datos['categorias'][$idCategoria]['categoria']); echo "</pre>";?>
                                     <select name="categoriaEditada" class="form-control" >
                                         <?php
-                                        echo "<option selected>". $datos['categorias'][$idPosicionCategoriaEnArray]['categoria'] ."</option>";
                                         foreach ($datos['categorias'] as $categoria) {
                                             //para cada item del array $categoria imprimo el nombre con el código como su value
-                                            echo '<option value="' . $categoria['id_categoria'] . '">' . $categoria['categoria'] . '</option>';
+                                            echo '<option '.($datos['publicacion']->getCategoria() == $categoria->getId_categoria()? 'selected':'').' value="' . $categoria->getId_categoria() . '">' . $categoria->getCategoria() . '</option>';
                                         }
                                         ?>
                                     </select>
@@ -61,8 +60,13 @@
                                     <select name="estadoEditado" class="form-control">
                                         <?php
                                         foreach ($datos['estados'] as $estado) {
-                                            //para cada item del array $categoria imprimo el nombre con el código como su value
-                                            echo '<option value="' . $estado['id_estado'] . '">' . $estado['estado'] . '</option>';
+                                            //esto es lo mismo que se ha hecho antes con las categorías pero de otra forma
+                                            echo '<option ';
+                                            if($datos['publicacion']->getEstado() == $estado->getId_estado()){
+                                                echo 'selected ';
+                                            }
+                                            echo 'value="'.$estado->getId_estado().'"';
+                                            echo '>'.$estado->getEstado().'</option>';
                                         }
                                         ?>
                                     </select>

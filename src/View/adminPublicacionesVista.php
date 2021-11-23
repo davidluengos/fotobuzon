@@ -46,9 +46,7 @@
               <a href="/admin/publicacion/editar?id=<?php echo $publicacion->getId_Publicacion(); ?>"><i class="fa fa-edit"> Editar</i></a>
               <form action="/admin/publicacion/eliminar" method="post">
                 <input type="hidden" name="eliminarporpost" value="<?php echo $publicacion->getId_Publicacion(); ?>">
-                <input type="submit" name="eliminar" value="Eliminar">
-                
-
+                <i style='cursor:pointer;' class="fa fa-trash" onclick="$(this).closest('form').submit();"></i>
               </form>
             </td>
           </tr>

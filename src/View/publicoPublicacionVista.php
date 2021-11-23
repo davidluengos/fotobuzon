@@ -7,7 +7,7 @@
 	            <!-- Product main img -->
 	            <div class="col-md-5 col-md-push-2">
 	                <div id="product-main-img">
-						<?php foreach($datos['imagenes'] as $imagen) { ?>
+						<?php foreach($datos['publicacion']->getImagenes() as $imagen) { ?>
 	                    <div class="product-preview">
 	                        <img src="<?php echo $imagen->getPath_imagen(); ?>" alt="">
 	                    </div>
@@ -19,7 +19,7 @@
 	            <!-- Product thumb imgs -->
 	            <div class="col-md-2  col-md-pull-5">
 	                <div id="product-imgs">
-					<?php foreach($datos['imagenes'] as $imagen) { ?>
+					<?php foreach($datos['publicacion']->getImagenes() as $imagen) { ?>
 	                    <div class="product-preview">
 	                        <img src="<?php echo $imagen->getPath_imagen(); ?>" alt="">
 	                    </div>
@@ -27,14 +27,11 @@
 	                </div>
 	            </div>
 	            <!-- /Product thumb imgs -->
-				<?php
-                    foreach ($datos['publicacion'] as $publicacion) {
-				?>				
 	            <!-- Product details -->
 	            <div class="col-md-5">
 	                <div class="product-details">
-						<p class="categoria-producto"><?php echo $datos['categoria']; ?> </p>
-	                    <h2 class="product-name"><?php echo $publicacion->getTitulo(); ?></h2>
+						<p class="categoria-producto"><?php echo $datos['publicacion']->getNombreCategoria(); ?> </p>
+	                    <h2 class="product-name"><?php echo $datos['publicacion']->getTitulo(); ?></h2>
 	                    <div>
 	                    	<!--    <div class="product-rating">
 	                            <i class="fa fa-star"></i>
@@ -43,28 +40,26 @@
 	                            <i class="fa fa-star"></i>
 	                            <i class="fa fa-star-o"></i>
 	                        </div>-->
-	                        <p><?php echo $datos['numeroComentarios'][0]; ?> Comentario(s)  </p>
+	                        <p><?php echo $datos['publicacion']->getNumeroComentarios(); ?> Comentario(s)  </p>
 							
 							<div class="product-label">
-								<p class="estado_color"><?php echo $datos['estadoDePublicacion'][0]; ?></p>
+								<p class="estado_color"><?php echo $datos['publicacion']->getNombreEstado(); ?></p>
 							</div>
 								
 	                    </div>
 	                    <div>
 							<p class="product-available"><?php 
-								$theDate = $publicacion->getFecha_publicacion();
+								$theDate = $datos['publicacion']->getFecha_publicacion();
 								$fecha = date('d-m-Y', strtotime($theDate));
 								echo $fecha; 
 								?></p>
 							
 							
 
-							<p class="autor_publicacion"><?php echo $datos['autor']['nombre']. " ". $datos['autor']['apellidos']; ?> </p>
-							<p><?php echo $publicacion->getDescripcion(); ?></p>
+							<p class="autor_publicacion"><?php echo $datos['publicacion']->getNombreAutor(); ?> </p>
+							<p><?php echo $datos['publicacion']->getDescripcion(); ?></p>
 	                    </div>
 						
-	                <?php
-                            } ?>
 
 	                </div>
 	            </div>
@@ -76,7 +71,7 @@
 	                    <!-- product tab nav -->
 	                    <ul class="tab-nav">
 	                        
-	                        <li><a data-toggle="tab" href="#tab1">Comentarios (<?php echo $datos['numeroComentarios'][0]; ?>)</a></li>
+	                        <li><a data-toggle="tab" href="#tab1">Comentarios (<?php echo $datos['publicacion']->getNumeroComentarios(); ?>)</a></li>
 	                    </ul>
 	                    <!-- /product tab nav -->
 
@@ -92,7 +87,7 @@
 	                                <div class="col-md-8">
 	                                    <div id="reviews">
 	                                        <ul class="reviews">
-	                                        <?php foreach ($datos['comentariosConNombre'] as $comentario){
+	                                        <?php foreach ($datos['publicacion']->getComentarios() as $comentario){
 											?>	
 												<li>
 	                                                <div class="review-heading">

@@ -124,6 +124,7 @@ class PublicacionController
         $sql = "SELECT * FROM publicaciones WHERE id_publicacion = $idPublicacion";
         $publicacionArray = $this->dbConnection->ejecutarQueryConUnResultado($sql);
         $publicacionObjeto = new Publicacion($publicacionArray);
+        
         $idAutor = $publicacionObjeto->getAutor_publicacion(); 
         $nombreAutor = $this->queryService->getNombreAutor($idAutor);
         $variablesParaPasarAVista = [  //solamente hay una variable, que es la publicación
@@ -135,6 +136,7 @@ class PublicacionController
 
         if (!empty($_POST['tituloEditado']) & !empty($_POST['descripcionEditada'])) {
             try {
+                //Actualización de la publciación
                 $sql = "UPDATE publicaciones SET 
                 titulo = '" . $_POST['tituloEditado'] . "', 
                 descripcion = '" . $_POST['descripcionEditada'] . "', 
@@ -143,30 +145,19 @@ class PublicacionController
                 localizacion = '" . $_POST['localizacionEditada'] . "' 
                 WHERE  id_publicacion = " . $idPublicacion . " ";
                 $this->dbConnection->ejecutarQuery($sql);
-                //
-                //
-                //
+                //Actualización del log de estados
+                $estadoInicial = $publicacionObjeto->getCategoria();
+                $estadoFinal = $_POST['estadoEditado'];
+                $categoria = $_POST['categoriaEditada'];
+                $fecha_cambio = date('Y-m-d H:i:s');
+                if (($_POST['estadoEditado'] != $estadoInicial)) {
+                    $sql2 = "INSERT INTO cambios_estado (id_publicacion, id_categoria, estado_inicial, estado_final, fecha_cambio) 
+                    VALUES ($idPublicacion, $categoria, $estadoInicial, $estadoFinal, '$fecha_cambio')";
+                    $this->dbConnection->ejecutarQuery($sql2);
+                }
                 header("location:/admin/publicaciones"); //redirijo a la página de publicaciones después de editar
             } catch (\PDOException $e) {
-                echo "ERROR - No se pudieron obtener los productos de la fase 1: " . $e->getMessage();
-            }
-        }
-        $estadoInicial = $publicacionObjeto->getCategoria();
-        if (!empty($_POST['estadoEditado']) && ($_POST['estadoEditado'] != $estadoInicial)){
-            $estadoFinal = $_POST['estadoEditado'];
-            $categoria = $_POST['categoriaEditada'];
-            $fecha_cambio = date('Y-m-d H:i:s');
-            try {
-                $sql2 = "INSERT INTO cambios_estado (id_publicacion, id_categoria, estado_inicial, estado_final, fecha_cambio) 
-            VALUES ($idPublicacion, $categoria, $estadoInicial, $estadoFinal, '$fecha_cambio')";
-                $this->dbConnection->ejecutarQuery($sql2);
-                //
-                //
-                //
-                //
-                header("location:/admin/publicaciones"); //redirijo a la página de publicaciones después de editar
-            } catch (\PDOException $e) {
-                echo "ERROR - : " . $e->getMessage();
+                throw new Exception("ERROR - Se produjo un error editando las publicaciones " . $e->getMessage());
             }
         }
 

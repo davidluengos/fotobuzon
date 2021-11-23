@@ -60,15 +60,18 @@
 
 								<?php
 								foreach ($datos['publicaciones'] as $publicacion) {
-
-
+									$imagenPrincipal = $publicacion->getImagenPrincipal();
 								?>
 									<!-- product -->
 									<div class="product">
 										<div class="product-img">
-											<img src="./img/product01.png" alt="">
+											<?php if ($imagenPrincipal) { ?>
+												<img src="<?php echo $imagenPrincipal->getPath_imagen() ?>" alt="">
+											<?php } else { ?>
+												<img src="./img/product01.png" alt="">
+												<?php } ?>
 											<div class="product-label">
-												<span class="new"><?php echo $datos['categorias'][$publicacion->getCategoria() - 1][1] ?></span>
+												<span class="new"><?php echo $publicacion->getNombreCategoria(); ?></span>
 											</div>
 										</div>
 										<div class="product-body">
@@ -99,7 +102,7 @@
 												<i class="fa fa-star"></i>
 											</div>
 											<div class="product-btns">
-												25 <i class="fa fa-comments"></i>
+												<?php echo $publicacion->getNumeroComentarios(); ?> <i class="fa fa-comments"></i>
 											</div>
 										</div>
 										<div class="add-to-cart">
@@ -138,32 +141,41 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="hot-deal">
-					<ul class="hot-deal-countdown">
-						<li>
-							<div>
-								<h3>02</h3>
-								<span>Days</span>
-							</div>
-						</li>
-						<li>
-							<div>
-								<h3>10</h3>
-								<span>Hours</span>
-							</div>
-						</li>
-						<li>
-							<div>
-								<h3>34</h3>
-								<span>Mins</span>
-							</div>
-						</li>
-						<li>
-							<div>
-								<h3>60</h3>
-								<span>Secs</span>
-							</div>
-						</li>
-					</ul>
+				<div>
+  							<canvas id="myChart"></canvas>
+				</div>
+
+<script>
+	var etiquetas = [
+		<?php foreach($datos['categorias'] as $categoria) {
+			echo "'{$categoria->getCategoria()}',";
+		} ?>
+	];
+
+	var numeros = [
+		<?php foreach($datos['categorias'] as $categoria) {
+			echo "'".rand(0, 100)."',";
+		} ?>
+	];
+	
+var data = {
+  labels: etiquetas,
+  datasets: [{
+    label: 'Tiempo Promedio de Resolución',
+    backgroundColor: 'rgb(255, 99, 132)',
+    borderColor: 'rgb(255, 99, 132)',
+    data: numeros,
+  }]
+};
+var config = {
+  type: 'line',
+  data: data,
+  options: {}
+};
+
+</script>
+
+				
 					<h2 class="text-uppercase">hot deal this week</h2>
 					<p>New Collection Up to 50% OFF</p>
 					<a class="primary-btn cta-btn" href="#">Shop now</a>

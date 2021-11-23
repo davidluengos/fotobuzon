@@ -16,8 +16,8 @@ class Publicacion {
     private $nombreEstado;
     private $nombreAutor;
 
-    private $numeroComentarios;
-    private $imagenPrincipal;
+    private $comentarios;
+    private $imagenes;
 
     public function __construct(array $row){
         $this->id_publicacion = $row['id_publicacion'];
@@ -28,6 +28,9 @@ class Publicacion {
         $this->estado = $row['id_estado'];
         $this->autor_publicacion = $row['id_autor'];
         $this->localizacion = $row['localizacion'];
+
+        $this->imagenes = [];
+        $this->comentarios = [];
     }
 
     
@@ -161,19 +164,7 @@ class Publicacion {
      */ 
     public function getNumeroComentarios()
     {
-        return $this->numeroComentarios;
-    }
-
-    /**
-     * Set the value of numeroComentarios
-     *
-     * @return  self
-     */ 
-    public function setNumeroComentarios($numeroComentarios)
-    {
-        $this->numeroComentarios = $numeroComentarios;
-
-        return $this;
+        return count($this->comentarios);
     }
 
     /**
@@ -181,17 +172,46 @@ class Publicacion {
      */ 
     public function getImagenPrincipal()
     {
-        return $this->imagenPrincipal;
+        return isset($this->imagenes[0]) ? $this->imagenes[0] : null;
+    }
+
+
+    /**
+     * Get the value of comentarios
+     */ 
+    public function getComentarios()
+    {
+        return $this->comentarios;
     }
 
     /**
-     * Set the value of imagenPrincipal
+     * Set the value of comentarios
      *
      * @return  self
      */ 
-    public function setImagenPrincipal($imagenPrincipal)
+    public function setComentarios($comentarios)
     {
-        $this->imagenPrincipal = $imagenPrincipal;
+        $this->comentarios = $comentarios;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of imagenes
+     */ 
+    public function getImagenes()
+    {
+        return $this->imagenes;
+    }
+
+    /**
+     * Set the value of imagenes
+     *
+     * @return  self
+     */ 
+    public function setImagenes($imagenes)
+    {
+        $this->imagenes = $imagenes;
 
         return $this;
     }

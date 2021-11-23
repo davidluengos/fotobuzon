@@ -3,8 +3,10 @@
 namespace App\Service;
 
 use App\Library\DbConnection;
+use App\Model\Categoria;
 use App\Model\Publicacion;
 use App\Model\Comentario;
+use App\Model\Estado;
 use App\Model\Imagen;
 use App\Model\Usuario;
 use Exception;
@@ -27,7 +29,7 @@ class QueriesService
             $sql = "SELECT * FROM categorias;";
             $resultados = $this->dbConnection->ejecutarQueryConResultado($sql);
             foreach ($resultados as $resultado) {
-                $categorias[] = $resultado;
+                $categorias[] = new Categoria($resultado);
             }
             return $categorias; //Devolvemos el array con todos los datos
         } catch (\Exception $e) {
@@ -42,7 +44,7 @@ class QueriesService
             $sql = "SELECT * FROM estados;";
             $resultados = $this->dbConnection->ejecutarQueryConResultado($sql);
             foreach ($resultados as $resultado) {
-                $estados[] = $resultado;
+                $estados[] = new Estado($resultado);
             }
             return $estados; //Devolvemos el array con todos los datos
         } catch (\Exception $e) {
@@ -95,10 +97,10 @@ class QueriesService
     public function getUltimasPublicaciones(): array
     {
         try {
-            $sql = "SELECT * FROM publicaciones WHERE esta_creada = 1 ORDER BY id_publicacion DESC LIMIT 10;";
+            $sql = "SELECT id_publicacion FROM publicaciones WHERE esta_creada = 1 ORDER BY id_publicacion DESC LIMIT 10;";
             $resultados = $this->dbConnection->ejecutarQueryConResultado($sql);
             foreach ($resultados as $resultado) {
-                $publicaciones[] = new Publicacion($resultado);
+                $publicaciones[] = $this->getPublicacion($resultado['id_publicacion']);
             }
             return $publicaciones; //Devolvemos el array de objetos publicación
         } catch (\Exception $e) {
@@ -106,12 +108,23 @@ class QueriesService
         }
     }
 
-    public function getPublicacion($id_Publicacion): array
+    public function getPublicacion($id_publicacion): Publicacion
     {
         try {
-            $sql = "SELECT * FROM publicaciones WHERE id_publicacion = $id_Publicacion;";
+            $sql = "SELECT * FROM publicaciones WHERE id_publicacion = $id_publicacion;";
             $resultado = $this->dbConnection->ejecutarQueryConUnResultado($sql);
-            $publicacion[] = new Publicacion($resultado);
+            $publicacion = new Publicacion($resultado);
+            $imagenes = $this->getImagenes($id_publicacion);
+            $publicacion->setImagenes($imagenes);
+            $nombreCategoria = $this->getNombreCategoria($publicacion->getCategoria());
+            $publicacion->setNombreCategoria($nombreCategoria);
+            $estadoDePublicacion = $this->getNombreEstado($publicacion->getEstado());
+            $publicacion->setNombreEstado($estadoDePublicacion);
+            $autorDePublicacion = $this->getNombreAutor($publicacion->getAutor_publicacion());
+            $publicacion->setNombreAutor($autorDePublicacion);
+            $comentariosConNombre = $this->getComentariosConNombreAutor($id_publicacion);
+            $publicacion->setComentarios($comentariosConNombre);
+
             return $publicacion; //Devolvemos el array de objetos con una publicación
         } catch (\Exception $e) {
             throw new Exception("ERROR - No se pudo obtener ninguna publicación " . $e->getMessage());

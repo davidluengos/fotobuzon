@@ -104,7 +104,16 @@
 <script src="/js/jquery.zoom.min.js"></script>
 <script src="/js/main.js"></script>
 
-
+<!-- Dropzone Plugins -->
 <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
 
+<!-- Chart JS -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+
+	const myChart = new Chart(
+		document.getElementById('myChart'),
+		config
+	);
+</script>

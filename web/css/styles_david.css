@@ -75,7 +75,7 @@ footer{
 
 .enviarsugerencia{
     display: flex;
-        align-items: center;
+    align-items: right;
 }
 
 .estado_color {
@@ -99,4 +99,8 @@ footer{
 
 .autor_publicacion{
     font-weight: bold;
+}
+
+.chart-section{
+    background-color: #e4e7ed;
 }

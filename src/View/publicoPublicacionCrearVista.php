@@ -23,7 +23,7 @@
 								<?php
 								foreach ($datos['categorias'] as $categoria) {
 									//para cada item del array $categoria imprimo el nombre con el código como su value
-									echo '<option value="' . $categoria['id_categoria'] . '">' . $categoria['categoria'] . '</option>';
+									echo '<option value="' . $categoria->getId_categoria() . '">' . $categoria->getCategoria() . '</option>';
 								}
 								?>
 							</select>

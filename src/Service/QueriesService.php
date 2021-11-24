@@ -9,6 +9,7 @@ use App\Model\Comentario;
 use App\Model\Estado;
 use App\Model\Imagen;
 use App\Model\Usuario;
+use DateTime;
 use Exception;
 
 class QueriesService
@@ -228,6 +229,30 @@ class QueriesService
             } catch (\Exception $e) {
                 echo "ERROR - No se pudo obtener ninguna familia " . $e->getMessage();
             }
+    }
+
+    public function getFechaResolucionIncidencia ($id_publicacion){
+        try {
+            $sql = "SELECT fecha_cambio FROM cambios_estado WHERE id_publicacion = $id_publicacion AND estado_final = 4;";
+            $resultado = $this->dbConnection->ejecutarQueryConUnResultado($sql);
+                return $resultado;
+            } catch (\Exception $e) {
+                echo "ERROR - No se pudo obtener ninguna familia " . $e->getMessage();
+            }
+    }
+
+    public function getDiasResolucionIncidencia ($id_publicacion){
+        try {
+            $fechaInicio = $this->getPublicacion($id_publicacion)->getFecha_publicacion();
+            $fechaFin = $this->getFechaResolucionIncidencia($id_publicacion);
+            $fecha1= new DateTime($fechaInicio);
+            $fecha2= new DateTime($fechaFin);
+            $diff = $fecha1->diff($fecha2);
+            return $diff->days;
+            } catch (\Exception $e) {
+                echo "ERROR - No se pudo obtener ninguna familia " . $e->getMessage();
+            }
+
     }
 
 

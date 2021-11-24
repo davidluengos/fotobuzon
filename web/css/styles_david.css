@@ -104,3 +104,12 @@ footer{
 .chart-section{
     background-color: #e4e7ed;
 }
+
+.hoverthash:hover{
+    color: #D10024;
+}
+
+.reference a, form{
+    padding-left: 5px;
+    display: inline-block;
+}

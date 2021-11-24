@@ -35,6 +35,12 @@ class PartePublicaController
     // Ruta: /publicacion/ver?id=$id_publicacion
     public function verPublicacion($id_publicacion)
     {
+
+        //Probando para mostrar los días de resolución de incidencias
+        
+        //
+        //$dias = $this->queryService->getDiasResolucionIncidencia($id_publicacion);
+        //echo $dias;
         $fechaComentario = date('Y-m-d H:i:s');
         if (!empty($_POST['textoComentario']) && isset($_POST['submit']) ) {
             $autor = $this->seguridadService->obtenerUsuarioLogueado()->getId_usuario();

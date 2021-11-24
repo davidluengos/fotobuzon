@@ -42,12 +42,15 @@
             <td><?php echo $publicacion->getNombreAutor(); ?></td>
             <td><?php echo $publicacion->getLocalizacion(); ?></td>
             <td>
-              <a href="/admin/publicacion/ver?id=<?php echo $publicacion->getId_Publicacion(); ?>"><i class="fa fa-eye"> Ver</i></a>
-              <a href="/admin/publicacion/editar?id=<?php echo $publicacion->getId_Publicacion(); ?>"><i class="fa fa-edit"> Editar</i></a>
-              <form action="/admin/publicacion/eliminar" method="post">
-                <input type="hidden" name="eliminarporpost" value="<?php echo $publicacion->getId_Publicacion(); ?>">
-                <i style='cursor:pointer;' class="fa fa-trash" onclick="$(this).closest('form').submit();"></i>
-              </form>
+              <div class="row reference">
+
+                <a href="/admin/publicacion/ver?id=<?php echo $publicacion->getId_Publicacion(); ?>"><i class="fa fa-eye"></i></a>
+                <a href="/admin/publicacion/editar?id=<?php echo $publicacion->getId_Publicacion(); ?>"><i class="fa fa-edit"></i></a>
+                <form action="/admin/publicacion/eliminar" method="post">
+                  <input type="hidden" name="eliminarporpost" value="<?php echo $publicacion->getId_Publicacion(); ?>">
+                  <i style='cursor:pointer;' class="fa fa-trash hoverthash" onclick="$(this).closest('form').submit();"></i>
+                </form>
+              </div>
             </td>
           </tr>
         <?php

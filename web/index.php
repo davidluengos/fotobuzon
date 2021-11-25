@@ -53,7 +53,7 @@ try{
             echo $partePublicaController->crearUsuario();
             break;
         case "admin/publicacion/ver":
-            //echo $publicacionController->verPublicacion($_GET['id']);
+            echo $publicacionController->verPublicacion($_GET['id']);
             break;
         case "admin/publicacion/editar":
             echo $publicacionController->editarPublicacion($_GET['id']);

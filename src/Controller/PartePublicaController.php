@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Library\MostrarVista;
 use App\Library\DbConnection;
+use App\Library\MensajeFlash;
 Use App\Service\SeguridadService;
 use App\Service\QueriesService;
+use Exception;
 
 class PartePublicaController
 {
@@ -39,11 +41,19 @@ class PartePublicaController
         //Probando para mostrar los días de resolución de incidencias
         
         //
-        //$dias = $this->queryService->getDiasResolucionIncidencia($id_publicacion);
-        //echo $dias;
+        $dias = $this->queryService->getDiasResolucionIncidencia($id_publicacion);
+        echo $dias;
         $fechaComentario = date('Y-m-d H:i:s');
         if (!empty($_POST['textoComentario']) && isset($_POST['submit']) ) {
-            $autor = $this->seguridadService->obtenerUsuarioLogueado()->getId_usuario();
+            
+            $autor = $this->seguridadService->obtenerUsuarioLogueado();
+            if($autor){
+                $autor=$autor->getId_usuario();
+            }else{
+                MensajeFlash::crearMensaje('Debe estar logueado', 'danger');
+                header("location:/publicacion/ver?id=$id_publicacion");
+            }
+            
             try {
                 $sql = "INSERT INTO comentarios (id_publicacion, fecha_comentario, comentario, autor_comentario) VALUES ($id_publicacion, '$fechaComentario', '   " . $_POST['textoComentario']  . "    ', $autor)";
                 $this->dbConnection->ejecutarQuery($sql);
@@ -52,7 +62,8 @@ class PartePublicaController
                 //así que redirijo a la misma publicación para vaciar POST
                 header("location:/publicacion/ver?id=$id_publicacion");
             } catch (\PDOException $e) {
-                echo "ERROR - No se pudieron obtener los productos: " . $e->getMessage();
+                throw new Exception("ERROR - No se pudo insertar el comentario " . $e->getMessage());             
+
             }
         }
             $publicacion = $this->queryService->getPublicacion($id_publicacion);

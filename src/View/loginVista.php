@@ -12,14 +12,19 @@
                             <div class="section-title">
                                 <h3 class="title">Inicie sesión</h3>
                             </div>
+                            <?php
 
+                            use App\Library\MensajeFlash;
+
+                            
+                            echo MensajeFlash::obtenerMensaje()?>
                             <div class="form-group">
-                                <input class="input" type="email" name="email" placeholder="Email">
+                                <input class="input" type="email" name="email" placeholder="Email" value="<?php echo @$_POST['email']; ?>">
                             </div>
                             <div class="form-group">
                                 <input class="input" type="password" name="password" placeholder="Contraseña">
                             </div>
-                            <input type="submit" name="submit" id="submit" class="primary-btn order-submit" value="Enviar"/>
+                            <input type="submit" name="submit" id="submit" class="primary-btn order-submit" value="Enviar" />
                         </form>
                     </div>
                     <!-- /Billing Details -->
@@ -29,4 +34,4 @@
         </div>
         <!-- /container -->
     </div>
-</section>
+    </section>

@@ -7,11 +7,7 @@
 	            <!-- Product main img -->
 	            <div class="col-md-5 col-md-push-2">
 	                <div id="product-main-img">
-						<?php
-
-use App\Library\MensajeFlash;
-
-foreach($datos['publicacion']->getImagenes() as $imagen) { ?>
+						<?php foreach($datos['publicacion']->getImagenes() as $imagen) { ?>
 	                    <div class="product-preview">
 	                        <img src="<?php echo $imagen->getPath_imagen(); ?>" alt="">
 	                    </div>
@@ -34,8 +30,6 @@ foreach($datos['publicacion']->getImagenes() as $imagen) { ?>
 	            <!-- Product details -->
 	            <div class="col-md-5">
 	                <div class="product-details">
-						
-						<?php echo MensajeFlash::obtenerMensaje()?>
 						<p class="categoria-producto"><?php echo $datos['publicacion']->getNombreCategoria(); ?> </p>
 	                    <h2 class="product-name"><?php echo $datos['publicacion']->getTitulo(); ?></h2>
 	                    <div>

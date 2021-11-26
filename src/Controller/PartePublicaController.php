@@ -50,7 +50,7 @@ class PartePublicaController
             if($autor){
                 $autor=$autor->getId_usuario();
             }else{
-                MensajeFlash::crearMensaje('Debe estar logueado', 'danger');
+                MensajeFlash::crearMensaje('Debe iniciar la sesión para poder realizar un comentario.', 'danger');
                 header("location:/publicacion/ver?id=$id_publicacion");
             }
             

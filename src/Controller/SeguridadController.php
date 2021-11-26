@@ -35,7 +35,7 @@ class SeguridadController
                         header("location:/");
                     }
                 }
-                MensajeFlash::crearMensaje('Usuario o contraseña incorrectas', 'danger');
+                MensajeFlash::crearMensaje('Usuario o contraseña incorrectas. Inténtelo de nuevo.', 'danger');
               //  header("location:/login");
             }
         }catch(\PDOException $e) {

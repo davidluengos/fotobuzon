@@ -8,6 +8,7 @@ use App\Model\Publicacion;
 use App\Model\Comentario;
 use App\Model\Estado;
 use App\Model\Imagen;
+use App\Model\PalabraProhibida;
 use App\Model\Usuario;
 use DateTime;
 use Exception;
@@ -50,6 +51,21 @@ class QueriesService
             return $estados; //Devolvemos el array con todos los datos
         } catch (\Exception $e) {
             throw new Exception("ERROR - No se pudo obtener los estados " . $e->getMessage());
+        }
+    }
+
+    //tenemos un servicio que devuelve las palabras prohibidas
+    public function getPalabrasProhibidas(): array
+    {
+        try {
+            $sql = "SELECT * FROM palabras_prohibidas;";
+            $resultados = $this->dbConnection->ejecutarQueryConResultado($sql);
+            foreach ($resultados as $resultado) {
+                $palabras_prohibidas[] = new PalabraProhibida($resultado);
+            }
+            return $palabras_prohibidas; //Devolvemos el array con todos los datos
+        } catch (\Exception $e) {
+            throw new Exception("ERROR - No se pudo obtener ninguna palabra prohibida " . $e->getMessage());
         }
     }
 

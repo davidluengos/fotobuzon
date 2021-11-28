@@ -22,7 +22,7 @@ class PalabraProhibidaController
         $this->seguridadService = $seguridadService;
     }
 
-
+    // Ruta: /admin/palabrasprohibidas
     public function mostrarPalabrasProhibidas(): string
     {
         $this->seguridadService->regirigeALoginSiNoEresRol(["Admin"]);
@@ -42,6 +42,7 @@ class PalabraProhibidaController
         return MostrarVista::mostrarVista('adminPalabrasProhibidasVista.php', $variablesParaPasarAVista);
     }
 
+    // Ruta: /admin/palabraprohibida/crear
     public function crearPalabraProhibida(): string
     {
         $this->seguridadService->regirigeALoginSiNoEresRol(["Admin"]);
@@ -58,6 +59,7 @@ class PalabraProhibidaController
         return MostrarVista::mostrarVista('adminPalabraProhibidaCrearVista.php');
     }
 
+    // Ruta: /admin/palabraprohibida/editar?id=id_pp
     public function editarPalabraProhibida($idPalabra): string
     {
         $this->seguridadService->regirigeALoginSiNoEresRol(["Admin"]);

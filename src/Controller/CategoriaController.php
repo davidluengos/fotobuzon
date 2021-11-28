@@ -21,7 +21,7 @@ class CategoriaController
         $this->seguridadService = $seguridadService;
     }
 
-
+    // Ruta: /admin/categorias
     public function mostrarCategorias(): string
     {
         $this->seguridadService->regirigeALoginSiNoEresRol(["Admin"]);
@@ -41,6 +41,7 @@ class CategoriaController
         return MostrarVista::mostrarVista('adminCategoriasVista.php', $variablesParaPasarAVista);
     }
 
+    // Ruta: /admin/categoria/crear
     public function crearCategoria(): string
     {
         $this->seguridadService->regirigeALoginSiNoEresRol(["Admin"]);
@@ -57,6 +58,7 @@ class CategoriaController
         return MostrarVista::mostrarVista('adminCategoriaCrearVista.php');
     }
 
+    // Ruta: /admin/categoria/editar?id=id_categoria
     public function editarCategoria($idCategoria): string
     {
         $this->seguridadService->regirigeALoginSiNoEresRol(["Admin"]);

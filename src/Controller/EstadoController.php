@@ -20,7 +20,7 @@ class EstadoController
         
     }
 
-
+    // Ruta: /admin/estados
     public function mostrarEstados(): string
     {
         $this->seguridadService->regirigeALoginSiNoEresRol(["Admin"]);
@@ -40,6 +40,7 @@ class EstadoController
         return MostrarVista::mostrarVista('adminEstadosVista.php', $variablesParaPasarAVista);
     }
 
+    // RUta: /admin/estado/editar?id=id_estado
     public function editarEstado($idEstado): string
     {
         $this->seguridadService->regirigeALoginSiNoEresRol(["Admin"]);

@@ -43,14 +43,14 @@ try{
         case "publicacion/ver":
             echo $partePublicaController->verPublicacion($_GET['id']);
             break;
+        case "usuario/crear":
+            echo $partePublicaController->crearUsuario();
+            break;    
         case "publicacion/crear-imagen":
             echo $publicacionController->crearPublicacionImagen($_GET['id_publicacion']);
             break;    
         case "publicacion/crear":
             echo $publicacionController->crearPublicacion();
-            break;
-        case "usuario/crear":
-            echo $partePublicaController->crearUsuario();
             break;
         case "admin/publicacion/ver":
             echo $publicacionController->verPublicacion($_GET['id']);
@@ -59,7 +59,7 @@ try{
             echo $publicacionController->editarPublicacion($_GET['id']);
             break;
         case "admin/publicacion/eliminar":
-            echo $publicacionController->eliminarPublicacion($_GET['id']);
+            echo $publicacionController->eliminarPublicacion($id);
             break;
         case "admin/publicaciones":
             echo $publicacionController->mostrarPublicaciones();

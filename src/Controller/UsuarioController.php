@@ -23,6 +23,7 @@ class UsuarioController
         $this->seguridadService = $seguridadService;
     }
 
+    // Ruta: /admin/usuarios
     public function mostrarUsuarios(): string
     {
         $this->seguridadService->regirigeALoginSiNoEresRol(["Admin"]);
@@ -42,6 +43,7 @@ class UsuarioController
         return MostrarVista::mostrarVista('adminUsuariosVista.php', $variablesParaPasarAVista);
     }
 
+    // Ruta: /admin/usuario/crear
     public function crearUsuario(): string
     {   
         $this->seguridadService->regirigeALoginSiNoEresRol(["Admin"]);
@@ -60,6 +62,7 @@ class UsuarioController
         }
     }
 
+    // Ruta: /admin/usuario/editar?id=$id_usuario
     public function editarUsuario($idUsuario): string
     {
         $this->seguridadService->regirigeALoginSiNoEresRol(["Admin"]);

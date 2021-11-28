@@ -17,8 +17,8 @@ class SeguridadController
         $this->dbConnection = $dbC;
     }
 
+    // Ruta: /login
     public function loginUsuario(){
-
         try {
             if (!empty($_POST['email']) && !empty($_POST['password'])) {
                 $sql= "SELECT * FROM usuarios WHERE email = '".$_POST['email']."' AND password = '".$_POST['password']."'";
@@ -44,6 +44,7 @@ class SeguridadController
         return MostrarVista::mostrarVistaPublica('loginVista.php');
     }
 
+    // Ruta: /logout
     public function logoutUsuario(){
         if(isset($_COOKIE['emailCookie'])){
             setcookie("emailCookie", $_COOKIE['emailCookie'], time()-60);

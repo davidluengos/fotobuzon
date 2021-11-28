@@ -77,6 +77,7 @@ class PartePublicaController
         
     }
 
+    // Ruta: /usuario/crear
     public function crearUsuario(): string
     {
         $rol = 'Usuario';

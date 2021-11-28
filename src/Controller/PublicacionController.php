@@ -4,8 +4,6 @@ namespace App\Controller;
 
 use App\Model\Publicacion;
 use App\Library\DbConnection;
-use App\Library\Database;
-use App\Library\DbQueries;
 use App\Library\MostrarVista;
 use App\Library\UtilesFicheros;
 use App\Service\QueriesService;
@@ -26,6 +24,7 @@ class PublicacionController
         $this->seguridadService = $seguridadService;
     }
 
+    // Ruta: /publicación/crear
     public function crearPublicacion(): string
     {
         
@@ -55,16 +54,15 @@ class PublicacionController
             // Creamos una publicación vacía para poder tener un identificador al que asociar las imágenes
             $sql = "INSERT INTO publicaciones (id_autor) VALUES ($autor)";
             $id_publicacion = $this->dbConnection->ejecutarQuery($sql, true);
-
             $variablesParaPasarAVista = [ //llevamos el array de objetos 'categorías'
                 'categorias' => $categorias,
                 'id_publicacion' => $id_publicacion
             ];
-
             return MostrarVista::mostrarVistaPublica('publicoPublicacionCrearVista.php', $variablesParaPasarAVista);
         }
     }
 
+    // Función para añadir imágenes a la publicación
     public function crearPublicacionImagen($id_publicacion): string
     {
         try {
@@ -74,7 +72,6 @@ class PublicacionController
             if (!$_FILES['file'] && !$_FILES['file']['name']) {
                 throw new Exception('No ha subido ninguna imagen', 999);
             }
-
             // Copiamos imagen física a la carpeta /uploads
             $extension = UtilesFicheros::obtenerExtension($_FILES['file']['name']);
             $nombre_random = substr(md5(mt_rand()), 0, 10);
@@ -84,19 +81,17 @@ class PublicacionController
                 mkdir('../web/uploads/' . $id_publicacion . '/', 0777, true);
             }
             move_uploaded_file($_FILES['file']['tmp_name'], $ruta_imagen_fisica);
-
             // Insertar imagen en la base de datos
             $sql = "INSERT INTO imagenes (tipo_imagen, id_objeto, size, mimetype, path_imagen, nombre_imagen)
         VALUES ('publicacion', $id_publicacion, '" . $_FILES['file']['size'] . "', '" . $_FILES['file']['type'] . "', '$ruta_imagen_navegador',  '" . $_FILES['file']['name'] . "')";
             $this->dbConnection->ejecutarQuery($sql);
-
             return $_FILES['file']['name'];
         } catch (\Exception $e) {
             throw new Exception($e->getMessage(), 999);
         }
     }
 
-
+    // Ruta: /admin/publicacion/eliminar
     public function eliminarPublicacion($idPublicacion)
     {
         $this->seguridadService->regirigeALoginSiNoEresRol(["Admin"]);
@@ -106,7 +101,7 @@ class PublicacionController
             try {
                 $sql = "DELETE FROM publicaciones WHERE id_publicacion = $idPublicacion";
                 $publicaciones = $this->dbConnection->ejecutarQuery($sql);
-                header("location:/admin/publicaciones"); //redirijo a la página de publicaciones después de editar
+                header("location:/admin/publicaciones"); //redirijo a la página de publicaciones después de eliminar
             } catch (\Exception $e) {
                 echo "ERROR - No se pudieron obtener los datos para eliminar: " . $e->getMessage();
             }
@@ -115,6 +110,7 @@ class PublicacionController
         return MostrarVista::mostrarVista('adminPublicacionesVista.php', $variablesParaPasarAVista);
     }
 
+    // Ruta: /admin/publicacion/editar?id=$id_publicacion
     public function editarPublicacion($idPublicacion): string
     {
         $this->seguridadService->regirigeALoginSiNoEresRol(["Admin"]);
@@ -164,6 +160,7 @@ class PublicacionController
         return MostrarVista::mostrarVista('adminPublicacionEditarVista.php', $variablesParaPasarAVista);
     }
 
+    //Ruta: /admin/publicaciones
     public function mostrarPublicaciones(): string
     {
         $this->seguridadService->regirigeALoginSiNoEresRol(["Admin"]);
@@ -192,5 +189,48 @@ class PublicacionController
             'publicaciones' => $publicaciones,
         ];
         return MostrarVista::mostrarVista('adminPublicacionesVista.php', $variablesParaPasarAVista);
+    }
+
+    // Ruta: /admin/publicacion/ver?id=$id_publicacion
+    public function verPublicacion($id_publicacion)
+    {
+
+        //Probando para mostrar los días de resolución de incidencias
+        
+        //
+        $dias = $this->queryService->getDiasResolucionIncidencia($id_publicacion);
+        echo $dias;
+        $fechaComentario = date('Y-m-d H:i:s');
+        if (!empty($_POST['textoComentario']) && isset($_POST['submit']) ) {
+            
+            $autor = $this->seguridadService->obtenerUsuarioLogueado();
+            if($autor){
+                $autor=$autor->getId_usuario();
+            }else{
+                //MensajeFlash::crearMensaje('Debe iniciar la sesión para poder realizar un comentario.', 'danger');
+                header("location:/publicacion/ver?id=$id_publicacion");
+            }
+            
+            try {
+                $sql = "INSERT INTO comentarios (id_publicacion, fecha_comentario, comentario, autor_comentario) VALUES ($id_publicacion, '$fechaComentario', '   " . $_POST['textoComentario']  . "    ', $autor)";
+                $this->dbConnection->ejecutarQuery($sql);
+                //aquí tengo que destruir el $_POST porque al recargar la página vuelve a crear el comentario 
+                //(con unset no lo hace, porque sigue teniendo el valor de post)
+                //así que redirijo a la misma publicación para vaciar POST
+                header("location:/publicacion/ver?id=$id_publicacion");
+            } catch (\PDOException $e) {
+                throw new Exception("ERROR - No se pudo insertar el comentario " . $e->getMessage());             
+
+            }
+        }
+            $publicacion = $this->queryService->getPublicacion($id_publicacion);
+            //$comentarios = $this->queryService->getComentarios($id_publicacion);
+            
+            $variablesParaPasarAVista = [
+                'publicacion' => $publicacion,
+            ];
+            
+            return MostrarVista::mostrarVista('adminPublicacionVista.php', $variablesParaPasarAVista);
+        
     }
 }

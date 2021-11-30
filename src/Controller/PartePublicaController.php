@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Library\MostrarVista;
 use App\Library\DbConnection;
 use App\Library\MensajeFlash;
-Use App\Service\SeguridadService;
+use App\Service\SeguridadService;
 use App\Service\QueriesService;
 use Exception;
 
@@ -21,7 +21,7 @@ class PartePublicaController
         $this->queryService = $queryService;
         $this->seguridadService = $seguridadService;
     }
-    
+
     // Ruta: /
     public function initIndex()
     {
@@ -37,23 +37,29 @@ class PartePublicaController
     // Ruta: /publicacion/ver?id=$id_publicacion
     public function verPublicacion($id_publicacion)
     {
-
-        //Probando para mostrar los días de resolución de incidencias
-        
-        //
-        $dias = $this->queryService->getDiasResolucionIncidencia($id_publicacion);
-        echo $dias;
         $fechaComentario = date('Y-m-d H:i:s');
-        if (!empty($_POST['textoComentario']) && isset($_POST['submit']) ) {
-            
+        if (!empty($_POST['textoComentario']) && isset($_POST['submit'])) {
             $autor = $this->seguridadService->obtenerUsuarioLogueado();
-            if($autor){
-                $autor=$autor->getId_usuario();
-            }else{
+            if ($autor) {
+                $autor = $autor->getId_usuario();
+
+                $textoComentario = $_POST['textoComentario'];
+                $palabras = $this->queryService->getPalabrasProhibidas();
+                print_r($palabras);
+                foreach ($palabras as $palabra) {
+                    $pos = strpos($textoComentario, $palabra->getPalabra());
+                    echo $pos."\n";
+                    if ($pos !== false) {
+                        MensajeFlash::crearMensaje('Por favor, vuelva a escribir su mensaje sin utilizar alguna de las palabras prohibidas.', 'danger');
+                        header("location:/publicacion/ver?id=$id_publicacion");
+                        exit;
+                    }
+                }
+            } else {
                 MensajeFlash::crearMensaje('Debe iniciar la sesión para poder realizar un comentario.', 'danger');
                 header("location:/publicacion/ver?id=$id_publicacion");
             }
-            
+
             try {
                 $sql = "INSERT INTO comentarios (id_publicacion, fecha_comentario, comentario, autor_comentario) VALUES ($id_publicacion, '$fechaComentario', '   " . $_POST['textoComentario']  . "    ', $autor)";
                 $this->dbConnection->ejecutarQuery($sql);
@@ -62,19 +68,17 @@ class PartePublicaController
                 //así que redirijo a la misma publicación para vaciar POST
                 header("location:/publicacion/ver?id=$id_publicacion");
             } catch (\PDOException $e) {
-                throw new Exception("ERROR - No se pudo insertar el comentario " . $e->getMessage());             
-
+                throw new Exception("ERROR - No se pudo insertar el comentario " . $e->getMessage());
             }
         }
-            $publicacion = $this->queryService->getPublicacion($id_publicacion);
-            //$comentarios = $this->queryService->getComentarios($id_publicacion);
-            
-            $variablesParaPasarAVista = [
-                'publicacion' => $publicacion,
-            ];
-            
-            return MostrarVista::mostrarVistaPublica('publicoPublicacionVista.php', $variablesParaPasarAVista);
-        
+        $publicacion = $this->queryService->getPublicacion($id_publicacion);
+        //$comentarios = $this->queryService->getComentarios($id_publicacion);
+
+        $variablesParaPasarAVista = [
+            'publicacion' => $publicacion,
+        ];
+
+        return MostrarVista::mostrarVistaPublica('publicoPublicacionVista.php', $variablesParaPasarAVista);
     }
 
     // Ruta: /usuario/crear
@@ -88,7 +92,7 @@ class PartePublicaController
                 $this->dbConnection->ejecutarQuery($sql);
                 header("location:/login");
             } catch (\PDOException $e) {
-                echo "ERROR - No se pudieron obtener los usuarios: " . $e->getMessage();
+                throw new Exception("ERROR - Se produjo un error al insertar un usuario " . $e->getMessage());
             }
         } else {
             return MostrarVista::mostrarVistaPublica('publicoUsuarioCrearVista.php');

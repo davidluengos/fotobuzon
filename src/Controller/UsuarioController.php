@@ -7,7 +7,7 @@ use App\Library\DbConnection;
 use App\Library\MostrarVista;
 use App\Service\SeguridadService;
 use App\Service\QueriesService;
-
+use Exception;
 
 class UsuarioController
 {
@@ -34,7 +34,7 @@ class UsuarioController
                 $usuarios[$key] = new Usuario($usuario);
             }
         } catch (\PDOException $e) {
-            echo "ERROR - No se pudieron obtener los usuarios: " . $e->getMessage();
+            throw new Exception("ERROR - Se produjo un error al mostrar los usuarios " . $e->getMessage());
         }
         $variablesParaPasarAVista = [ //llevamos dos variables, el título a mostrar en la página y el array de objetos 'publicaciones'
             'titulo' => 'Administración de Usuarios',
@@ -55,7 +55,7 @@ class UsuarioController
                 $publicaciones = $this->dbConnection->ejecutarQuery($sql);
                 header("location:/admin/usuarios");
             } catch (\PDOException $e) {
-                echo "ERROR - No se pudieron obtener los usuarios: " . $e->getMessage();
+                throw new Exception("ERROR - Se produjo un error al crear los usuarios " . $e->getMessage());
             }
         } else {
             return MostrarVista::mostrarVista('adminUsuarioCrearVista.php');
@@ -89,7 +89,7 @@ class UsuarioController
                 $publicaciones = $this->dbConnection->ejecutarQuery($sql);
                 header("location:/admin/usuarios"); //redirijo a la página de publicaciones después de editar
             } catch (\PDOException $e) {
-                echo "ERROR - No se pudieron obtener los productos: " . $e->getMessage();
+                throw new Exception("ERROR - Se produjo un editar al mostrar los usuarios " . $e->getMessage());
             }
         }
         return MostrarVista::mostrarVista('adminUsuarioEditarVista.php', $variablesParaPasarAVista);

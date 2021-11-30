@@ -48,7 +48,7 @@ class PublicacionController
                     header("location:/");
                 }
             } catch (\PDOException $e) {
-                echo "ERROR - No se pudieron obtener los productos: " . $e->getMessage();
+                throw new Exception("ERROR - Se produjo un error al crear una publicación " . $e->getMessage());
             }
         } else {
             // Creamos una publicación vacía para poder tener un identificador al que asociar las imágenes
@@ -103,7 +103,7 @@ class PublicacionController
                 $publicaciones = $this->dbConnection->ejecutarQuery($sql);
                 header("location:/admin/publicaciones"); //redirijo a la página de publicaciones después de eliminar
             } catch (\Exception $e) {
-                echo "ERROR - No se pudieron obtener los datos para eliminar: " . $e->getMessage();
+                throw new Exception("ERROR - Se produjo un error al eliminar una publicación " . $e->getMessage());
             }
         }
         $variablesParaPasarAVista = [];
@@ -182,7 +182,7 @@ class PublicacionController
                 $publicaciones[$key]->setNombreAutor($nombreAutor);
             }
         } catch (\PDOException $e) {
-            echo "ERROR - No se pudieron obtener las publicaciones: " . $e->getMessage();
+            throw new Exception("ERROR - Se produjo un error al mostrar las publicaciones " . $e->getMessage());
         }
         $variablesParaPasarAVista = [ //llevamos dos variables, el título a mostrar en la página y el array de objetos 'publicaciones'
             'titulo' => 'Administración de Publicaciones',

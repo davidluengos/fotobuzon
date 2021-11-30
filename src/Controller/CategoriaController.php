@@ -7,6 +7,7 @@ use App\Library\DbConnection;
 use App\Library\MostrarVista;
 use App\Service\QueriesService;
 use App\Service\SeguridadService;
+use Exception;
 
 class CategoriaController
 {
@@ -32,7 +33,7 @@ class CategoriaController
                 $categorias[$key] = new Categoria($categoria);
             }
         } catch (\PDOException $e) {
-            echo "ERROR - No se pudieron obtener las publicaciones: " . $e->getMessage();
+            throw new Exception("ERROR - Se produjo un error al mostrar las categorías " . $e->getMessage());
         }
         $variablesParaPasarAVista = [ //llevamos dos variables, el título a mostrar en la página y el array de objetos 'publicaciones'
             'titulo' => 'Administración de Categorías',
@@ -49,10 +50,10 @@ class CategoriaController
             echo $_POST['categoria'];
             try {
                 $sql = "INSERT INTO categorias (categoria) VALUES ('" . $_POST['categoria'] . "')";
-                $publicaciones = $this->dbConnection->ejecutarQuery($sql);
+                $this->dbConnection->ejecutarQuery($sql);
                 header("location:/admin/categorias");
             } catch (\PDOException $e) {
-                echo "ERROR - No se pudieron obtener las categorías: " . $e->getMessage();
+                throw new Exception("ERROR - Se produjo un error al crear las categorías " . $e->getMessage());
             }
         }
         return MostrarVista::mostrarVista('adminCategoriaCrearVista.php');
@@ -75,10 +76,10 @@ class CategoriaController
                 $sql = "UPDATE categorias SET 
                     categoria = '" . $_POST['categoriaEditada'] . "' 
                     WHERE id_categoria = " . $idCategoria . " ";
-                $publicaciones = $this->dbConnection->ejecutarQuery($sql);
+                $this->dbConnection->ejecutarQuery($sql);
                 header("location:/admin/categorias"); //redirijo a la página de publicaciones después de editar
             } catch (\PDOException $e) {
-                echo "ERROR - No se pudieron obtener los productos: " . $e->getMessage();
+                throw new Exception("ERROR - Se produjo un error al editar las categorías " . $e->getMessage());
             }
         }
         return MostrarVista::mostrarVista('adminCategoriaEditarVista.php', $variablesParaPasarAVista);

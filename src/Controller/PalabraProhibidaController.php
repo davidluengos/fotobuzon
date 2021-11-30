@@ -8,6 +8,7 @@ use App\Library\MostrarVista;
 use App\Model\PalabraProhibida;
 use App\Service\QueriesService;
 use App\Service\SeguridadService;
+use Exception;
 
 class PalabraProhibidaController
 {
@@ -33,7 +34,7 @@ class PalabraProhibidaController
                 $palabras[$key] = new PalabraProhibida($palabra);
             }
         } catch (\PDOException $e) {
-            echo "ERROR - No se pudieron obtener las publicaciones: " . $e->getMessage();
+            throw new Exception("ERROR - Se produjo un error al mostrar las palabras prohibidas " . $e->getMessage());
         }
         $variablesParaPasarAVista = [ //llevamos dos variables, el título a mostrar en la página y el array de objetos 'publicaciones'
             'titulo' => 'Administración de Palabras Prohibidas',
@@ -53,7 +54,7 @@ class PalabraProhibidaController
                 $publicaciones = $this->dbConnection->ejecutarQuery($sql);
                 header("location:/admin/palabrasprohibidas");
             } catch (\PDOException $e) {
-                echo "ERROR - No se pudieron obtener las categorías: " . $e->getMessage();
+                throw new Exception("ERROR - Se produjo un error al crear las palabras prohibidas " . $e->getMessage());
             }
         }
         return MostrarVista::mostrarVista('adminPalabraProhibidaCrearVista.php');
@@ -79,7 +80,7 @@ class PalabraProhibidaController
                 $publicaciones = $this->dbConnection->ejecutarQuery($sql);
                 header("location:/admin/palabrasprohibidas"); //redirijo a la página de publicaciones después de editar
             } catch (\PDOException $e) {
-                echo "ERROR - No se pudieron obtener los productos: " . $e->getMessage();
+                throw new Exception("ERROR - Se produjo un error al editar las palabras prohibidas " . $e->getMessage());
             }
         }
         return MostrarVista::mostrarVista('adminPalabraProhibidaEditarVista.php', $variablesParaPasarAVista);

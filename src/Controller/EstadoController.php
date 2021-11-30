@@ -6,6 +6,7 @@ use App\Library\DbConnection;
 use App\Library\MostrarVista;
 use App\Model\Estado;
 use App\Service\SeguridadService;
+use Exception;
 
 class EstadoController
 {
@@ -31,7 +32,7 @@ class EstadoController
                 $estados[$key] = new Estado($estado);
             }
         } catch (\PDOException $e) {
-            echo "ERROR - No se pudieron obtener los estados: " . $e->getMessage();
+            throw new Exception("ERROR - Se produjo un error al mostrar los estados " . $e->getMessage());
         }
         $variablesParaPasarAVista = [ 
             'titulo' => 'Administración de Estados',
@@ -60,7 +61,7 @@ class EstadoController
                 $this->dbConnection->ejecutarQuery($sql);
                 header("location:/admin/estados"); //redirijo a la página de publicaciones después de editar
             } catch (\PDOException $e) {
-                echo "ERROR - No se pudieron obtener los productos: " . $e->getMessage();
+                throw new Exception("ERROR - Se produjo un error al editar los estados " . $e->getMessage());
             }
         }
         return MostrarVista::mostrarVista('adminEstadosEditarVista.php', $variablesParaPasarAVista);

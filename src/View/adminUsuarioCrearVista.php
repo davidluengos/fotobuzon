@@ -4,11 +4,11 @@
 			<div class="section-title">
 				<h3 class="title">Registro de nuevo usuario</h3>
 			</div>
-			<form id="contact-form" name="contact-form" action="" method="POST">
+			<form id="contact-form" name="contact-form" action="" method="POST" onsubmit="return validar();">
 				<div class="col-md-6">
 					<div class="billing-details">
 						<div class="form-group">
-							<input class="input" type="text" name="nombre" placeholder="Nombre">
+							<input class="input" type="text" name="nombre" id="nombre" placeholder="Nombre">
 						</div>
 						<div class="form-group">
 							<input class="input" type="text" name="apellidos" placeholder="Apellidos">
@@ -27,7 +27,7 @@
 				<div class="col-md-6">
 					<div class="billing-details">
 						<div class="form-group">
-							<input class="input" type="text" name="telefono" placeholder="Teléfono">
+							<input class="input" type="text" name="telefono" id="telefono" placeholder="Teléfono">
 						</div>
 						<div class="form-group">
 							<input class="input" type="text" name="direccion" placeholder="Dirección">

@@ -1,4 +1,5 @@
-    <!-- SECTION -->
+<?php  use App\Library\MensajeFlash; ?>
+<!-- SECTION -->
     <div class="section">
         <!-- container -->
         <div class="container">
@@ -12,12 +13,7 @@
                             <div class="section-title">
                                 <h3 class="title">Inicie sesión</h3>
                             </div>
-                            <?php
-
-                            use App\Library\MensajeFlash;
-
-                            
-                            echo MensajeFlash::obtenerMensaje()?>
+                            <?php echo MensajeFlash::obtenerMensaje()?>
                             <div class="form-group">
                                 <input class="input" type="email" name="email" placeholder="Email" value="<?php echo @$_POST['email']; ?>">
                             </div>

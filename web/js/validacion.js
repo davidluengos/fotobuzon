@@ -131,3 +131,50 @@ function validarUsuarioNuevo(){
     }
     return true;
 }
+
+
+function validarCrearPublicacion(){
+
+    //Si hay errores, los mostramos por pantalla
+    var hayErrores = false;
+    document.getElementById("panel-errores").innerHTML="";
+
+
+    //Validación del título, que no esté vacío
+    valor = document.getElementById("titulo").value;
+    if( valor == null || valor.length == 0 || /^\s+$/.test(valor) ) {
+        document.getElementById("panel-errores").innerHTML=
+        document.getElementById("panel-errores").innerHTML + "<div class='alert alert-danger'>Recuerde insertar un título descriptivo.</div>";
+        hayErrores = true;
+    }
+
+
+    var textoDescripcion = document.getElementById("descripcion").value;
+    if (textoDescripcion.length < 30) {
+        document.getElementById("panel-errores").innerHTML=
+        document.getElementById("panel-errores").innerHTML + "<div class='alert alert-danger'>La descripción de la incidencia debe tener al menos 30 caracteres.</div>";
+        hayErrores = true; 
+    }
+
+
+     //Validación del título, que no esté vacío
+     valor = document.getElementById("localizacion").value;
+     if( valor == null || valor.length == 0 || /^\s+$/.test(valor) ) {
+         document.getElementById("panel-errores").innerHTML=
+         document.getElementById("panel-errores").innerHTML + "<div class='alert alert-danger'>Inserte la ubicación de la incidencia.</div>";
+         hayErrores = true;
+     }
+
+
+    var isChecked = document.getElementById('aceptarTerminos').checked;
+    if(!isChecked){
+        document.getElementById("panel-errores").innerHTML=
+        document.getElementById("panel-errores").innerHTML + "<div class='alert alert-danger'>Debe aceptar los términos y condiciones.</div>";
+        hayErrores = true;
+    }
+
+    if (hayErrores) {
+        return false;
+    }
+    return true;
+}

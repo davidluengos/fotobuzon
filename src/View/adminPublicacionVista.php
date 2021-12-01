@@ -1,4 +1,12 @@
 <!-- SECTION -->
+
+<?php 
+echo "<pre>";
+print_r($datos);
+echo "</pre>";
+
+
+?>
 	<div class="section">
 	    <!-- container -->
 	    <div class="container">

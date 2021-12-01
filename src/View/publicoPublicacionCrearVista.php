@@ -1,3 +1,6 @@
+<?php
+
+use App\Library\MensajeFlash; ?>
 <div class="section">
 	<!-- container -->
 	<div class="container">
@@ -7,19 +10,24 @@
 				<h3 class="title">Registrar una nueva publicación</h3>
 			</div>
 
+			<div id="messages" class="col-md-12">
+				<div class="panel-body" id="panel-errores"></div>
+			</div>
+
 			<div class="col-md-7">
 				<!-- Billing Details -->
 				<div class="billing-details">
-					<form id="contact-form" name="contact-form" action="" method="POST">
+					<form id="contact-form" name="contact-form" action="" method="POST" onsubmit="return validarCrearPublicacion()">
 						<input type="hidden" value="<?php echo $datos['id_publicacion']; ?>" name="id_publicacion" />
+						<?php echo MensajeFlash::obtenerMensaje() ?>
 						<div class="form-group">
-							<input class="input" type="text" name="titulo" placeholder="Título">
+							<input class="input" type="text" name="titulo" id="titulo" placeholder="Título">
 						</div>
 						<div class="order-notes">
-							<textarea class="input" name="descripcion" placeholder="Descripción"></textarea>
+							<textarea class="input" name="descripcion" id="descripcion" placeholder="Descripción"></textarea>
 						</div>
 						<div class="form-group">
-							<select class="input" name="categoria" placeholder="Categoría">
+							<select class="input" name="categoria" id="categoria" placeholder="Categoría">
 								<?php
 								foreach ($datos['categorias'] as $categoria) {
 									//para cada item del array $categoria imprimo el nombre con el código como su value
@@ -29,14 +37,21 @@
 							</select>
 						</div>
 						<div class="form-group">
-							<input class="input" type="email" name="localizacion" placeholder="Localización">
+							<input class="input" type="text" name="localizacion" id="localizacion" placeholder="Localización">
 						</div>
-						<div class="text-center text-md-left">
-							<a class="primary-btn order-submit" onclick="document.getElementById('contact-form').submit();">Enviar</a>
+						<div class="col-md-6">
+							<div class="text-center">
+								<input type="checkbox" class="input" name="aceptarTerminos" id="aceptarTerminos"> Acepto los términos y condiciones</input>
+							</div>
 						</div>
-						
+						<div class="col-md-6">
+							<div class="text-center">
+								<input class="primary-btn order-submit" type="submit" value="Enviar" id="btn-enviar" />
+							</div>
+						</div>
+
 					</form>
-					
+
 				</div>
 				<!-- /Billing Details -->
 
@@ -52,8 +67,8 @@
 				<div class="section-title text-center">
 					<h3 class="title">Imágenes</h3>
 				</div>
-				
-				<form action="/publicacion/crear-imagen?id_publicacion=<?php echo $datos['id_publicacion'] ?>" class="dropzone" ></form>
+
+				<form action="/publicacion/crear-imagen?id_publicacion=<?php echo $datos['id_publicacion'] ?>" class="dropzone"></form>
 			</div>
 			<!-- /Order Details -->
 		</div>

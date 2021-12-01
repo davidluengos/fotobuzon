@@ -1,13 +1,7 @@
 <?php
 
 use App\Library\MensajeFlash; ?>
-<?php 
-echo "<pre>";
-print_r($datos);
-echo "</pre>";
 
-
-?>
 
 <!-- SECTION -->
 <div class="section">

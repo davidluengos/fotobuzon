@@ -40,6 +40,9 @@ try{
         case "":
             echo $partePublicaController->initIndex();
             break;
+        case "publicacion/crear":
+            echo $partePublicaController->crearPublicacion();
+            break;    
         case "publicacion/ver":
             echo $partePublicaController->verPublicacion($_GET['id']);
             break;
@@ -49,7 +52,7 @@ try{
         case "publicacion/crear-imagen":
             echo $publicacionController->crearPublicacionImagen($_GET['id_publicacion']);
             break;    
-        case "publicacion/crear":
+        case "admin/publicacion/crear":
             echo $publicacionController->crearPublicacion();
             break;
         case "admin/publicacion/ver":

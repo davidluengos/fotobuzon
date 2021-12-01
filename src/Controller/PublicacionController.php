@@ -24,7 +24,7 @@ class PublicacionController
         $this->seguridadService = $seguridadService;
     }
 
-    // Ruta: /publicación/crear
+    // Ruta: /admin/publicación/crear
     public function crearPublicacion(): string
     {
         
@@ -58,7 +58,7 @@ class PublicacionController
                 'categorias' => $categorias,
                 'id_publicacion' => $id_publicacion
             ];
-            return MostrarVista::mostrarVistaPublica('publicoPublicacionCrearVista.php', $variablesParaPasarAVista);
+            return MostrarVista::mostrarVista('adminPublicacionCrearVista.php', $variablesParaPasarAVista);
         }
     }
 
@@ -224,7 +224,6 @@ class PublicacionController
             }
         }
             $publicacion = $this->queryService->getPublicacion($id_publicacion);
-            //$comentarios = $this->queryService->getComentarios($id_publicacion);
             
             $variablesParaPasarAVista = [
                 'publicacion' => $publicacion,

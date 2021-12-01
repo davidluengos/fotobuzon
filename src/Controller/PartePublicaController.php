@@ -34,6 +34,45 @@ class PartePublicaController
         return MostrarVista::mostrarVistaPublica('publicoIndexVista.php', $variablesParaPasarAVista);
     }
 
+
+     // Ruta: /publicación/crear
+     public function crearPublicacion(): string
+     {
+         
+         // Roles que pueden crear una publicación.
+         $roles = ['Admin', 'Usuario'];
+ 
+         $this->seguridadService->regirigeALoginSiNoEresRol($roles);
+         // if ($this->seguridadService->obtenerUsuarioLogueado()) {
+         $categorias = $this->queryService->getCategorias();
+         $fecha_publicacion = date('Y-m-d H:i:s');
+         $estado = 1; //Por defecto se establece el estado inicial
+         $autor = $this->seguridadService->obtenerUsuarioLogueado()->getId_usuario();
+ 
+         if (!empty($_POST['titulo']) & !empty($_POST['descripcion'])) {
+             try {
+                 $sql = "UPDATE publicaciones SET fecha_publicacion = '$fecha_publicacion', titulo='" . $_POST['titulo'] . "', descripcion='" . $_POST['descripcion'] . "', id_categoria='" . $_POST['categoria'] . "', id_estado='$estado', id_autor='$autor', localizacion='" . $_POST['localizacion'] . "', esta_creada = '1' WHERE id_publicacion=" . $_POST['id_publicacion'] . "";
+                 $this->dbConnection->ejecutarQuery($sql);
+                 if ($this->seguridadService->obtenerUsuarioLogueado()->getRol() == 'Admin') {
+                     header("location:/admin/publicaciones");
+                 } else {
+                     header("location:/");
+                 }
+             } catch (\PDOException $e) {
+                 throw new Exception("ERROR - Se produjo un error al crear una publicación " . $e->getMessage());
+             }
+         } else {
+             // Creamos una publicación vacía para poder tener un identificador al que asociar las imágenes
+             $sql = "INSERT INTO publicaciones (id_autor) VALUES ($autor)";
+             $id_publicacion = $this->dbConnection->ejecutarQuery($sql, true);
+             $variablesParaPasarAVista = [ //llevamos el array de objetos 'categorías'
+                 'categorias' => $categorias,
+                 'id_publicacion' => $id_publicacion
+             ];
+             return MostrarVista::mostrarVistaPublica('publicoPublicacionCrearVista.php', $variablesParaPasarAVista);
+         }
+     }
+
     // Ruta: /publicacion/ver?id=$id_publicacion
     public function verPublicacion($id_publicacion)
     {
@@ -48,7 +87,6 @@ class PartePublicaController
                 print_r($palabras);
                 foreach ($palabras as $palabra) {
                     $pos = strpos($textoComentario, $palabra->getPalabra());
-                    echo $pos."\n";
                     if ($pos !== false) {
                         MensajeFlash::crearMensaje('Por favor, vuelva a escribir su mensaje sin utilizar alguna de las palabras prohibidas.', 'danger');
                         header("location:/publicacion/ver?id=$id_publicacion");
@@ -72,7 +110,6 @@ class PartePublicaController
             }
         }
         $publicacion = $this->queryService->getPublicacion($id_publicacion);
-        //$comentarios = $this->queryService->getComentarios($id_publicacion);
 
         $variablesParaPasarAVista = [
             'publicacion' => $publicacion,

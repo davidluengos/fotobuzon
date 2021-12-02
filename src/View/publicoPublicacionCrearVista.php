@@ -12,6 +12,7 @@ use App\Library\MensajeFlash; ?>
 
 			<div id="messages" class="col-md-12">
 				<div class="panel-body" id="panel-errores"></div>
+				<?php echo MensajeFlash::obtenerMensaje() ?>
 			</div>
 
 			<div class="col-md-7">

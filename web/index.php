@@ -30,7 +30,7 @@ $publicacionController = new PublicacionController($dbConnection, $queriesServic
 $usuarioController = new UsuarioController($dbConnection, $queriesService, $seguridadService);
 $categoriaController = new CategoriaController($dbConnection, $queriesService, $seguridadService);
 $palabraProhibidaController = new PalabraProhibidaController($dbConnection, $queriesService, $seguridadService);
-$seguridadController = new SeguridadController($dbConnection);
+$seguridadController = new SeguridadController($dbConnection, $queriesService);
 $estadoController = new EstadoController($dbConnection, $seguridadService);
 
 
@@ -46,6 +46,9 @@ try{
         case "publicacion/ver":
             echo $partePublicaController->verPublicacion($_GET['id']);
             break;
+        case "publicaciones/categoria":
+            echo $partePublicaController->verPublicacionesDeCategoria();
+            break;    
         case "usuario/crear":
             echo $partePublicaController->crearUsuario();
             break;    

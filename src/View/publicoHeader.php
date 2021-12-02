@@ -56,14 +56,19 @@
 						<!-- SEARCH BAR -->
 						<div class="col-md-6">
 							<div class="header-search">
-								<form>
-									<select class="input-select">
-										<option value="0">Todas las categorías</option>
-										<option value="1">Mobiliario urbano</option>
-										<option value="1">Parques y jardines</option>
+								<form method="post" action="/publicaciones/categoria">
+									<select class="input-select" name="categoriaSeleccionada">
+									<?php 
+										foreach ($datos['categorias'] as $categoria){
+											echo "<option value='".$categoria->getId_categoria()."'>".$categoria->getCategoria()."</option>";
+										}
+									
+									?>
+									
+										
 									</select>
 									
-									<button class="search-btn">Buscar</button>
+									<button class="search-btn">Ver</button>
 								</form>
 							</div>
 						</div>

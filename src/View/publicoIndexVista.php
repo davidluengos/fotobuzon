@@ -36,7 +36,7 @@
 											<?php if ($imagenPrincipal) { ?>
 												<img src="<?php echo $imagenPrincipal->getPath_imagen() ?>" alt="">
 											<?php } else { ?>
-												<img src="./img/product01.png" alt="">
+												<img src="./img/fotobuzon.jpg" alt="">
 											<?php } ?>
 											<div class="product-label">
 												<span class="new"><?php echo $publicacion->getNombreCategoria(); ?></span>

@@ -123,6 +123,20 @@ class QueriesService
         }
     }
 
+    public function getPublicacionesDeCategoria($id_categoria): array
+    {
+        try {
+            $sql = "SELECT id_publicacion FROM publicaciones WHERE esta_creada = 1 AND id_categoria = $id_categoria ORDER BY id_publicacion DESC;";
+            $resultados = $this->dbConnection->ejecutarQueryConResultado($sql);
+            foreach ($resultados as $resultado) {
+                $publicaciones[] = $this->getPublicacion($resultado['id_publicacion']);
+            }
+            return $publicaciones; //Devolvemos el array de objetos publicación
+        } catch (\Exception $e) {
+            throw new Exception("ERROR - No se pudo obtener ninguna publicación " . $e->getMessage());
+        }
+    }
+
     public function getPublicacion($id_publicacion): Publicacion
     {
         try {

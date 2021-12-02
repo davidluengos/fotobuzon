@@ -50,11 +50,22 @@ class PartePublicaController
          $autor = $this->seguridadService->obtenerUsuarioLogueado()->getId_usuario();
  
          if (!empty($_POST['titulo']) & !empty($_POST['descripcion'])) {
+            $textoDescripcion = $_POST['descripcion'];
+            $palabras = $this->queryService->getPalabrasProhibidas();
+            print_r($palabras);
+            foreach ($palabras as $palabra) {
+                $pos = strpos($textoDescripcion, $palabra->getPalabra());
+                if ($pos !== false) {
+                    MensajeFlash::crearMensaje('Por favor, vuelva a escribir su mensaje sin utilizar alguna de las palabras prohibidas.', 'danger');
+                    header("location:/publicacion/crear");
+                    exit;
+                }
+            }
              try {
                  $sql = "UPDATE publicaciones SET fecha_publicacion = '$fecha_publicacion', titulo='" . $_POST['titulo'] . "', descripcion='" . $_POST['descripcion'] . "', id_categoria='" . $_POST['categoria'] . "', id_estado='$estado', id_autor='$autor', localizacion='" . $_POST['localizacion'] . "', esta_creada = '1' WHERE id_publicacion=" . $_POST['id_publicacion'] . "";
                  $this->dbConnection->ejecutarQuery($sql);
                  if ($this->seguridadService->obtenerUsuarioLogueado()->getRol() == 'Admin') {
-                     header("location:/admin/publicaciones");
+                     header("location:/");
                  } else {
                      header("location:/");
                  }
@@ -110,9 +121,10 @@ class PartePublicaController
             }
         }
         $publicacion = $this->queryService->getPublicacion($id_publicacion);
-
+        $categorias = $this->queryService->getCategorias();
         $variablesParaPasarAVista = [
             'publicacion' => $publicacion,
+            'categorias' => $categorias 
         ];
 
         return MostrarVista::mostrarVistaPublica('publicoPublicacionVista.php', $variablesParaPasarAVista);
@@ -134,5 +146,17 @@ class PartePublicaController
         } else {
             return MostrarVista::mostrarVistaPublica('publicoUsuarioCrearVista.php');
         }
+    }
+
+    public function verPublicacionesDeCategoria(){
+        $categoriaSeleccionada = $_POST['categoriaSeleccionada'];
+        $publicaciones = $this->queryService->getPublicacionesDeCategoria($categoriaSeleccionada);
+        $variablesParaPasarAVista = [
+            'publicaciones' => $publicaciones,
+            'categoria' => $this->queryService->getNombreCategoria($categoriaSeleccionada),
+            'categorias' => $this->queryService->getCategorias()
+        ];
+        
+        return MostrarVista::mostrarVistaPublica('publicoPublicacionesPorCategoriaVista.php', $variablesParaPasarAVista);
     }
 }

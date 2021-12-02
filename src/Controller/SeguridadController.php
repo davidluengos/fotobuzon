@@ -6,15 +6,18 @@ use App\Library\DbConnection;
 use App\Library\MensajeFlash;
 use App\Library\MostrarVista;
 use App\Model\Usuario;
+use App\Service\QueriesService;
 use Exception;
 
 class SeguridadController
 {
     private $dbConnection;
+    private $queryService;
 
-    public function __construct(DbConnection $dbC)
+    public function __construct(DbConnection $dbC, QueriesService $queryService)
     {
         $this->dbConnection = $dbC;
+        $this->queryService = $queryService;
     }
 
     // Ruta: /login
@@ -41,7 +44,11 @@ class SeguridadController
         }catch(\PDOException $e) {
                 throw new Exception("ERROR - Se produjo un error al introducir las credenciales de acceso " . $e->getMessage());
         }
-        return MostrarVista::mostrarVistaPublica('loginVista.php');
+        $categorias = $this->queryService->getCategorias();
+        $variablesParaPasarAVista = [
+            'categorias' => $categorias
+        ];
+        return MostrarVista::mostrarVistaPublica('loginVista.php', $variablesParaPasarAVista);
     }
 
     // Ruta: /logout

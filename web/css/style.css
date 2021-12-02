@@ -1082,6 +1082,7 @@ textarea.input {
 
 .product-widget {
   position: relative;
+  margin-top: 20px;
 }
 
 .product-widget+.product-widget {
@@ -1092,7 +1093,7 @@ textarea.input {
   position: absolute;
   left: 0px;
   top: 0px;
-  width: 60px;
+  width: 120px;
 }
 
 .product-widget .product-img>img {
@@ -1100,7 +1101,7 @@ textarea.input {
 }
 
 .product-widget .product-body {
-  padding-left: 75px;
+  padding-left: 140px;
   min-height: 60px;
 }
 

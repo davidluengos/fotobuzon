@@ -156,6 +156,14 @@ function validarCrearPublicacion(){
         hayErrores = true; 
     }
 
+    var valorCategoria = document.getElementById("categoria").value;
+
+    if (valorCategoria === "") {
+        document.getElementById("panel-errores").innerHTML=
+        document.getElementById("panel-errores").innerHTML + "<div class='alert alert-danger'>Debe elegir una categoría</div>";
+        hayErrores = true;
+    }
+
 
      //Validación del título, que no esté vacío
      valor = document.getElementById("localizacion").value;
@@ -180,12 +188,10 @@ function validarCrearPublicacion(){
 }
 
 
-function ConfirmDelete()
+function ConfirmDelete(form)
 {
-  var x = confirm("Are you sure you want to delete?");
-  if (x)
-      return true;
-      
-  else
-    return false;
+  var x = confirm("¿Seguro que quieres borrar la publicación?");
+  if(x){
+    form.submit();
+  }
 }

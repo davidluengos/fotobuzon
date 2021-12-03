@@ -22,27 +22,28 @@ use App\Library\MensajeFlash; ?>
 						<input type="hidden" value="<?php echo $datos['id_publicacion']; ?>" name="id_publicacion" />
 						<?php echo MensajeFlash::obtenerMensaje() ?>
 						<div class="form-group">
-							<input class="input" type="text" name="titulo" id="titulo" placeholder="Título">
+							<input class="input" type="text" name="titulo" id="titulo" placeholder="Título"  value="<?php echo @$_POST['titulo']?>">
 						</div>
 						<div class="order-notes">
-							<textarea class="input" name="descripcion" id="descripcion" placeholder="Descripción"></textarea>
+							<textarea class="input" name="descripcion" id="descripcion" placeholder="Descripción" ><?php echo @$_POST['descripcion']?></textarea>
 						</div>
 						<div class="form-group">
 							<select class="input" name="categoria" id="categoria" placeholder="Categoría">
+								<option value=''>-- Seleccione una categoría --</option>
 								<?php
 								foreach ($datos['categorias'] as $categoria) {
 									//para cada item del array $categoria imprimo el nombre con el código como su value
-									echo '<option value="' . $categoria->getId_categoria() . '">' . $categoria->getCategoria() . '</option>';
+									echo '<option value="' . $categoria->getId_categoria() . '" '.(($categoria->getId_categoria() == @$_POST['categoria'])?'selected':'').'>' . $categoria->getCategoria() . '</option>';
 								}
 								?>
 							</select>
 						</div>
 						<div class="form-group">
-							<input class="input" type="text" name="localizacion" id="localizacion" placeholder="Localización">
+							<input class="input" type="text" name="localizacion" id="localizacion" placeholder="Localización"   value="<?php echo @$_POST['localizacion']?>">
 						</div>
 						<div class="col-md-6">
 							<div class="text-center">
-								<input type="checkbox" class="input" name="aceptarTerminos" id="aceptarTerminos"> Acepto los términos y condiciones</input>
+								<input type="checkbox" class="input" name="aceptarTerminos" id="aceptarTerminos" <?php echo ((isset($_POST['aceptarTerminos']))?'checked':'')?>> Acepto los términos y condiciones</input>
 							</div>
 						</div>
 						<div class="col-md-6">

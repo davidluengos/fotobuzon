@@ -9,8 +9,8 @@ class MostrarVista{
         echo "<html lang='en'>";
         include('../src/View/publicoHead.php');
         echo "<body class='fondo'>";
-        include('../src/View/publicoHeader.php');
-        include('../src/View/publicoNav.php');
+        include('../src/View/adminHeader.php');
+        include('../src/View/adminNav.php');
         //echo "<div class=contenedor>";
         //include('../src/View/sidebar.php');
         include('../src/View/'.$rutaVista);

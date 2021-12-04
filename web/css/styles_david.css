@@ -109,8 +109,13 @@ footer{
 .hoverthash:hover{
     color: #D10024;
 }
-/*
-.reference a, form{
-    padding-left: 5px;
-    display: inline-block;
-}*/
+
+.title404{
+    margin-top: 0.5em;
+    font-size: 8em;
+
+}
+
+.button-top{
+    margin-top: 5em;
+}

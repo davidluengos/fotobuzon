@@ -175,4 +175,15 @@ class PartePublicaController
 
         return MostrarVista::mostrarVistaPublica('publicoPublicacionesPorCategoriaVista.php', $variablesParaPasarAVista);
     }
+
+    // Ruta: página no encontrada
+    public function paginaNoEncontrada()
+    {
+       
+        $categorias = $this->queryService->getCategorias();
+        $variablesParaPasarAVista = [
+            'categorias' => $categorias
+        ];
+        return MostrarVista::mostrarVistaPublica('publico404.php', $variablesParaPasarAVista);
+    }
 }

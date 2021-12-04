@@ -58,6 +58,7 @@
 							<div class="header-search">
 								<form method="post" action="/publicaciones/categoria">
 									<select class="input-select" name="categoriaSeleccionada">
+										<option value="">-- Seleccione una categoría --</option>
 									<?php 
 										foreach ($datos['categorias'] as $categoria){
 											echo "<option value='".$categoria->getId_categoria()."'>".$categoria->getCategoria()."</option>";

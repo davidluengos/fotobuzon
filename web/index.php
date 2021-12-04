@@ -110,7 +110,7 @@ try{
             echo $seguridadController->logoutUsuario();
             break;
         default:
-            throw new Exception("no se ha encontrado la página");
+            echo $partePublicaController->paginaNoEncontrada();
         }
 }catch(\Exception $e){
     if ($e->getCode() == 999) {

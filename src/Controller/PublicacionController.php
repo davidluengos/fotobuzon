@@ -171,8 +171,13 @@ class PublicacionController
         $this->seguridadService->regirigeALoginSiNoEresRol(["Admin"]);
         
         try {
-            
-            $sql = "SELECT * FROM publicaciones WHERE esta_creada = 1 ORDER BY id_publicacion DESC;";
+            if(!empty($_POST['estadoSeleccionado'])){
+                $estadoSeleccionado = $_POST['estadoSeleccionado'];
+                $sql = "SELECT * FROM publicaciones WHERE esta_creada = 1 AND id_estado = $estadoSeleccionado ORDER BY id_publicacion DESC;";
+            }
+            else{
+                $sql = "SELECT * FROM publicaciones WHERE esta_creada = 1 ORDER BY id_publicacion DESC;";
+            }
             $publicaciones = $this->dbConnection->ejecutarQueryConResultado($sql);
             foreach ($publicaciones as $key => $publicacion) {
                 $id_estado = $publicacion['id_estado'];
@@ -189,9 +194,11 @@ class PublicacionController
         } catch (\PDOException $e) {
             throw new Exception("ERROR - Se produjo un error al mostrar las publicaciones " . $e->getMessage());
         }
+        $estados = $this->queryService->getEstados();
         $variablesParaPasarAVista = [ //llevamos dos variables, el título a mostrar en la página y el array de objetos 'publicaciones'
             'titulo' => 'Administración de Publicaciones',
             'publicaciones' => $publicaciones,
+            'estados' => $estados
         ];
         return MostrarVista::mostrarVista('adminPublicacionesVista.php', $variablesParaPasarAVista);
     }
@@ -229,9 +236,10 @@ class PublicacionController
             }
         }
             $publicacion = $this->queryService->getPublicacion($id_publicacion);
-            
+            $estadosPublicacion = $this->queryService->getEstadosPublicacion($id_publicacion);
             $variablesParaPasarAVista = [
                 'publicacion' => $publicacion,
+                'estadosPublicacion' => $estadosPublicacion
             ];
             
             return MostrarVista::mostrarVista('adminPublicacionVista.php', $variablesParaPasarAVista);

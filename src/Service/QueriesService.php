@@ -288,5 +288,6 @@ class QueriesService
         } catch (\Exception $e) {
             throw new Exception("ERROR - No se pudo obtener ninguna fecha " . $e->getMessage());
         }
+        
     }
 }

@@ -67,7 +67,25 @@ use App\Library\MensajeFlash; ?>
 						<p class="autor_publicacion"><?php echo $datos['publicacion']->getNombreAutor(); ?> </p>
 						<p><?php echo $datos['publicacion']->getDescripcion(); ?></p>
 					</div>
-
+					<div>
+						<?php 
+                            if ($datos['estadosPublicacion']) {
+                                echo "<table class='table table-hover table-sm'>";
+								echo "<caption>Seguimiento de la incidencia</caption>";
+								echo "<tr><th scope='col'>Fecha</th><th scope='col'>Estado</th><th scope='col'>Días</th></tr>";
+                                foreach ($datos['estadosPublicacion'] as $estado) {
+                                    $theDate = $estado['fecha_cambio'];
+                                    $fecha = date('d-m-Y', strtotime($theDate));
+                                    echo "<tr><td>";
+                                
+                                    echo $fecha. "</td>";
+                                    echo "<td>".$estado['estado']. "</td>";
+                                    echo "<td>".$estado['diasdesdepublicacion']. "</td></tr>";
+                                }
+                                echo "</table>";
+                            }
+						?>
+					</div>
 
 				</div>
 			</div>

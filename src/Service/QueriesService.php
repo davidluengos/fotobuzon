@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Library\DbConnection;
+use App\Library\MostrarVista;
 use App\Model\Categoria;
 use App\Model\Publicacion;
 use App\Model\Comentario;
@@ -49,6 +50,24 @@ class QueriesService
                 $estados[] = new Estado($resultado);
             }
             return $estados; //Devolvemos el array con todos los datos
+        } catch (\Exception $e) {
+            throw new Exception("ERROR - No se pudo obtener los estados " . $e->getMessage());
+        }
+    }
+
+    //tenemos un servicio que devuelve los estados
+    public function getEstadosPublicacion($idPublicacion): array
+    {
+        try {
+            $sql = "SELECT * FROM cambios_estado c, estados e WHERE c.id_publicacion = $idPublicacion AND c.estado_final = e.id_estado;";
+            $resultados = $this->dbConnection->ejecutarQueryConResultado($sql);
+            if($resultados){
+                foreach ($resultados as $resultado) {
+                    $estadosPublicacion[] = $resultado;
+                }
+            }else $estadosPublicacion = [];
+            
+            return $estadosPublicacion; //Devolvemos el array con todos los datos
         } catch (\Exception $e) {
             throw new Exception("ERROR - No se pudo obtener los estados " . $e->getMessage());
         }
@@ -128,10 +147,16 @@ class QueriesService
         try {
             $sql = "SELECT id_publicacion FROM publicaciones WHERE esta_creada = 1 AND id_categoria = $id_categoria ORDER BY id_publicacion DESC;";
             $resultados = $this->dbConnection->ejecutarQueryConResultado($sql);
-            foreach ($resultados as $resultado) {
-                $publicaciones[] = $this->getPublicacion($resultado['id_publicacion']);
+            if ($resultados) {
+                echo "sí hay";
+                foreach ($resultados as $resultado) {
+                    $publicaciones[] = $this->getPublicacion($resultado['id_publicacion']);
+                }
+                return $publicaciones; //Devolvemos el array de objetos publicación
             }
-            return $publicaciones; //Devolvemos el array de objetos publicación
+            else{
+                echo "no hay resultado ¿por qué si pongo aquí un mostrar vista no se va a dicha vista? o por qué no sale el catch?";
+            }
         } catch (\Exception $e) {
             throw new Exception("ERROR - No se pudo obtener ninguna publicación " . $e->getMessage());
         }
@@ -191,47 +216,52 @@ class QueriesService
         }
     }
 
-    public function getContarComentariosDePublicacion($id_publicacion){
+    public function getContarComentariosDePublicacion($id_publicacion)
+    {
         try {
             $sql = "SELECT count(comentario) FROM comentarios WHERE id_publicacion = $id_publicacion;";
             $resultado = $this->dbConnection->ejecutarQueryConUnResultado($sql);
-            return $resultado; 
+            return $resultado;
         } catch (\Exception $e) {
             throw new Exception("ERROR - No se pudo obtener ninguna publicación " . $e->getMessage());
         }
     }
 
-    public function getNombreCategoriaEnPublicacion (int $id_publicacion){
+    public function getNombreCategoriaEnPublicacion(int $id_publicacion)
+    {
         try {
-        $sql = "SELECT categoria FROM categorias C, publicaciones P WHERE P.id_categoria = C.id_categoria AND P.id_publicacion = $id_publicacion;";
-        $resultado = $this->dbConnection->ejecutarQueryConUnResultado($sql);
+            $sql = "SELECT categoria FROM categorias C, publicaciones P WHERE P.id_categoria = C.id_categoria AND P.id_publicacion = $id_publicacion;";
+            $resultado = $this->dbConnection->ejecutarQueryConUnResultado($sql);
             return $resultado['categoria'];
         } catch (\Exception $e) {
             throw new Exception("ERROR - No se pudo obtener ninguna categoría " . $e->getMessage());
         }
     }
 
-    public function getNombreEstadoDePublicacion ($id_publicacion){
+    public function getNombreEstadoDePublicacion($id_publicacion)
+    {
         try {
             $sql = "SELECT estado FROM estados E, publicaciones P WHERE P.id_estado = E.id_estado AND P.id_publicacion = $id_publicacion;";
             $resultado = $this->dbConnection->ejecutarQueryConUnResultado($sql);
-                return $resultado;
-            } catch (\Exception $e) {
-                throw new Exception("ERROR - No se pudo obtener ningún estado " . $e->getMessage());
-            }
+            return $resultado;
+        } catch (\Exception $e) {
+            throw new Exception("ERROR - No se pudo obtener ningún estado " . $e->getMessage());
+        }
     }
 
-    public function getNombreAutorDePublicacion ($id_publicacion){
+    public function getNombreAutorDePublicacion($id_publicacion)
+    {
         try {
             $sql = "SELECT * FROM usuarios U, publicaciones P WHERE P.id_autor = U.id_usuario AND P.id_publicacion = $id_publicacion;";
             $resultado = $this->dbConnection->ejecutarQueryConUnResultado($sql);
-                return $resultado;
-            } catch (\Exception $e) {
-                throw new Exception("ERROR - No se pudo obtener ningún nombre de autor " . $e->getMessage());
-            }
+            return $resultado;
+        } catch (\Exception $e) {
+            throw new Exception("ERROR - No se pudo obtener ningún nombre de autor " . $e->getMessage());
+        }
     }
 
-    public function getFechaResolucionIncidencia ($id_publicacion) :?string{
+    public function getFechaResolucionIncidencia($id_publicacion): ?string
+    {
         try {
             $sql = "SELECT fecha_cambio FROM cambios_estado WHERE id_publicacion = $id_publicacion AND estado_final = 4;";
             $resultado = $this->dbConnection->ejecutarQueryConUnResultado($sql);
@@ -239,27 +269,25 @@ class QueriesService
                 return $resultado['fecha_cambio'];
             }
             return null;
-            } catch (\Exception $e) {
-                throw new Exception("ERROR - No se pudo obtener ninguna fecha " . $e->getMessage());
-            }
+        } catch (\Exception $e) {
+            throw new Exception("ERROR - No se pudo obtener ninguna fecha " . $e->getMessage());
+        }
     }
 
-    public function getDiasResolucionIncidencia ($id_publicacion) :?int{
+    public function getDiasResolucionIncidencia($id_publicacion): ?int
+    {
         try {
             $fechaInicio = $this->getPublicacion($id_publicacion)->getFecha_publicacion();
             $fechaFin = $this->getFechaResolucionIncidencia($id_publicacion);
-            if($fechaFin){
-                $fecha1= new DateTime($fechaInicio);
-                $fecha2= new DateTime($fechaFin);
+            if ($fechaFin) {
+                $fecha1 = new DateTime($fechaInicio);
+                $fecha2 = new DateTime($fechaFin);
                 $diff = $fecha1->diff($fecha2);
                 return $diff->days;
             }
             return null;
-            } catch (\Exception $e) {
-                throw new Exception("ERROR - No se pudo obtener ninguna fecha " . $e->getMessage());
-            }
-
+        } catch (\Exception $e) {
+            throw new Exception("ERROR - No se pudo obtener ninguna fecha " . $e->getMessage());
+        }
     }
-
-
 }

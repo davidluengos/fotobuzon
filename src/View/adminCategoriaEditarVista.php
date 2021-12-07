@@ -8,12 +8,10 @@
 				<div class="col-md-6">
 					<div class="billing-details">
 						<div class="form-group">
-                        <input type="text" id="categoria" name="categoriaEditada" class="input" value="<?php echo ($datos['categoria']->getCategoria()); ?>">
+							<input type="text" id="categoria" name="categoriaEditada" class="input" value="<?php echo ($datos['categoria']->getCategoria()); ?>">
 						</div>
-						
 					</div>
 				</div>
-				
 				<div class="text-center text-md-left">
 					<a class="primary-btn order-submit" onclick="document.getElementById('contact-form').submit();">Editar Categoría</a>
 				</div>

@@ -8,12 +8,11 @@
 				<div class="col-md-6">
 					<div class="billing-details">
 						<div class="form-group">
-                        <input type="text" id="categoria" name="estadoEditado" class="input" value="<?php echo ($datos['estado']->getEstado()); ?>">
+							<input type="text" id="categoria" name="estadoEditado" class="input" value="<?php echo ($datos['estado']->getEstado()); ?>">
 						</div>
-						
+
 					</div>
 				</div>
-				
 				<div class="text-center text-md-left">
 					<a class="primary-btn order-submit" onclick="document.getElementById('contact-form').submit();">Actualizar Estado</a>
 				</div>

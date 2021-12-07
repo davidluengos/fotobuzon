@@ -8,12 +8,10 @@
 				<div class="col-md-6">
 					<div class="billing-details">
 						<div class="form-group">
-                        <input type="text" id="categoria" name="categoria" class="input" placeholder="Nombre de Categoría">
+							<input type="text" id="categoria" name="categoria" class="input" placeholder="Nombre de Categoría">
 						</div>
-						
 					</div>
 				</div>
-				
 				<div class="text-center text-md-left">
 					<a class="primary-btn order-submit" onclick="document.getElementById('contact-form').submit();">Crear Categoría</a>
 				</div>

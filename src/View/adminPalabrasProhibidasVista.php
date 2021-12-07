@@ -9,8 +9,7 @@
           }
           ?>
         </h2>
-
-        <a class="primary-btn cta-btn botonPublicaciones" href="/admin/palabraprohibida/crear" >Nueva Palabra Prohibida</a>
+        <a class="primary-btn cta-btn botonPublicaciones" href="/admin/palabraprohibida/crear">Nueva Palabra Prohibida</a>
       </div>
       <table class="table  table-hover table-sm">
         <caption>Lista de Palabras Prohibidas</caption>
@@ -19,7 +18,6 @@
             <th scope="col">id</th>
             <th scope="col">Palabra Prohibida</th>
             <th scope="col">Acciones</th>
-
           </tr>
         </thead>
         <tbody>
@@ -33,7 +31,6 @@
               <td>
                 <a href="/admin/palabraprohibida/editar?id=<?php echo $palabra->getId_palabra(); ?>"><button>Editar</button></a>
               </td>
-
             </tr>
           <?php
           }

@@ -4,11 +4,11 @@
             <div class="section-title">
                 <h3 class="title">Editar publicación</h3>
                 <p>
-                    <ul>
-                        <li>Identificador: <?php echo $datos['publicacion']->getId_Publicacion(); ?></li>
-                        <li>Fecha de publicación: <?php echo $datos['publicacion']->getFecha_publicacion(); ?></li>
-                        <li>Autor: <?php echo $datos['autor']; ?></li>
-                    </ul>
+                <ul>
+                    <li>Identificador: <?php echo $datos['publicacion']->getId_Publicacion(); ?></li>
+                    <li>Fecha de publicación: <?php echo $datos['publicacion']->getFecha_publicacion(); ?></li>
+                    <li>Autor: <?php echo $datos['autor']; ?></li>
+                </ul>
                 </p>
             </div>
             <div>
@@ -31,26 +31,16 @@
 
                             </div>
                         </div>
-                        
+
                         <div class="col-md-6">
                             <div class="billing-details">
                                 <div class="form-group">
                                     <label for="categoria" class="">Categoría</label>
-                                        
-                                        
-                                    <?php
-                                            
-                                            $idCategoria = $datos['publicacion']->getCategoria();
-                                            echo "Id de categoría en la publicación: ".$idCategoria;
-                                            $idPosicionCategoriaEnArray = $idCategoria-1;
-                                            echo ". Posición en el array: ".$idPosicionCategoriaEnArray;
-                                    ?>
-                                    <?php //echo "<pre>"; print_r($datos['categorias'][$idCategoria]['categoria']); echo "</pre>";?>
-                                    <select name="categoriaEditada" class="form-control" >
+                                    <select name="categoriaEditada" class="form-control">
                                         <?php
                                         foreach ($datos['categorias'] as $categoria) {
                                             //para cada item del array $categoria imprimo el nombre con el código como su value
-                                            echo '<option '.($datos['publicacion']->getCategoria() == $categoria->getId_categoria()? 'selected':'').' value="' . $categoria->getId_categoria() . '">' . $categoria->getCategoria() . '</option>';
+                                            echo '<option ' . ($datos['publicacion']->getCategoria() == $categoria->getId_categoria() ? 'selected' : '') . ' value="' . $categoria->getId_categoria() . '">' . $categoria->getCategoria() . '</option>';
                                         }
                                         ?>
                                     </select>
@@ -62,11 +52,11 @@
                                         foreach ($datos['estados'] as $estado) {
                                             //esto es lo mismo que se ha hecho antes con las categorías pero de otra forma
                                             echo '<option ';
-                                            if($datos['publicacion']->getEstado() == $estado->getId_estado()){
+                                            if ($datos['publicacion']->getEstado() == $estado->getId_estado()) {
                                                 echo 'selected ';
                                             }
-                                            echo 'value="'.$estado->getId_estado().'"';
-                                            echo '>'.$estado->getEstado().'</option>';
+                                            echo 'value="' . $estado->getId_estado() . '"';
+                                            echo '>' . $estado->getEstado() . '</option>';
                                         }
                                         ?>
                                     </select>
@@ -82,9 +72,5 @@
 
             </div>
         </div>
-        <!-- /row -->
     </div>
-    <!-- /container -->
 </div>
-<!-- /SECTION -->
-

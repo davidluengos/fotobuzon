@@ -9,7 +9,6 @@
           }
           ?>
         </h2>
-
       </div>
       <table class="table  table-hover table-sm">
         <caption>Lista de Estados</caption>
@@ -18,7 +17,6 @@
             <th scope="col">id</th>
             <th scope="col">Estado</th>
             <th scope="col">Acciones</th>
-
           </tr>
         </thead>
         <tbody>

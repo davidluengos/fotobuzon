@@ -1,6 +1,5 @@
 <section class="section">
   <div class="container">
-
     <div class="table-responsive fondo">
       <div class="encabezado col-md-6">
         <h2 class="tituloh2">
@@ -12,20 +11,20 @@
         </h2>
       </div>
       <div class="col-md-6">
-      <div class="header-search botonPublicaciones">
-        <form method="post" action="/admin/publicaciones">
-          <select class="input-select" name="estadoSeleccionado">
-            <option value="">-- Seleccione un estado --</option>
-            <?php
-            foreach ($datos['estados'] as $estado) {
-              echo "<option value='" . $estado->getId_Estado() . "'>" . $estado->getEstado() . "</option>";
-            }
-            ?>
-          </select>
-          <button class="search-btn">Ver</button>
-        </form>
-      </div>
-      <a class="primary-btn cta-btn botonPublicaciones" href="/admin/publicacion/crear">Nueva Publicación</a>
+        <div class="header-search botonPublicaciones">
+          <form method="post" action="/admin/publicaciones">
+            <select class="input-select" name="estadoSeleccionado">
+              <option value="">-- Seleccione un estado --</option>
+              <?php
+              foreach ($datos['estados'] as $estado) {
+                echo "<option value='" . $estado->getId_Estado() . "'>" . $estado->getEstado() . "</option>";
+              }
+              ?>
+            </select>
+            <button class="search-btn">Ver</button>
+          </form>
+        </div>
+        <a class="primary-btn cta-btn botonPublicaciones" href="/admin/publicacion/crear">Nueva Publicación</a>
       </div>
       <table class="table  table-hover table-sm">
         <caption>Lista de Publicaciones</caption>

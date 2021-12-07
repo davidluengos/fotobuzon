@@ -1,10 +1,6 @@
-<!-- FOOTER -->
 <footer id="footer">
-	<!-- top footer -->
 	<div class="section">
-		<!-- container -->
 		<div class="container">
-			<!-- row -->
 			<div class="row">
 				<div class="col-md-4 col-xs-6">
 					<div class="footer">
@@ -17,7 +13,6 @@
 						</ul>
 					</div>
 				</div>
-
 				<div class="col-md-4 col-xs-6">
 					<div class="footer">
 						<h3 class="footer-title">Categories</h3>
@@ -30,9 +25,7 @@
 						</ul>
 					</div>
 				</div>
-
 				<div class="clearfix visible-xs"></div>
-
 				<div class="col-md-4 col-xs-6">
 					<div class="footer">
 						<h3 class="footer-title">Estados de las Incidencias</h3>
@@ -46,38 +39,26 @@
 						</ul>
 					</div>
 				</div>
-
-				
 			</div>
-			<!-- /row -->
 		</div>
-		<!-- /container -->
 	</div>
-	<!-- /top footer -->
-
-	<!-- bottom footer -->
 	<div id="bottom-footer" class="section">
 		<div class="container">
-			<!-- row -->
 			<div class="row">
 				<div class="col-md-12 text-center">
-					
+
 					<span class="copyright">
 						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 						Copyright &copy;<script>
 							document.write(new Date().getFullYear());
-						</script> David Luengo Sánchez | Proyecto Ciclo de Grado Superior de Desarrollo de Aplicaciones Web<i class="fa fa-heart-o" aria-hidden="true"></i> 
+						</script> David Luengo Sánchez | Proyecto Ciclo de Grado Superior de Desarrollo de Aplicaciones Web<i class="fa fa-heart-o" aria-hidden="true"></i>
 						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 					</span>
 				</div>
 			</div>
-			<!-- /row -->
 		</div>
-		<!-- /container -->
 	</div>
-	<!-- /bottom footer -->
 </footer>
-<!-- /FOOTER -->
 
 <!-- jQuery Plugins -->
 <script src="/js/jquery.min.js"></script>
@@ -94,7 +75,6 @@
 <!-- Chart JS -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-
 	const myChart = new Chart(
 		document.getElementById('myChart'),
 		config

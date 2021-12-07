@@ -7,7 +7,6 @@
 			<div id="messages" class="col-md-12">
 				<div class="panel-body" id="panel-errores"></div>
 			</div>
-
 			<form id="contact-form" name="contact-form" action="" method="POST" onsubmit="return validarUsuarioNuevo()">
 				<div class="col-md-6">
 					<div class="billing-details">

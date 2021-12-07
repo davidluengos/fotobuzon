@@ -953,7 +953,7 @@ textarea.input {
   z-index: 10;
 }
 
-.product .product-body .product-rating>i.fa-star {
+.product .product-body .product-rating>i.fa-chevron-down {
   color: #ef233c;
 }
 

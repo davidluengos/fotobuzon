@@ -6,7 +6,7 @@
 		<div class="container">
 			<!-- row -->
 			<div class="row">
-				<div class="col-md-3 col-xs-6">
+				<div class="col-md-4 col-xs-6">
 					<div class="footer">
 						<h3 class="footer-title">About Us</h3>
 						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut.</p>
@@ -18,7 +18,7 @@
 					</div>
 				</div>
 
-				<div class="col-md-3 col-xs-6">
+				<div class="col-md-4 col-xs-6">
 					<div class="footer">
 						<h3 class="footer-title">Categories</h3>
 						<ul class="footer-links">
@@ -33,31 +33,21 @@
 
 				<div class="clearfix visible-xs"></div>
 
-				<div class="col-md-3 col-xs-6">
+				<div class="col-md-4 col-xs-6">
 					<div class="footer">
-						<h3 class="footer-title">Information</h3>
+						<h3 class="footer-title">Estados de las Incidencias</h3>
+						<p>En la actualidad son 5 los posibles estados de las publicaciones, que pasamos a enumerar:</p>
 						<ul class="footer-links">
-							<li><a href="#">About Us</a></li>
-							<li><a href="#">Contact Us</a></li>
-							<li><a href="#">Privacy Policy</a></li>
-							<li><a href="#">Orders and Returns</a></li>
-							<li><a href="#">Terms & Conditions</a></li>
+							<li><b>Publicada:</b> La incidencia ha sido registrada por el usuario.</li>
+							<li><b>Aceptada:</b> La incidencia ha sido aceptada por la Administración. Se procederá a su subsanación.</li>
+							<li><b>Asignada:</b> Se ha asignado un equipo de trabajo.</li>
+							<li><b>Resuelta:</b> La incidencia ha sido resuelta.</li>
+							<li><b>No procede resolución:</b> En caso de que no se considere que haya que realizar acción alguna.</li>
 						</ul>
 					</div>
 				</div>
 
-				<div class="col-md-3 col-xs-6">
-					<div class="footer">
-						<h3 class="footer-title">Service</h3>
-						<ul class="footer-links">
-							<li><a href="#">My Account</a></li>
-							<li><a href="#">View Cart</a></li>
-							<li><a href="#">Wishlist</a></li>
-							<li><a href="#">Track My Order</a></li>
-							<li><a href="#">Help</a></li>
-						</ul>
-					</div>
-				</div>
+				
 			</div>
 			<!-- /row -->
 		</div>

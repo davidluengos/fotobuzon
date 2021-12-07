@@ -3,10 +3,11 @@
 		<div class="row">
 			<div class="col-md-6 col-xs-6">
 				<h2 class="text-uppercase">Envíanos tu sugerencia</h2>
-				<p>¡Bienvenidos a Fotobuzón!</p>
+				<p>Bienvenidos a Fotobuzón, el registro de incidencias de tu Ayuntamiento.</p>
+				<p>Ayuda a tu ciudad a ser una mejor comunidad gracias a tus sugerencias. </p>
 			</div>
 			<div class="col-md-6 col-xs-6">
-				<div class="enviarsugerencia">
+				<div class="enviarsugerencia botonPublicaciones">
 					<a class="primary-btn cta-btn" href="/publicacion/crear">Nueva publicación</a>
 				</div>
 			</div>
@@ -58,11 +59,12 @@
 												?></p>
 											<div class="product-rating">
 
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
+												<i class="fa fa-chevron-down"></i>
+												<i class="fa fa-chevron-down"></i>
+												<i class="fa fa-chevron-down"></i>
+												<i class="fa fa-chevron-down"></i>
+												<i class="fa fa-chevron-down"></i>
+												
 											</div>
 											<div class="product-btns">
 												<?php echo $publicacion->getNumeroComentarios(); ?> <i class="fa fa-comments"></i>

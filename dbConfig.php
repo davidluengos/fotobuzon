@@ -1,6 +1,6 @@
 <?php
 
 const DB_HOST = 'localhost';
-const DB_USER = 'root';
-const DB_PASSWORD = '';
-const DB_NAME = 'proy_fotobuzon';
+const DB_USER = 'fotobzn2021';
+const DB_PASSWORD = 'fb2021DAW';
+const DB_NAME = 'fotobuzondb';

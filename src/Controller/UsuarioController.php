@@ -6,20 +6,17 @@ use App\Model\Usuario;
 use App\Library\DbConnection;
 use App\Library\MostrarVista;
 use App\Service\SeguridadService;
-use App\Service\QueriesService;
 use Exception;
 
 class UsuarioController
 {
 
     private $dbConnection;
-    private $queryService;
     private $seguridadService;
 
-    public function __construct(DbConnection $dbC, QueriesService $queryService, SeguridadService $seguridadService)
+    public function __construct(DbConnection $dbC, SeguridadService $seguridadService)
     {
         $this->dbConnection = $dbC;
-        $this->queryService = $queryService;
         $this->seguridadService = $seguridadService;
     }
 
@@ -45,7 +42,7 @@ class UsuarioController
 
     // Ruta: /admin/usuario/crear
     public function crearUsuario(): string
-    {   
+    {
         $this->seguridadService->regirigeALoginSiNoEresRol(["Admin"]);
         $rol = 'Usuario';
         if (!empty($_POST['nombre']) & !empty($_POST['apellidos'])) {

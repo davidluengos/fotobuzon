@@ -28,7 +28,7 @@ class PublicacionController
     // Ruta: /admin/publicación/crear
     public function crearPublicacion(): string
     {
-        
+
         // Roles que pueden crear una publicación.
         $roles = ['Admin', 'Usuario'];
 
@@ -121,8 +121,8 @@ class PublicacionController
         $sql = "SELECT * FROM publicaciones WHERE id_publicacion = $idPublicacion";
         $publicacionArray = $this->dbConnection->ejecutarQueryConUnResultado($sql);
         $publicacionObjeto = new Publicacion($publicacionArray);
-        
-        $idAutor = $publicacionObjeto->getAutor_publicacion(); 
+
+        $idAutor = $publicacionObjeto->getAutor_publicacion();
         $nombreAutor = $this->queryService->getNombreAutor($idAutor);
         $variablesParaPasarAVista = [  //solamente hay una variable, que es la publicación
             'publicacion' => $publicacionObjeto,
@@ -138,7 +138,7 @@ class PublicacionController
                 titulo = '" . $_POST['tituloEditado'] . "', 
                 descripcion = '" . $_POST['descripcionEditada'] . "', 
                 id_categoria ='" . $_POST['categoriaEditada'] . "' , 
-                id_estado ='" . $_POST['estadoEditado'] ."', 
+                id_estado ='" . $_POST['estadoEditado'] . "', 
                 localizacion = '" . $_POST['localizacionEditada'] . "' 
                 WHERE  id_publicacion = " . $idPublicacion . " ";
                 $this->dbConnection->ejecutarQuery($sql);
@@ -169,13 +169,12 @@ class PublicacionController
     public function mostrarPublicaciones(): string
     {
         $this->seguridadService->regirigeALoginSiNoEresRol(["Admin"]);
-        
+
         try {
-            if(!empty($_POST['estadoSeleccionado'])){
+            if (!empty($_POST['estadoSeleccionado'])) {
                 $estadoSeleccionado = $_POST['estadoSeleccionado'];
                 $sql = "SELECT * FROM publicaciones WHERE esta_creada = 1 AND id_estado = $estadoSeleccionado ORDER BY id_publicacion DESC;";
-            }
-            else{
+            } else {
                 $sql = "SELECT * FROM publicaciones WHERE esta_creada = 1 ORDER BY id_publicacion DESC;";
             }
             $publicaciones = $this->dbConnection->ejecutarQueryConResultado($sql);
@@ -208,20 +207,20 @@ class PublicacionController
     {
 
         //Probando para mostrar los días de resolución de incidencias
-        
+
         //
-       
+
         $fechaComentario = date('Y-m-d H:i:s');
-        if (!empty($_POST['textoComentario']) && isset($_POST['submit']) ) {
-            
+        if (!empty($_POST['textoComentario']) && isset($_POST['submit'])) {
+
             $autor = $this->seguridadService->obtenerUsuarioLogueado();
-            if($autor){
-                $autor=$autor->getId_usuario();
-            }else{
+            if ($autor) {
+                $autor = $autor->getId_usuario();
+            } else {
                 //MensajeFlash::crearMensaje('Debe iniciar la sesión para poder realizar un comentario.', 'danger');
                 header("location:/publicacion/ver?id=$id_publicacion");
             }
-            
+
             try {
                 $sql = "INSERT INTO comentarios (id_publicacion, fecha_comentario, comentario, autor_comentario) VALUES ($id_publicacion, '$fechaComentario', '   " . $_POST['textoComentario']  . "    ', $autor)";
                 $this->dbConnection->ejecutarQuery($sql);
@@ -230,18 +229,16 @@ class PublicacionController
                 //así que redirijo a la misma publicación para vaciar POST
                 header("location:/publicacion/ver?id=$id_publicacion");
             } catch (\PDOException $e) {
-                throw new Exception("ERROR - No se pudo insertar el comentario " . $e->getMessage());             
-
+                throw new Exception("ERROR - No se pudo insertar el comentario " . $e->getMessage());
             }
         }
-            $publicacion = $this->queryService->getPublicacion($id_publicacion);
-            $estadosPublicacion = $this->queryService->getEstadosPublicacion($id_publicacion);
-            $variablesParaPasarAVista = [
-                'publicacion' => $publicacion,
-                'estadosPublicacion' => $estadosPublicacion
-            ];
-            
-            return MostrarVista::mostrarVista('adminPublicacionVista.php', $variablesParaPasarAVista);
-        
+        $publicacion = $this->queryService->getPublicacion($id_publicacion);
+        $estadosPublicacion = $this->queryService->getEstadosPublicacion($id_publicacion);
+        $variablesParaPasarAVista = [
+            'publicacion' => $publicacion,
+            'estadosPublicacion' => $estadosPublicacion
+        ];
+
+        return MostrarVista::mostrarVista('adminPublicacionVista.php', $variablesParaPasarAVista);
     }
 }

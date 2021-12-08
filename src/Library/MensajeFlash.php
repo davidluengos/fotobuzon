@@ -1,9 +1,10 @@
 <?php
+
 namespace App\Library;
 
 class MensajeFlash
 {
-    public static function crearMensaje(string $mensaje, string $tipo='info'): void
+    public static function crearMensaje(string $mensaje, string $tipo = 'info'): void
     {
         session_start();
         $_SESSION['mensajeFlash'] = $mensaje;
@@ -17,10 +18,8 @@ class MensajeFlash
             $mensaje = $_SESSION['mensajeFlash'];
             unset($_SESSION['mensajeFlash']);
             $tipo = $_SESSION['mensajeFlashTipo'];
-
-            return '<div class="alert alert-'.$tipo.'" role="alert">'.$mensaje.'</div>';
-        }return '';
+            return '<div class="alert alert-' . $tipo . '" role="alert">' . $mensaje . '</div>';
+        }
+        return '';
     }
-
-    
 }

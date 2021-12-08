@@ -13,12 +13,12 @@ class EstadoController
 
     private $dbConnection;
     private $seguridadService;
-   
 
-    public function __construct(DbConnection $dbC, SeguridadService $seguridadService){
+
+    public function __construct(DbConnection $dbC, SeguridadService $seguridadService)
+    {
         $this->dbConnection = $dbC;
         $this->seguridadService = $seguridadService;
-        
     }
 
     // Ruta: /admin/estados
@@ -34,7 +34,7 @@ class EstadoController
         } catch (\PDOException $e) {
             throw new Exception("ERROR - Se produjo un error al mostrar los estados " . $e->getMessage());
         }
-        $variablesParaPasarAVista = [ 
+        $variablesParaPasarAVista = [
             'titulo' => 'Administración de Estados',
             'estados' => $estados
         ];
@@ -66,6 +66,4 @@ class EstadoController
         }
         return MostrarVista::mostrarVista('adminEstadosEditarVista.php', $variablesParaPasarAVista);
     }
-
-    
 }

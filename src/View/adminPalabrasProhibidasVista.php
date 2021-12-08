@@ -29,7 +29,7 @@
               <th scope="row"><?php echo $palabra->getId_palabra(); ?></th>
               <td><?php echo $palabra->getPalabra(); ?></td>
               <td>
-                <a href="/admin/palabraprohibida/editar?id=<?php echo $palabra->getId_palabra(); ?>"><button>Editar</button></a>
+                <a href="/admin/palabraprohibida/editar?id=<?php echo $palabra->getId_palabra(); ?>"><i class="fa fa-edit"></i></a>
               </td>
             </tr>
           <?php

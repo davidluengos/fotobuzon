@@ -50,7 +50,7 @@ class PartePublicaController
         $autor = $this->seguridadService->obtenerUsuarioLogueado()->getId_usuario();
 
         if (!empty($_POST['titulo']) && !empty($_POST['descripcion'])) {
-            $id_publicacion= $_POST['id_publicacion'];
+            $id_publicacion = $_POST['id_publicacion'];
             $esCorrecto = true;
 
             $imagenes = $this->queryService->getImagenes($id_publicacion);
@@ -181,7 +181,7 @@ class PartePublicaController
     // Ruta: página no encontrada
     public function paginaNoEncontrada()
     {
-       
+
         $categorias = $this->queryService->getCategorias();
         $variablesParaPasarAVista = [
             'categorias' => $categorias

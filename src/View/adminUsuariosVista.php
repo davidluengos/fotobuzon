@@ -46,7 +46,7 @@
               <td><?php echo $usuario->getMunicipio(); ?></td>
               <td><?php echo $usuario->getProvincia(); ?></td>
               <td>
-                <a href="/admin/usuario/editar?id=<?php echo $usuario->getId_usuario(); ?>"><button>Editar</button></a>
+                <a href="/admin/usuario/editar?id=<?php echo $usuario->getId_usuario(); ?>"><i class="fa fa-edit"></i></a>
               </td>
             </tr>
           <?php

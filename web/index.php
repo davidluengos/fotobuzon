@@ -27,9 +27,9 @@ $seguridadService = new SeguridadService($dbConnection);
 // Cargar los controladores con los servicios inyectados
 $partePublicaController = new PartePublicaController($dbConnection, $queriesService, $seguridadService);
 $publicacionController = new PublicacionController($dbConnection, $queriesService, $seguridadService);
-$usuarioController = new UsuarioController($dbConnection, $queriesService, $seguridadService);
+$usuarioController = new UsuarioController($dbConnection, $seguridadService);
 $categoriaController = new CategoriaController($dbConnection, $queriesService, $seguridadService);
-$palabraProhibidaController = new PalabraProhibidaController($dbConnection, $queriesService, $seguridadService);
+$palabraProhibidaController = new PalabraProhibidaController($dbConnection, $seguridadService);
 $seguridadController = new SeguridadController($dbConnection, $queriesService);
 $estadoController = new EstadoController($dbConnection, $seguridadService);
 
@@ -117,6 +117,5 @@ try{
         throw $e;
     }
     $errores=['error'=>$e];
-    //$errores['error']=$e;
     echo MostrarVista::mostrarVistaPublica('excepcionVista.php',$errores);
 }

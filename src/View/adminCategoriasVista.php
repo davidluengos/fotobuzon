@@ -29,7 +29,7 @@
                 <th scope="row"><?php echo $categoria->getId_Categoria(); ?></th>
                 <td><?php echo $categoria->getCategoria(); ?></td>
                 <td>
-                  <a href="/admin/categoria/editar?id=<?php echo $categoria->getId_categoria(); ?>"><button>Editar</button></a>
+                  <a href="/admin/categoria/editar?id=<?php echo $categoria->getId_categoria(); ?>"><i class="fa fa-edit"></i></a>
                 </td>
               </tr>
             <?php

@@ -28,7 +28,7 @@
               <th scope="row"><?php echo $estado->getId_estado(); ?></th>
               <td><?php echo $estado->getEstado(); ?></td>
               <td>
-                <a href="/admin/estado/editar?id=<?php echo $estado->getId_estado(); ?>"><button>Editar</button></a>
+                <a href="/admin/estado/editar?id=<?php echo $estado->getId_estado(); ?>"><i class="fa fa-edit"></i></a>
               </td>
 
             </tr>

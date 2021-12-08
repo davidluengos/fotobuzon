@@ -13,7 +13,7 @@
 					</div>
 				</div>
 				<div class="text-center text-md-left">
-					<a class="primary-btn order-submit" onclick="document.getElementById('contact-form').submit();">Crear Categoría</a>
+					<a class="primary-btn order-submit" onclick="document.getElementById('contact-form').submit();">Añadir Categoría</a>
 				</div>
 			</form>
 		</div>

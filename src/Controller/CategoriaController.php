@@ -16,7 +16,8 @@ class CategoriaController
     private $queryService;
     private $seguridadService;
 
-    public function __construct(DbConnection $dbC, QueriesService $queryService, SeguridadService $seguridadService){
+    public function __construct(DbConnection $dbC, QueriesService $queryService, SeguridadService $seguridadService)
+    {
         $this->dbConnection = $dbC;
         $this->queryService = $queryService;
         $this->seguridadService = $seguridadService;

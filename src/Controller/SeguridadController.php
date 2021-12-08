@@ -21,15 +21,16 @@ class SeguridadController
     }
 
     // Ruta: /login
-    public function loginUsuario(){
+    public function loginUsuario()
+    {
         try {
             if (!empty($_POST['email']) && !empty($_POST['password'])) {
-                $sql= "SELECT * FROM usuarios WHERE email = '".$_POST['email']."' AND password = '".$_POST['password']."'";
+                $sql = "SELECT * FROM usuarios WHERE email = '" . $_POST['email'] . "' AND password = '" . $_POST['password'] . "'";
                 $usuario = $this->dbConnection->ejecutarQueryConUnResultado($sql);
                 if ($usuario) {
                     $usuarioLogueado = new Usuario($usuario);
                     if ($usuarioLogueado->getId_usuario()) {
-                        setcookie("emailCookie", $usuarioLogueado->getEmail(), time()+3600);
+                        setcookie("emailCookie", $usuarioLogueado->getEmail(), time() + 3600);
                     }
                     if ($usuarioLogueado->getRol() == "Admin") {
                         header("location:/admin/publicaciones");
@@ -39,10 +40,10 @@ class SeguridadController
                     }
                 }
                 MensajeFlash::crearMensaje('Usuario o contraseña incorrectas. Inténtelo de nuevo.', 'danger');
-              //  header("location:/login");
+                //  header("location:/login");
             }
-        }catch(\PDOException $e) {
-                throw new Exception("ERROR - Se produjo un error al introducir las credenciales de acceso " . $e->getMessage());
+        } catch (\PDOException $e) {
+            throw new Exception("ERROR - Se produjo un error al introducir las credenciales de acceso " . $e->getMessage());
         }
         $categorias = $this->queryService->getCategorias();
         $variablesParaPasarAVista = [
@@ -52,11 +53,11 @@ class SeguridadController
     }
 
     // Ruta: /logout
-    public function logoutUsuario(){
-        if(isset($_COOKIE['emailCookie'])){
-            setcookie("emailCookie", $_COOKIE['emailCookie'], time()-60);
+    public function logoutUsuario()
+    {
+        if (isset($_COOKIE['emailCookie'])) {
+            setcookie("emailCookie", $_COOKIE['emailCookie'], time() - 60);
             header("location:/");
-        } 
+        }
     }
-
 }

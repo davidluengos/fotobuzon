@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Model\Categoria;
 use App\Library\DbConnection;
 use App\Library\MostrarVista;
 use App\Model\PalabraProhibida;
@@ -14,12 +13,11 @@ class PalabraProhibidaController
 {
 
     private $dbConnection;
-    private $queryService;
     private $seguridadService;
 
-    public function __construct(DbConnection $dbC, QueriesService $queryService, SeguridadService $seguridadService){
+    public function __construct(DbConnection $dbC, SeguridadService $seguridadService)
+    {
         $this->dbConnection = $dbC;
-        $this->queryService = $queryService;
         $this->seguridadService = $seguridadService;
     }
 
@@ -51,7 +49,7 @@ class PalabraProhibidaController
             echo $_POST['palabraprohibida'];
             try {
                 $sql = "INSERT INTO palabras_prohibidas (nombre_palabra) VALUES ('" . $_POST['palabraprohibida'] . "')";
-                $publicaciones = $this->dbConnection->ejecutarQuery($sql);
+                $this->dbConnection->ejecutarQuery($sql);
                 header("location:/admin/palabrasprohibidas");
             } catch (\PDOException $e) {
                 throw new Exception("ERROR - Se produjo un error al crear las palabras prohibidas " . $e->getMessage());
@@ -77,7 +75,7 @@ class PalabraProhibidaController
                 $sql = "UPDATE palabras_prohibidas SET 
                     nombre_palabra = '" . $_POST['palabraEditada'] . "' 
                     WHERE id_palabra = " . $idPalabra . " ";
-                $publicaciones = $this->dbConnection->ejecutarQuery($sql);
+                $this->dbConnection->ejecutarQuery($sql);
                 header("location:/admin/palabrasprohibidas"); //redirijo a la página de publicaciones después de editar
             } catch (\PDOException $e) {
                 throw new Exception("ERROR - Se produjo un error al editar las palabras prohibidas " . $e->getMessage());

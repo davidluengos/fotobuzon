@@ -109,6 +109,9 @@ try{
         case "logout":
             echo $seguridadController->logoutUsuario();
             break;
+        case "terminos";
+            echo $partePublicaController->paginaTerminos();
+            break;    
         default:
             echo $partePublicaController->paginaNoEncontrada();
         }

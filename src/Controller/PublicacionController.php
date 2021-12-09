@@ -97,7 +97,6 @@ class PublicacionController
     {
         $this->seguridadService->regirigeALoginSiNoEresRol(["Admin"]);
         $idPublicacion = $_POST['eliminarporpost'];
-        echo "vamos a eliminar la publicación número " . $idPublicacion;
         if ($idPublicacion) {
             try {
                 $sql = "DELETE FROM publicaciones WHERE id_publicacion = $idPublicacion";
@@ -152,8 +151,8 @@ class PublicacionController
                 $fecha2 = new DateTime($fecha_cambio);
                 $diff = $fecha1->diff($fecha2);
                 if (($_POST['estadoEditado'] != $estadoInicial)) {
-                    $sql2 = "INSERT INTO cambios_estado (id_publicacion, fechapublicacion, id_categoria, estado_inicial, estado_final, fecha_cambio, diasdesdepublicacion) 
-                    VALUES ($idPublicacion, '$fechaPublicacion', $categoria, $estadoInicial, $estadoFinal, '$fecha_cambio', $diff->days)";
+                    $sql2 = "INSERT INTO cambios_estado (id_publicacion, id_categoria, estado_inicial, estado_final, fecha_cambio, diasdesdepublicacion) 
+                    VALUES ($idPublicacion, $categoria, $estadoInicial, $estadoFinal, '$fecha_cambio', $diff->days)";
                     $this->dbConnection->ejecutarQuery($sql2);
                 }
                 header("location:/admin/publicaciones"); //redirijo a la página de publicaciones después de editar

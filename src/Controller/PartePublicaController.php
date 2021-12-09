@@ -146,17 +146,28 @@ class PartePublicaController
     // Ruta: /usuario/crear
     public function crearUsuario(): string
     {
+
+
         $rol = 'Usuario';
         if (!empty($_POST['nombre']) & !empty($_POST['apellidos'])) {
+            $correo = $_POST['email'];
+            $existeMailEnBD = $this->queryService->existeCorreoEnBD($correo);
+            if ($existeMailEnBD == true) {
+                MensajeFlash::crearMensaje('Email ya registrado en el sistema. Escriba su mail y contraseña para acceder.', 'danger');
+                header("location:/login");
+                exit;
+            }
             try {
                 $sql = "INSERT INTO usuarios (rol, nombre, apellidos, email, password,  telefono, direccion, codigo_postal, municipio, provincia)
                     VALUES ('$rol','" . $_POST['nombre'] . "','" . $_POST['apellidos'] . "','" . $_POST['email'] . "','" . $_POST['password'] . "','" . $_POST['telefono'] . "','" . $_POST['direccion'] . "','" . $_POST['cpostal'] . "','" . $_POST['municipio'] . "','" . $_POST['provincia'] . "');";
                 $this->dbConnection->ejecutarQuery($sql);
+                MensajeFlash::crearMensaje('Email registrado correctamente. Escriba su mail y contraseña para acceder.', 'success');
                 header("location:/login");
             } catch (\PDOException $e) {
                 throw new Exception("ERROR - Se produjo un error al insertar un usuario " . $e->getMessage());
             }
         } else {
+
             $categorias = $this->queryService->getCategorias();
             $variablesParaPasarAVista = [
                 'categorias' => $categorias
@@ -165,6 +176,7 @@ class PartePublicaController
         }
     }
 
+    // Ruta: /publicaciones/categoria
     public function verPublicacionesDeCategoria()
     {
         $categoriaSeleccionada = $_POST['categoriaSeleccionada'];
@@ -178,6 +190,7 @@ class PartePublicaController
         return MostrarVista::mostrarVistaPublica('publicoPublicacionesPorCategoriaVista.php', $variablesParaPasarAVista);
     }
 
+
     // Ruta: página no encontrada
     public function paginaNoEncontrada()
     {
@@ -187,5 +200,14 @@ class PartePublicaController
             'categorias' => $categorias
         ];
         return MostrarVista::mostrarVistaPublica('publico404.php', $variablesParaPasarAVista);
+    }
+
+
+    public function paginaTerminos(){
+        $categorias = $this->queryService->getCategorias();
+        $variablesParaPasarAVista = [
+            'categorias' => $categorias
+        ];
+        return MostrarVista::mostrarVistaPublica('publicoTerminos.php', $variablesParaPasarAVista);
     }
 }

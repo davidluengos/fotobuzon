@@ -1,9 +1,17 @@
+<?php
+
+use App\Library\MensajeFlash;
+
+?>
+
 <div class="section">
     <div class="container">
         <div class="row">
             <div class="section-title">
                 <h3 class="title">Publicaciones de la categoría de <?php echo $datos['categoria']; ?></h3>
+                
             </div>
+            <?php echo MensajeFlash::obtenerMensaje() ?>
             <?php foreach ($datos['publicaciones'] as $publicacion) {
             ?>
                 <div class="col-md-6 col-xs-6">

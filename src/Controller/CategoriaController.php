@@ -48,7 +48,6 @@ class CategoriaController
     {
         $this->seguridadService->regirigeALoginSiNoEresRol(["Admin"]);
         if (!empty($_POST['categoria'])) {
-            echo $_POST['categoria'];
             try {
                 $sql = "INSERT INTO categorias (categoria) VALUES ('" . $_POST['categoria'] . "')";
                 $this->dbConnection->ejecutarQuery($sql);

@@ -48,7 +48,7 @@
 				</div>
 				<div class="col-md-6">
 					<div class="text-center">
-						<input type="checkbox" class="input" name="aceptarTerminos" id="aceptarTerminos"> Acepto los términos y condiciones</input>
+						<input type="checkbox" class="input" name="aceptarTerminos" id="aceptarTerminos"> Acepto los <a href="/terminos">términos y condiciones</a> </input>
 					</div>
 				</div>
 				<div class="col-md-6">

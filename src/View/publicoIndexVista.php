@@ -79,7 +79,7 @@
 								}
 								?>
 							</div>
-							<div id="slick-nav-1" class="products-slick-nav"></div>
+							
 						</div>
 					</div>
 				</div>
@@ -113,8 +113,8 @@
 							labels: etiquetas,
 							datasets: [{
 								label: 'Tiempo Promedio de Resolución (días)',
-								backgroundColor: 'rgb(0, 99, 132)',
-								borderColor: 'rgb(255, 99, 132)',
+								backgroundColor: 'rgb(209, 0, 36)',
+								borderColor: 'rgb(209, 0 , 36)',
 								data: numeros,
 							}]
 						};

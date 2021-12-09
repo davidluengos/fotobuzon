@@ -46,7 +46,6 @@ class PalabraProhibidaController
     {
         $this->seguridadService->regirigeALoginSiNoEresRol(["Admin"]);
         if (!empty($_POST['palabraprohibida'])) {
-            echo $_POST['palabraprohibida'];
             try {
                 $sql = "INSERT INTO palabras_prohibidas (nombre_palabra) VALUES ('" . $_POST['palabraprohibida'] . "')";
                 $this->dbConnection->ejecutarQuery($sql);

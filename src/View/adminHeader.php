@@ -24,7 +24,7 @@
 			<div class="row">
 				<div class="col-md-3">
 					<div class="logotipo">
-						<a href="/">FOTOBUZÓN</a>
+						<a href="/admin/publicaciones">FOTOBUZÓN</a>
 					</div>
 				</div>
 				<div class="col-md-3">

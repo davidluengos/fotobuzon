@@ -75,7 +75,8 @@
 	dictMaxFilesExceeded: "¡Solo puede cargar hasta {{maxFiles}} archivos!",
 	dictInvalidFileType: "No puede cargar este tipo de archivo, el tipo de archivo solo puede ser * .jpg, *. png, *. jpeg, *. JPG, *. PNG, *. JPEG",
 	dictFileTooBig: "El archivo es demasiado grande ({{}} MB). El tamaño máximo de archivo de carga admitido: {{maxFilesize}} MB.",
-	dictRemoveFile: "<i class='fa fa-trash'></i>"
+	dictRemoveFile: "<i class='fa fa-trash'></i>",
+	dictDefaultMessage: "Arrastre aquí sus imágenes" 
   };
 </script>
 

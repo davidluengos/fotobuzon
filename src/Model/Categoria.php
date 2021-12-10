@@ -6,9 +6,12 @@ class Categoria{
     private $id_categoria;
     private $categoria;
 
+    //private $diasPromedioResolucion;
+
     public function __construct(array $row){
         $this->id_categoria = $row['id_categoria'];
         $this->categoria = $row['categoria'];
+       // $this->categoria = $row['diasPromedioResolucion'];
     }
 
 
@@ -27,4 +30,26 @@ class Categoria{
     {
         return $this->categoria;
     }
+
+    /**
+     * Set the value of diasPromedioResolucion
+     *
+     * @return  self
+     */ 
+    public function setDiasPromedioResolucion($diasPromedioResolucion)
+    {
+        $this->diasPromedioResolucion = $diasPromedioResolucion;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of diasPromedioResolucion
+     */ 
+    public function getDiasPromedioResolucion()
+    {
+        return $this->diasPromedioResolucion;
+    }
+
+   
 }

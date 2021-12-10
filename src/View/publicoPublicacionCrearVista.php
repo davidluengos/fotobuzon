@@ -53,7 +53,7 @@ use App\Library\MensajeFlash; ?>
 				<div class="section-title text-center">
 					<h3 class="title">Imágenes</h3>
 				</div>
-				<form action="/publicacion/crear-imagen?id_publicacion=<?php echo $datos['id_publicacion'] ?>" class="dropzone"></form>
+				<form action="/publicacion/crear-imagen?id_publicacion=<?php echo $datos['id_publicacion'] ?>" id="my-dropzone" class="dropzone"></form>
 			</div>
 		</div>
 	</div>

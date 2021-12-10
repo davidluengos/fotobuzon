@@ -66,6 +66,19 @@
 <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
 
+<script>
+  Dropzone.options.myDropzone = { // camelized version of the `id`
+	addRemoveLinks: true,
+    acceptedFiles: "image/*",
+	maxFiles: 5, // El límite superior del número de archivos cargados a la vez
+	maxFilesize : 2, // MB
+	dictMaxFilesExceeded: "¡Solo puede cargar hasta {{maxFiles}} archivos!",
+	dictInvalidFileType: "No puede cargar este tipo de archivo, el tipo de archivo solo puede ser * .jpg, *. png, *. jpeg, *. JPG, *. PNG, *. JPEG",
+	dictFileTooBig: "El archivo es demasiado grande ({{}} MB). El tamaño máximo de archivo de carga admitido: {{maxFilesize}} MB.",
+	dictRemoveFile: "<i class='fa fa-trash'></i>"
+  };
+</script>
+
 <!-- Chart JS -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>

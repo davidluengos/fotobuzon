@@ -79,7 +79,7 @@
 								}
 								?>
 							</div>
-							
+							<div id="slick-nav-1" class="products-slick-nav"></div>
 						</div>
 					</div>
 				</div>
@@ -88,7 +88,7 @@
 	</div>
 </div>
 <!-- Gráfico con los días de resolución-->
-<div class="section chart-section">
+<div class="section chart-section button-top">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
@@ -106,7 +106,7 @@
 						];
 						var numeros = [
 							<?php foreach ($datos['categorias'] as $categoria) {
-								echo "'" . rand(0, 100) . "',";
+								echo "'{$categoria->getDiasPromedioResolucion()}',";
 							} ?>
 						];
 						var data = {

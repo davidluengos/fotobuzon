@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Library\DbConnection;
+use App\Library\MensajeFlash;
 use App\Library\MostrarVista;
 use App\Model\Categoria;
 use App\Model\Publicacion;
@@ -32,7 +33,10 @@ class QueriesService
             $sql = "SELECT * FROM categorias;";
             $resultados = $this->dbConnection->ejecutarQueryConResultado($sql);
             foreach ($resultados as $resultado) {
-                $categorias[] = new Categoria($resultado);
+                $dias = $this->getDiasPromedioResolucionIncidencias($resultado['id_categoria']);
+                $categoria = new Categoria($resultado);
+                $categoria->setDiasPromedioResolucion($dias);
+                $categorias[] = $categoria;
             }
             return $categorias; //Devolvemos el array con todos los datos
         } catch (\Exception $e) {
@@ -61,12 +65,12 @@ class QueriesService
         try {
             $sql = "SELECT * FROM cambios_estado c, estados e WHERE c.id_publicacion = $idPublicacion AND c.estado_final = e.id_estado;";
             $resultados = $this->dbConnection->ejecutarQueryConResultado($sql);
-            if($resultados){
+            if ($resultados) {
                 foreach ($resultados as $resultado) {
                     $estadosPublicacion[] = $resultado;
                 }
-            }else $estadosPublicacion = [];
-            
+            } else $estadosPublicacion = [];
+
             return $estadosPublicacion; //Devolvemos el array con todos los datos
         } catch (\Exception $e) {
             throw new Exception("ERROR - No se pudo obtener los estados " . $e->getMessage());
@@ -152,9 +156,10 @@ class QueriesService
                     $publicaciones[] = $this->getPublicacion($resultado['id_publicacion']);
                 }
                 return $publicaciones; //Devolvemos el array de objetos publicación
-            }
-            else{
-                echo "no hay resultado ¿por qué si pongo aquí un mostrar vista no se va a dicha vista? o por qué no sale el catch?";
+            } else {
+                MensajeFlash::crearMensaje('Todavía no hay publicaciones de esta categoría.', 'info');
+                $publicaciones = [];
+                return $publicaciones;
             }
         } catch (\Exception $e) {
             throw new Exception("ERROR - No se pudo obtener ninguna publicación " . $e->getMessage());
@@ -288,6 +293,33 @@ class QueriesService
         } catch (\Exception $e) {
             throw new Exception("ERROR - No se pudo obtener ninguna fecha " . $e->getMessage());
         }
-        
+    }
+
+    public function getDiasPromedioResolucionIncidencias($id_categoria): ?int
+    {
+        try {
+            $sql = "SELECT AVG(diasdesdepublicacion) as mediaDiasPublicacion FROM cambios_estado WHERE estado_final = 4 AND id_categoria = $id_categoria";
+            $resultado = $this->dbConnection->ejecutarQueryConUnResultado($sql);
+            if ($resultado) {
+                return $resultado['mediaDiasPublicacion'];
+            }
+            return null;
+        } catch (\Exception $e) {
+            throw new Exception("ERROR - No se pudo obtener ningún valor " . $e->getMessage());
+        }
+    }
+
+    public function existeCorreoEnBD($mail)
+    {
+        try {
+            $sql = "SELECT * FROM usuarios WHERE email = '$mail'";
+            $resultado = $this->dbConnection->ejecutarQueryConUnResultado($sql);
+            if ($resultado) {
+                return true;
+            }
+            return false;
+        } catch (\Exception $e) {
+            throw new Exception("ERROR - No se pudo obtener ningún valor " . $e->getMessage());
+        }
     }
 }

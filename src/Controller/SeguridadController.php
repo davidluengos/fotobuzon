@@ -25,12 +25,12 @@ class SeguridadController
     {
         try {
             if (!empty($_POST['email']) && !empty($_POST['password'])) {
-                $sql = "SELECT * FROM usuarios WHERE email = '" . $_POST['email'] . "' AND password = '" . $_POST['password'] . "'";
+                $sql = "SELECT * FROM usuarios WHERE email = '" . $_POST['email'] . "' AND password = '" . md5($_POST['password']) . "'";
                 $usuario = $this->dbConnection->ejecutarQueryConUnResultado($sql);
                 if ($usuario) {
                     $usuarioLogueado = new Usuario($usuario);
                     if ($usuarioLogueado->getId_usuario()) {
-                        setcookie("emailCookie", $usuarioLogueado->getEmail(), time() + 3600);
+                        setcookie("user", $usuarioLogueado->getEmail() . '|' . md5($_POST['password']), time() + 3600);
                     }
                     if ($usuarioLogueado->getRol() == "Admin") {
                         header("location:/admin/publicaciones");
@@ -55,8 +55,8 @@ class SeguridadController
     // Ruta: /logout
     public function logoutUsuario()
     {
-        if (isset($_COOKIE['emailCookie'])) {
-            setcookie("emailCookie", $_COOKIE['emailCookie'], time() - 60);
+        if (isset($_COOKIE['user'])) {
+            setcookie("user", $_COOKIE['user'], time() - 60);
             header("location:/");
         }
     }

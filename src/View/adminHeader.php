@@ -8,8 +8,9 @@
 			</ul>
 			<ul class="header-links pull-right">
 				<?php
-				if (isset($_COOKIE['emailCookie'])) {
-					echo "<li><a href='#'><i class='fa fa-user-o'></i>" . $_COOKIE['emailCookie'] . "</a></li>";
+				if (isset($_COOKIE['user'])) {
+					list($user, $password) = explode('|', $_COOKIE['user']);
+					echo "<li><a href='#'><i class='fa fa-user-o'></i>" . $user . "</a></li>";
 					echo "<li><a href='/logout'><i class='fa fa-sign-out'></i>Salir</a></li>";
 				} else {
 					echo "<li><a href='/usuario/crear'><i class='fa fa-user-o'></i>Nuevo Usuario</a></li>";

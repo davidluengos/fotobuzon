@@ -14,13 +14,18 @@ class SeguridadService {
     }
 
     public function obtenerUsuarioLogueado() :?Usuario{
-        if (!isset($_COOKIE['emailCookie'])){
+        if (!isset($_COOKIE['user'])){
             return null;
         }
-        $sql= "SELECT * FROM usuarios WHERE email = '".$_COOKIE['emailCookie']."'";
+        list($user, $password) = explode('|', $_COOKIE['user']);
+        $sql= "SELECT * FROM usuarios WHERE email = '".$user."' AND password='".$password."'";
         $usuario = $this->dbConnection->ejecutarQueryConUnResultado($sql);
-        $usuarioLogueado = new Usuario($usuario);
-        return $usuarioLogueado;
+        if ($usuario) {
+            $usuarioLogueado = new Usuario($usuario);
+            return $usuarioLogueado;
+        }
+
+        return null;
     }
 
 

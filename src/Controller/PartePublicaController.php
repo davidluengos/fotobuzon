@@ -59,12 +59,16 @@ class PartePublicaController
                 MensajeFlash::crearMensaje('Por favor, incluya imágenes en la nueva publicación.', 'danger');
             }
             $textoDescripcion = $_POST['descripcion'];
-
+            $textoTitulo =$_POST['titulo'];
+            $textoLocalizacion =$_POST['localizacion'];
             $palabras = $this->queryService->getPalabrasProhibidas();
 
             foreach ($palabras as $palabra) {
-                $pos = strpos($textoDescripcion, $palabra->getPalabra());
-                if ($pos !== false) {
+                $posTitulo = strpos($textoTitulo, $palabra->getPalabra());
+                $posDescripcion = strpos($textoDescripcion, $palabra->getPalabra());
+                $posLocalizacion = strpos($textoLocalizacion, $palabra->getPalabra());
+                
+                if ($posTitulo !== false || $posDescripcion !== false || $posLocalizacion !== false) {
                     $esCorrecto = false;
                     MensajeFlash::crearMensaje('Por favor, vuelva a escribir su mensaje sin utilizar alguna de las palabras prohibidas.', 'danger');
                     break;
@@ -72,7 +76,7 @@ class PartePublicaController
             }
             if ($esCorrecto) {
                 try {
-                    $sql = "UPDATE publicaciones SET fecha_publicacion = '$fecha_publicacion', titulo='" . $_POST['titulo'] . "', descripcion='" . $_POST['descripcion'] . "', id_categoria='" . $_POST['categoria'] . "', id_estado='$estado', id_autor='$autor', localizacion='" . $_POST['localizacion'] . "', esta_creada = '1' WHERE id_publicacion=" . $id_publicacion . "";
+                    $sql = "UPDATE publicaciones SET fecha_publicacion = '$fecha_publicacion', titulo='" . $textoTitulo . "', descripcion='" . $textoDescripcion . "', id_categoria='" . $_POST['categoria'] . "', id_estado='$estado', id_autor='$autor', localizacion='" . $textoLocalizacion . "', esta_creada = '1' WHERE id_publicacion=" . $id_publicacion . "";
                     $this->dbConnection->ejecutarQuery($sql);
                     if ($this->seguridadService->obtenerUsuarioLogueado()->getRol() == 'Admin') {
                         header("location:/admin/publicaciones");
@@ -159,7 +163,7 @@ class PartePublicaController
             }
             try {
                 $sql = "INSERT INTO usuarios (rol, nombre, apellidos, email, password,  telefono, direccion, codigo_postal, municipio, provincia)
-                    VALUES ('$rol','" . $_POST['nombre'] . "','" . $_POST['apellidos'] . "','" . $_POST['email'] . "','" . $_POST['password'] . "','" . $_POST['telefono'] . "','" . $_POST['direccion'] . "','" . $_POST['cpostal'] . "','" . $_POST['municipio'] . "','" . $_POST['provincia'] . "');";
+                    VALUES ('$rol','" . $_POST['nombre'] . "','" . $_POST['apellidos'] . "','" . $_POST['email'] . "','" . md5($_POST['password']) . "','" . $_POST['telefono'] . "','" . $_POST['direccion'] . "','" . $_POST['cpostal'] . "','" . $_POST['municipio'] . "','" . $_POST['provincia'] . "');";
                 $this->dbConnection->ejecutarQuery($sql);
                 MensajeFlash::crearMensaje('Email registrado correctamente. Escriba su mail y contraseña para acceder.', 'success');
                 header("location:/login");

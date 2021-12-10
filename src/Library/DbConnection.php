@@ -14,7 +14,7 @@ class DbConnection
     public function __construct(string $host, string $user, string $password, string $dbName)
     {
         try {
-            $conn = new PDO("mysql:host=$host;dbname=$dbName", $user, $password);
+            $conn = new PDO("mysql:host=$host;dbname=$dbName;charset=utf8", $user, $password);
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->connection = $conn;
         } catch (\Exception $e) {

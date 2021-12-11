@@ -5,7 +5,7 @@
         <h2 class="tituloh2">
           <?php
           if ($datos['titulo']) {
-            echo ($datos['titulo']);
+              echo($datos['titulo']);
           }
           ?>
         </h2>
@@ -23,7 +23,7 @@
           <?php
           /** @var App\Model\Categoria $categoria */
           foreach ($datos['estados'] as $estado) {
-          ?>
+              ?>
             <tr>
               <th scope="row"><?php echo $estado->getId_estado(); ?></th>
               <td><?php echo $estado->getEstado(); ?></td>

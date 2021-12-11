@@ -2,7 +2,8 @@
 
 namespace App\Model;
 
-class Usuario{
+class Usuario
+{
     private $id_usuario;
     private $rol;
     private $nombre;
@@ -14,7 +15,8 @@ class Usuario{
     private $municipio;
     private $provincia;
 
-    public function __construct(array $row){
+    public function __construct(array $row)
+    {
         $this->id_usuario = $row['id_usuario'];
         $this->rol = $row['rol'];
         $this->nombre = $row['nombre'];
@@ -29,7 +31,7 @@ class Usuario{
 
     /**
      * Get the value of id_usuario
-     */ 
+     */
     public function getId_usuario()
     {
         return $this->id_usuario;
@@ -37,7 +39,7 @@ class Usuario{
 
     /**
      * Get the value of rol
-     */ 
+     */
     public function getRol()
     {
         return $this->rol;
@@ -45,7 +47,7 @@ class Usuario{
 
     /**
      * Get the value of nombre
-     */ 
+     */
     public function getNombre()
     {
         return $this->nombre;
@@ -53,7 +55,7 @@ class Usuario{
 
     /**
      * Get the value of apellidos
-     */ 
+     */
     public function getApellidos()
     {
         return $this->apellidos;
@@ -61,7 +63,7 @@ class Usuario{
 
     /**
      * Get the value of email
-     */ 
+     */
     public function getEmail()
     {
         return $this->email;
@@ -69,7 +71,7 @@ class Usuario{
 
     /**
      * Get the value of telefono
-     */ 
+     */
     public function getTelefono()
     {
         return $this->telefono;
@@ -77,7 +79,7 @@ class Usuario{
 
     /**
      * Get the value of direccion
-     */ 
+     */
     public function getDireccion()
     {
         return $this->direccion;
@@ -85,7 +87,7 @@ class Usuario{
 
     /**
      * Get the value of codigo_postal
-     */ 
+     */
     public function getCodigo_postal()
     {
         return $this->codigo_postal;
@@ -93,7 +95,7 @@ class Usuario{
 
     /**
      * Get the value of municipio
-     */ 
+     */
     public function getMunicipio()
     {
         return $this->municipio;
@@ -101,7 +103,7 @@ class Usuario{
 
     /**
      * Get the value of provincia
-     */ 
+     */
     public function getProvincia()
     {
         return $this->provincia;

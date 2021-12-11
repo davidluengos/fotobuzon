@@ -4,6 +4,7 @@ namespace App\Library;
 
 class MensajeFlash
 {
+    // función para crear un mensaje. Si no se declara el tipo de mensaje, por defecto será 'info'
     public static function crearMensaje(string $mensaje, string $tipo = 'info'): void
     {
         session_start();
@@ -11,6 +12,7 @@ class MensajeFlash
         $_SESSION['mensajeFlashTipo'] = $tipo;
     }
 
+    // función para mostrar el mensaje
     public static function obtenerMensaje(): string
     {
         @session_start();

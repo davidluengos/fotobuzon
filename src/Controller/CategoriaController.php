@@ -5,21 +5,17 @@ namespace App\Controller;
 use App\Model\Categoria;
 use App\Library\DbConnection;
 use App\Library\MostrarVista;
-use App\Service\QueriesService;
 use App\Service\SeguridadService;
 use Exception;
 
 class CategoriaController
 {
-
     private $dbConnection;
-    private $queryService;
     private $seguridadService;
 
-    public function __construct(DbConnection $dbC, QueriesService $queryService, SeguridadService $seguridadService)
+    public function __construct(DbConnection $dbC, SeguridadService $seguridadService)
     {
         $this->dbConnection = $dbC;
-        $this->queryService = $queryService;
         $this->seguridadService = $seguridadService;
     }
 

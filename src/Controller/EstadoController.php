@@ -10,7 +10,6 @@ use Exception;
 
 class EstadoController
 {
-
     private $dbConnection;
     private $seguridadService;
 
@@ -22,7 +21,7 @@ class EstadoController
 
     //
     //
-    // Funciones desarrolladas para los estados: mostrar y editar. 
+    // Funciones desarrolladas para los estados: mostrar y editar.
     // No se contempla en el proyecto que se puedan crear nuevos estados, pues algunas funciones dependen del estado.
     //
     //

@@ -22,5 +22,4 @@ class PalabraProhibida
     {
         return $this->palabra;
     }
-
-}  
+}

@@ -28,13 +28,12 @@
 						<div id="tab1" class="tab-pane active">
 							<div class="products-slick" data-nav="#slick-nav-1">
 								<?php
-								foreach ($datos['publicaciones'] as $publicacion) {
-									$imagenPrincipal = $publicacion->getImagenPrincipal();
-								?>
+                                foreach ($datos['publicaciones'] as $publicacion) {
+                                    $imagenPrincipal = $publicacion->getImagenPrincipal(); ?>
 									<div class="product">
 										<div class="product-img">
 											<?php if ($imagenPrincipal) { ?>
-												<img src="<?php echo $imagenPrincipal->getPath_imagen() ?>" alt="">
+												<img src="<?php echo $imagenPrincipal->getPath_imagen(true) ?>" alt="">
 											<?php } else { ?>
 												<img src="./img/fotobuzon.jpg" alt="">
 											<?php } ?>
@@ -45,19 +44,18 @@
 										<div class="product-body">
 											<p class="product-category">
 												<?php
-												$theDate = $publicacion->getFecha_publicacion();
-												$fecha = date('d-m-Y', strtotime($theDate));
-												echo $fecha; ?>
+                                                $theDate = $publicacion->getFecha_publicacion();
+                                    $fecha = date('d-m-Y', strtotime($theDate));
+                                    echo $fecha; ?>
 											</p>
 											<h3 class="product-name"><a href="#"><?php echo $publicacion->getTitulo() ?></a></h3>
 											<p><?php
-												$descripcion =  $publicacion->getDescripcion();
-												$descripcionCorta = substr($descripcion, 0, 100);
-												echo $descripcionCorta;
-												if ((strlen($descripcion)) > 100) {
-													echo "...";
-												}
-												?></p>
+                                                $descripcion =  $publicacion->getDescripcion();
+                                    $descripcionCorta = substr($descripcion, 0, 100);
+                                    echo $descripcionCorta;
+                                    if ((strlen($descripcion)) > 100) {
+                                        echo "...";
+                                    } ?></p>
 											<div class="product-rating">
 												<i class="fa fa-chevron-down"></i>
 												<i class="fa fa-chevron-down"></i>
@@ -76,8 +74,8 @@
 										</div>
 									</div>
 								<?php
-								}
-								?>
+                                }
+                                ?>
 							</div>
 							<div id="slick-nav-1" class="products-slick-nav"></div>
 						</div>
@@ -101,13 +99,13 @@
 					<script>
 						var etiquetas = [
 							<?php foreach ($datos['categorias'] as $categoria) {
-								echo "'{$categoria->getCategoria()}',";
-							} ?>
+                                    echo "'{$categoria->getCategoria()}',";
+                                } ?>
 						];
 						var numeros = [
 							<?php foreach ($datos['categorias'] as $categoria) {
-								echo "'{$categoria->getDiasPromedioResolucion()}',";
-							} ?>
+                                    echo "'{$categoria->getDiasPromedioResolucion()}',";
+                                } ?>
 						];
 						var data = {
 							labels: etiquetas,

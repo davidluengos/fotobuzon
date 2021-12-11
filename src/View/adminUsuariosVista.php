@@ -5,7 +5,7 @@
         <h2 class="tituloh2">
           <?php
           if ($datos['titulo']) {
-            echo $datos['titulo'];
+              echo $datos['titulo'];
           }
           ?>
         </h2>
@@ -33,7 +33,7 @@
           <?php
           /** @var App\Model\Usuario $usuario */
           foreach ($datos['usuarios'] as $usuario) {
-          ?>
+              ?>
             <tr>
               <th scope="row"><?php echo $usuario->getId_usuario(); ?></th>
               <td><?php echo $usuario->getRol(); ?></td>

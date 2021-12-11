@@ -1,6 +1,8 @@
 <?php
 
-use App\Library\MensajeFlash; ?>
+use App\Library\MensajeFlash;
+
+?>
 <div class="section">
 	<div class="container">
 		<div class="row">
@@ -24,11 +26,11 @@ use App\Library\MensajeFlash; ?>
 						<div class="form-group">
 							<select class="input" name="categoria" id="categoria" placeholder="Categoría">
 								<?php
-								foreach ($datos['categorias'] as $categoria) {
-									//para cada item del array $categoria imprimo el nombre con el código como su value
-									echo '<option value="' . $categoria->getId_categoria() . '">' . $categoria->getCategoria() . '</option>';
-								}
-								?>
+                                foreach ($datos['categorias'] as $categoria) {
+                                    //para cada item del array $categoria imprimo el nombre con el código como su value
+                                    echo '<option value="' . $categoria->getId_categoria() . '">' . $categoria->getCategoria() . '</option>';
+                                }
+                                ?>
 							</select>
 						</div>
 						<div class="form-group">

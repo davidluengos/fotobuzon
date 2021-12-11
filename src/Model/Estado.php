@@ -2,11 +2,13 @@
 
 namespace App\Model;
 
-class Estado{
+class Estado
+{
     private $id_estado;
     private $estado;
 
-    public function __construct(array $row){
+    public function __construct(array $row)
+    {
         $this->id_estado = $row['id_estado'];
         $this->estado = $row['estado'];
     }
@@ -15,7 +17,7 @@ class Estado{
 
     /**
      * Get the value of id_estado
-     */ 
+     */
     public function getId_estado()
     {
         return $this->id_estado;
@@ -23,7 +25,7 @@ class Estado{
 
     /**
      * Get the value of estado
-     */ 
+     */
     public function getEstado()
     {
         return $this->estado;

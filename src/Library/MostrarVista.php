@@ -4,7 +4,7 @@ namespace App\Library;
 
 class MostrarVista
 {
-
+    // función que devuelve una vista de administrador con los datos que necesitamos en cada caso
     public static function mostrarVista(string $rutaVista, array $datos = []): string
     {
         ob_start();
@@ -23,6 +23,7 @@ class MostrarVista
         return $var;
     }
 
+    // función que devuelve una vista pública, con los datos que necesitamos en cada caso
     public static function mostrarVistaPublica(string $rutaVista, array $datos = []): string
     {
         ob_start();

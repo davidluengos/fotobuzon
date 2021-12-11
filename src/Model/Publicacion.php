@@ -2,7 +2,8 @@
 
 namespace App\Model;
 
-class Publicacion {
+class Publicacion
+{
     private $id_publicacion;
     private $fecha_publicacion;
     private $titulo;
@@ -19,7 +20,8 @@ class Publicacion {
     private $comentarios;
     private $imagenes;
 
-    public function __construct(array $row){
+    public function __construct(array $row)
+    {
         $this->id_publicacion = $row['id_publicacion'];
         $this->fecha_publicacion = $row['fecha_publicacion'];
         $this->titulo = $row['titulo'];
@@ -37,7 +39,7 @@ class Publicacion {
 
     /**
      * Get the value of id_publicacion
-     */ 
+     */
     public function getId_publicacion()
     {
         return $this->id_publicacion;
@@ -45,7 +47,7 @@ class Publicacion {
 
     /**
      * Get the value of fecha_publicacion
-     */ 
+     */
     public function getFecha_publicacion()
     {
         return $this->fecha_publicacion;
@@ -53,7 +55,7 @@ class Publicacion {
 
     /**
      * Get the value of titulo
-     */ 
+     */
     public function getTitulo()
     {
         return $this->titulo;
@@ -61,7 +63,7 @@ class Publicacion {
 
     /**
      * Get the value of descripcion
-     */ 
+     */
     public function getDescripcion()
     {
         return $this->descripcion;
@@ -69,7 +71,7 @@ class Publicacion {
 
     /**
      * Get the value of categoria
-     */ 
+     */
     public function getCategoria()
     {
         return $this->categoria;
@@ -77,7 +79,7 @@ class Publicacion {
 
     /**
      * Get the value of estado
-     */ 
+     */
     public function getEstado()
     {
         return $this->estado;
@@ -85,7 +87,7 @@ class Publicacion {
 
     /**
      * Get the value of autor_publicacion
-     */ 
+     */
     public function getAutor_publicacion()
     {
         return $this->autor_publicacion;
@@ -93,7 +95,7 @@ class Publicacion {
 
     /**
      * Get the value of localizacion
-     */ 
+     */
     public function getLocalizacion()
     {
         return $this->localizacion;
@@ -103,7 +105,7 @@ class Publicacion {
      * Set the value of nombreCategoria
      *
      * @return  self
-     */ 
+     */
     public function setNombreCategoria($nombreCategoria)
     {
         $this->nombreCategoria = $nombreCategoria;
@@ -113,7 +115,7 @@ class Publicacion {
 
     /**
      * Get the value of nombreCategoria
-     */ 
+     */
     public function getNombreCategoria()
     {
         return $this->nombreCategoria;
@@ -121,7 +123,7 @@ class Publicacion {
 
     /**
      * Get the value of nombreEstado
-     */ 
+     */
     public function getNombreEstado()
     {
         return $this->nombreEstado;
@@ -131,7 +133,7 @@ class Publicacion {
      * Set the value of nombreEstado
      *
      * @return  self
-     */ 
+     */
     public function setNombreEstado($nombreEstado)
     {
         $this->nombreEstado = $nombreEstado;
@@ -141,7 +143,7 @@ class Publicacion {
 
     /**
      * Get the value of nombreAutor
-     */ 
+     */
     public function getNombreAutor()
     {
         return $this->nombreAutor;
@@ -151,7 +153,7 @@ class Publicacion {
      * Set the value of nombreAutor
      *
      * @return  self
-     */ 
+     */
     public function setNombreAutor($nombreAutor)
     {
         $this->nombreAutor = $nombreAutor;
@@ -161,7 +163,7 @@ class Publicacion {
 
     /**
      * Get the value of numeroComentarios
-     */ 
+     */
     public function getNumeroComentarios()
     {
         return count($this->comentarios);
@@ -169,7 +171,7 @@ class Publicacion {
 
     /**
      * Get the value of imagenPrincipal
-     */ 
+     */
     public function getImagenPrincipal()
     {
         return isset($this->imagenes[0]) ? $this->imagenes[0] : null;
@@ -178,7 +180,7 @@ class Publicacion {
 
     /**
      * Get the value of comentarios
-     */ 
+     */
     public function getComentarios()
     {
         return $this->comentarios;
@@ -188,7 +190,7 @@ class Publicacion {
      * Set the value of comentarios
      *
      * @return  self
-     */ 
+     */
     public function setComentarios($comentarios)
     {
         $this->comentarios = $comentarios;
@@ -198,7 +200,7 @@ class Publicacion {
 
     /**
      * Get the value of imagenes
-     */ 
+     */
     public function getImagenes()
     {
         return $this->imagenes;
@@ -208,7 +210,7 @@ class Publicacion {
      * Set the value of imagenes
      *
      * @return  self
-     */ 
+     */
     public function setImagenes($imagenes)
     {
         $this->imagenes = $imagenes;
@@ -216,4 +218,3 @@ class Publicacion {
         return $this;
     }
 }
-

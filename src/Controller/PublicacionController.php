@@ -13,7 +13,6 @@ use Exception;
 
 class PublicacionController
 {
-
     private $dbConnection;
     private $queryService;
     private $seguridadService;
@@ -57,6 +56,7 @@ class PublicacionController
                 } else {
                     header("location:/");
                 }
+                exit;
             } catch (\PDOException $e) {
                 throw new Exception("ERROR - Se produjo un error al crear una publicación " . $e->getMessage());
             }
@@ -79,18 +79,11 @@ class PublicacionController
             $roles = ['Admin', 'Usuario'];
             $this->seguridadService->regirigeALoginSiNoEresRol($roles);
             // Si no ha llegado imagen, tiramos excepción con código 999 para que en el index la vuelva a lanzar en vez de devolver un 200
-            if (!$_FILES['file'] && !$_FILES['file']['name']) {
+            if (!isset($_FILES['file']) && !isset($_FILES['file']['name'])) {
                 throw new Exception('No ha subido ninguna imagen', 999);
             }
             // Copiamos imagen física a la carpeta /uploads
-            $extension = UtilesFicheros::obtenerExtension($_FILES['file']['name']);
-            $nombre_random = substr(md5(mt_rand()), 0, 10);
-            $ruta_imagen_navegador = '/uploads/' . $id_publicacion . '/' . $nombre_random . '.' . $extension;
-            $ruta_imagen_fisica = '../web/uploads/' . $id_publicacion . '/' . $nombre_random . '.' . $extension;
-            if (!is_dir('../web/uploads/' . $id_publicacion . '/')) {
-                mkdir('../web/uploads/' . $id_publicacion . '/', 0777, true);
-            }
-            move_uploaded_file($_FILES['file']['tmp_name'], $ruta_imagen_fisica);
+            $ruta_imagen_navegador = UtilesFicheros::crearImagen($_FILES['file']['name'], $id_publicacion);
             // Insertar imagen en la base de datos
             $sql = "INSERT INTO imagenes (tipo_imagen, id_objeto, size, mimetype, path_imagen, nombre_imagen)
             VALUES ('publicacion', $id_publicacion, '" . $_FILES['file']['size'] . "', '" . $_FILES['file']['type'] . "', 
@@ -218,10 +211,8 @@ class PublicacionController
     // función que muestra una publicación
     public function verPublicacion($id_publicacion)
     {
-
         $fechaComentario = date('Y-m-d H:i:s');
         if (!empty($_POST['textoComentario']) && isset($_POST['submit'])) {
-
             $autor = $this->seguridadService->obtenerUsuarioLogueado();
             if ($autor) {
                 $autor = $autor->getId_usuario();
@@ -234,7 +225,7 @@ class PublicacionController
                 $sql = "INSERT INTO comentarios (id_publicacion, fecha_comentario, comentario, autor_comentario) 
                 VALUES ($id_publicacion, '$fechaComentario', '   " . $_POST['textoComentario']  . "    ', $autor)";
                 $this->dbConnection->ejecutarQuery($sql);
-                //aquí tengo que destruir el $_POST porque al recargar la página vuelve a crear el comentario 
+                //aquí tengo que destruir el $_POST porque al recargar la página vuelve a crear el comentario
                 //(con unset no lo hace, porque sigue teniendo el valor de post)
                 //así que redirijo a la misma publicación para vaciar POST
                 header("location:/publicacion/ver?id=$id_publicacion");

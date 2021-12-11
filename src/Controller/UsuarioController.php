@@ -10,7 +10,6 @@ use Exception;
 
 class UsuarioController
 {
-
     private $dbConnection;
     private $seguridadService;
 
@@ -61,6 +60,7 @@ class UsuarioController
                     '" . $_POST['direccion'] . "','" . $_POST['cpostal'] . "','" . $_POST['municipio'] . "','" . $_POST['provincia'] . "');";
                 $this->dbConnection->ejecutarQuery($sql);
                 header("location:/admin/usuarios");
+                exit;
             } catch (\PDOException $e) {
                 throw new Exception("ERROR - Se produjo un error al crear los usuarios " . $e->getMessage());
             }

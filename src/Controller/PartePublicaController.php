@@ -136,7 +136,7 @@ class PartePublicaController
             try {
                 $sql = "INSERT INTO comentarios (id_publicacion, fecha_comentario, comentario, autor_comentario) VALUES ($id_publicacion, '$fechaComentario', '   " . $_POST['textoComentario']  . "    ', $autor)";
                 $this->dbConnection->ejecutarQuery($sql);
-                //aquí tengo que destruir el $_POST porque al recargar la página vuelve a crear el comentario 
+                //aquí tengo que destruir el $_POST porque al recargar la página vuelve a crear el comentario
                 //(con unset no lo hace, porque sigue teniendo el valor de post)
                 //así que redirijo a la misma publicación para vaciar POST
                 header("location:/publicacion/ver?id=$id_publicacion");
@@ -175,11 +175,11 @@ class PartePublicaController
                 $this->dbConnection->ejecutarQuery($sql);
                 MensajeFlash::crearMensaje('Email registrado correctamente. Escriba su mail y contraseña para acceder.', 'success');
                 header("location:/login");
+                exit;
             } catch (\PDOException $e) {
                 throw new Exception("ERROR - Se produjo un error al insertar un usuario " . $e->getMessage());
             }
         } else {
-
             $categorias = $this->queryService->getCategorias();
             $variablesParaPasarAVista = [
                 'categorias' => $categorias
@@ -208,7 +208,6 @@ class PartePublicaController
     // función que dirige a una página 404
     public function paginaNoEncontrada()
     {
-
         $categorias = $this->queryService->getCategorias();
         $variablesParaPasarAVista = [
             'categorias' => $categorias

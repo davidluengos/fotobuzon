@@ -17,7 +17,6 @@ use Exception;
 
 class QueriesService
 {
-
     private $dbConnection;
 
     public function __construct(DbConnection $dbC)
@@ -30,6 +29,7 @@ class QueriesService
     public function getCategorias(): array
     {
         try {
+            $categorias=[];
             $sql = "SELECT * FROM categorias;";
             $resultados = $this->dbConnection->ejecutarQueryConResultado($sql);
             foreach ($resultados as $resultado) {
@@ -48,6 +48,7 @@ class QueriesService
     public function getEstados(): array
     {
         try {
+            $estados = [];
             $sql = "SELECT * FROM estados;";
             $resultados = $this->dbConnection->ejecutarQueryConResultado($sql);
             foreach ($resultados as $resultado) {
@@ -63,14 +64,14 @@ class QueriesService
     public function getEstadosPublicacion($idPublicacion): array
     {
         try {
+            $estadosPublicacion = [];
             $sql = "SELECT * FROM cambios_estado c, estados e WHERE c.id_publicacion = $idPublicacion AND c.estado_final = e.id_estado;";
             $resultados = $this->dbConnection->ejecutarQueryConResultado($sql);
             if ($resultados) {
                 foreach ($resultados as $resultado) {
                     $estadosPublicacion[] = $resultado;
                 }
-            } else $estadosPublicacion = [];
-
+            } 
             return $estadosPublicacion; //Devolvemos el array con todos los datos
         } catch (\Exception $e) {
             throw new Exception("ERROR - No se pudo obtener los estados " . $e->getMessage());
@@ -81,6 +82,7 @@ class QueriesService
     public function getPalabrasProhibidas(): array
     {
         try {
+            $palabras_prohibidas = [];
             $sql = "SELECT * FROM palabras_prohibidas;";
             $resultados = $this->dbConnection->ejecutarQueryConResultado($sql);
             foreach ($resultados as $resultado) {
@@ -135,6 +137,7 @@ class QueriesService
     public function getUltimasPublicaciones(): array
     {
         try {
+            $publicaciones = [];
             $sql = "SELECT id_publicacion FROM publicaciones WHERE esta_creada = 1 ORDER BY id_publicacion DESC LIMIT 10;";
             $resultados = $this->dbConnection->ejecutarQueryConResultado($sql);
             foreach ($resultados as $resultado) {
@@ -149,6 +152,7 @@ class QueriesService
     public function getPublicacionesDeCategoria($id_categoria): array
     {
         try {
+            $publicaciones =[];
             $sql = "SELECT id_publicacion FROM publicaciones WHERE esta_creada = 1 AND id_categoria = $id_categoria ORDER BY id_publicacion DESC;";
             $resultados = $this->dbConnection->ejecutarQueryConResultado($sql);
             if ($resultados) {
@@ -192,7 +196,6 @@ class QueriesService
     // Construyo un array con los datos que necesito para mostrar los comentarios en una publicación
     public function getComentariosConNombreAutor($id_publicacion)
     {
-
         try {
             $sql = "SELECT C.fecha_comentario, U.nombre, U.apellidos, C.comentario FROM comentarios C, usuarios U WHERE C.id_publicacion = $id_publicacion AND C.autor_comentario=U.id_usuario ORDER BY id_comentario DESC;";
             $comentarios = $this->dbConnection->ejecutarQueryConResultado($sql);
@@ -207,7 +210,6 @@ class QueriesService
 
     public function getImagenes($id_publicacion)
     {
-
         try {
             $sql = "SELECT * FROM imagenes WHERE id_objeto = $id_publicacion AND tipo_imagen = 'publicacion' ORDER BY id_imagen DESC;";
             $imagenes = $this->dbConnection->ejecutarQueryConResultado($sql);

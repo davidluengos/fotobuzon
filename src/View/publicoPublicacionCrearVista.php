@@ -1,6 +1,8 @@
 <?php
 
-use App\Library\MensajeFlash; ?>
+use App\Library\MensajeFlash;
+
+?>
 <div class="section">
 	<div class="container">
 		<div class="row">
@@ -26,11 +28,11 @@ use App\Library\MensajeFlash; ?>
 							<select class="input" name="categoria" id="categoria" placeholder="Categoría">
 								<option value=''>-- Seleccione una categoría --</option>
 								<?php
-								foreach ($datos['categorias'] as $categoria) {
-									//para cada item del array $categoria imprimo el nombre con el código como su value
-									echo '<option value="' . $categoria->getId_categoria() . '" ' . (($categoria->getId_categoria() == @$_POST['categoria']) ? 'selected' : '') . '>' . $categoria->getCategoria() . '</option>';
-								}
-								?>
+                                foreach ($datos['categorias'] as $categoria) {
+                                    //para cada item del array $categoria imprimo el nombre con el código como su value
+                                    echo '<option value="' . $categoria->getId_categoria() . '" ' . (($categoria->getId_categoria() == @$_POST['categoria']) ? 'selected' : '') . '>' . $categoria->getCategoria() . '</option>';
+                                }
+                                ?>
 							</select>
 						</div>
 						<div class="form-group">
@@ -38,7 +40,7 @@ use App\Library\MensajeFlash; ?>
 						</div>
 						<div class="col-md-6">
 							<div class="text-center">
-								<input type="checkbox" class="input" name="aceptarTerminos" id="aceptarTerminos" <?php echo ((isset($_POST['aceptarTerminos'])) ? 'checked' : '') ?>> Acepto los <a href="/terminos">términos y condiciones</a></input>
+								<input type="checkbox" class="input" name="aceptarTerminos" id="aceptarTerminos" <?php echo((isset($_POST['aceptarTerminos'])) ? 'checked' : '') ?>> Acepto los <a href="/terminos">términos y condiciones</a></input>
 							</div>
 						</div>
 						<div class="col-md-6">

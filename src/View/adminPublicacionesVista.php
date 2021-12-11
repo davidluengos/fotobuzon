@@ -5,7 +5,7 @@
         <h2 class="tituloh2">
           <?php
           if ($datos['titulo']) {
-            echo $datos['titulo'];
+              echo $datos['titulo'];
           }
           ?>
         </h2>
@@ -17,7 +17,7 @@
               <option value="">-- Seleccione un estado --</option>
               <?php
               foreach ($datos['estados'] as $estado) {
-                echo "<option value='" . $estado->getId_Estado() . "'>" . $estado->getEstado() . "</option>";
+                  echo "<option value='" . $estado->getId_Estado() . "'>" . $estado->getEstado() . "</option>";
               }
               ?>
             </select>
@@ -45,7 +45,7 @@
           <?php
           /** @var App\Model\Publicacion $publicacion */
           foreach ($datos['publicaciones'] as $publicacion) {
-          ?>
+              ?>
             <tr>
               <th scope="row"><?php echo $publicacion->getId_Publicacion(); ?></th>
               <td><?php echo $publicacion->getFecha_publicacion(); ?></td>

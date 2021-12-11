@@ -11,7 +11,6 @@ use Exception;
 
 class PalabraProhibidaController
 {
-
     private $dbConnection;
     private $seguridadService;
 
@@ -23,7 +22,7 @@ class PalabraProhibidaController
 
     //
     //
-    // Funciones desarrolladas para las palabras prohibidas: mostrar, crear y editar. 
+    // Funciones desarrolladas para las palabras prohibidas: mostrar, crear y editar.
     //
     //
 

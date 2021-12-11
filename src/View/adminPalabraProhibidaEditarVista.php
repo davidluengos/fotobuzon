@@ -8,7 +8,7 @@
 				<div class="col-md-6">
 					<div class="billing-details">
 						<div class="form-group">
-							<input type="text" id="categoria" name="palabraEditada" class="input" value="<?php echo ($datos['palabra']->getPalabra()); ?>">
+							<input type="text" id="categoria" name="palabraEditada" class="input" value="<?php echo($datos['palabra']->getPalabra()); ?>">
 						</div>
 					</div>
 				</div>

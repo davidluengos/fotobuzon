@@ -8,7 +8,7 @@
 				<div class="col-md-6">
 					<div class="billing-details">
 						<div class="form-group">
-							<input type="text" id="categoria" name="estadoEditado" class="input" value="<?php echo ($datos['estado']->getEstado()); ?>">
+							<input type="text" id="categoria" name="estadoEditado" class="input" value="<?php echo($datos['estado']->getEstado()); ?>">
 						</div>
 
 					</div>

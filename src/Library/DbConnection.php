@@ -8,7 +8,6 @@ use \PDO;
 //Con este objeto vamos a conectarnos a la base de datos y mantener guardada la conexión
 class DbConnection
 {
-
     private $connection;
 
     public function __construct(string $host, string $user, string $password, string $dbName)

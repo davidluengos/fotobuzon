@@ -22,7 +22,14 @@ class PartePublicaController
         $this->seguridadService = $seguridadService;
     }
 
+    //
+    //
+    // Funciones correspondientes a la parte pública (las que van a realizar los usuarios)
+    //
+    //
+
     // Ruta: /
+    // Muestra la página de inicio
     public function initIndex()
     {
         $publicaciones = $this->queryService->getUltimasPublicaciones();
@@ -36,6 +43,7 @@ class PartePublicaController
 
 
     // Ruta: /publicación/crear
+    // función para crear una publicación
     public function crearPublicacion(): string
     {
 
@@ -59,15 +67,15 @@ class PartePublicaController
                 MensajeFlash::crearMensaje('Por favor, incluya imágenes en la nueva publicación.', 'danger');
             }
             $textoDescripcion = $_POST['descripcion'];
-            $textoTitulo =$_POST['titulo'];
-            $textoLocalizacion =$_POST['localizacion'];
+            $textoTitulo = $_POST['titulo'];
+            $textoLocalizacion = $_POST['localizacion'];
             $palabras = $this->queryService->getPalabrasProhibidas();
 
             foreach ($palabras as $palabra) {
                 $posTitulo = strpos($textoTitulo, $palabra->getPalabra());
                 $posDescripcion = strpos($textoDescripcion, $palabra->getPalabra());
                 $posLocalizacion = strpos($textoLocalizacion, $palabra->getPalabra());
-                
+
                 if ($posTitulo !== false || $posDescripcion !== false || $posLocalizacion !== false) {
                     $esCorrecto = false;
                     MensajeFlash::crearMensaje('Por favor, vuelva a escribir su mensaje sin utilizar alguna de las palabras prohibidas.', 'danger');
@@ -100,6 +108,7 @@ class PartePublicaController
     }
 
     // Ruta: /publicacion/ver?id=$id_publicacion
+    // función para mostrar una publicación
     public function verPublicacion($id_publicacion)
     {
         $fechaComentario = date('Y-m-d H:i:s');
@@ -148,10 +157,9 @@ class PartePublicaController
     }
 
     // Ruta: /usuario/crear
+    // función para crear un usuario
     public function crearUsuario(): string
     {
-
-
         $rol = 'Usuario';
         if (!empty($_POST['nombre']) & !empty($_POST['apellidos'])) {
             $correo = $_POST['email'];
@@ -181,6 +189,7 @@ class PartePublicaController
     }
 
     // Ruta: /publicaciones/categoria
+    // función para ver las categorías de una categoría
     public function verPublicacionesDeCategoria()
     {
         $categoriaSeleccionada = $_POST['categoriaSeleccionada'];
@@ -196,6 +205,7 @@ class PartePublicaController
 
 
     // Ruta: página no encontrada
+    // función que dirige a una página 404
     public function paginaNoEncontrada()
     {
 
@@ -206,8 +216,10 @@ class PartePublicaController
         return MostrarVista::mostrarVistaPublica('publico404.php', $variablesParaPasarAVista);
     }
 
-
-    public function paginaTerminos(){
+    // Ruta: /terminos
+    // función que muestra la página de términos y condiciones
+    public function paginaTerminos()
+    {
         $categorias = $this->queryService->getCategorias();
         $variablesParaPasarAVista = [
             'categorias' => $categorias

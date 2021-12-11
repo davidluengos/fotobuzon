@@ -20,7 +20,15 @@ class UsuarioController
         $this->seguridadService = $seguridadService;
     }
 
+
+    //
+    //
+    // Funciones desarrolladas para los usuarios: mostrar, crear y editar.
+    //
+    //
+
     // Ruta: /admin/usuarios
+    // función que muestra los usuarios en la vista de usuarios del administrador
     public function mostrarUsuarios(): string
     {
         $this->seguridadService->regirigeALoginSiNoEresRol(["Admin"]);
@@ -41,6 +49,7 @@ class UsuarioController
     }
 
     // Ruta: /admin/usuario/crear
+    // función que crea los usuarios en la vista de usuarios del administrador
     public function crearUsuario(): string
     {
         $this->seguridadService->regirigeALoginSiNoEresRol(["Admin"]);
@@ -48,8 +57,9 @@ class UsuarioController
         if (!empty($_POST['nombre']) & !empty($_POST['apellidos'])) {
             try {
                 $sql = "INSERT INTO usuarios (rol, nombre, apellidos, email, telefono, direccion, codigo_postal, municipio, provincia)
-                    VALUES ('$rol','" . $_POST['nombre'] . "','" . $_POST['apellidos'] . "','" . $_POST['email'] . "','" . $_POST['telefono'] . "','" . $_POST['direccion'] . "','" . $_POST['cpostal'] . "','" . $_POST['municipio'] . "','" . $_POST['provincia'] . "');";
-                $publicaciones = $this->dbConnection->ejecutarQuery($sql);
+                    VALUES ('$rol','" . $_POST['nombre'] . "','" . $_POST['apellidos'] . "','" . $_POST['email'] . "','" . $_POST['telefono'] . "',
+                    '" . $_POST['direccion'] . "','" . $_POST['cpostal'] . "','" . $_POST['municipio'] . "','" . $_POST['provincia'] . "');";
+                $this->dbConnection->ejecutarQuery($sql);
                 header("location:/admin/usuarios");
             } catch (\PDOException $e) {
                 throw new Exception("ERROR - Se produjo un error al crear los usuarios " . $e->getMessage());
@@ -60,6 +70,7 @@ class UsuarioController
     }
 
     // Ruta: /admin/usuario/editar?id=$id_usuario
+    // función que edita los usuarios en la vista de usuarios del administrador
     public function editarUsuario($idUsuario): string
     {
         $this->seguridadService->regirigeALoginSiNoEresRol(["Admin"]);
@@ -83,7 +94,7 @@ class UsuarioController
                     municipio = '" . $_POST['municipioEditado'] . "',
                     provincia = '" . $_POST['provinciaEditada'] . "' 
                     WHERE id_usuario = " . $idUsuario . " ";
-                $publicaciones = $this->dbConnection->ejecutarQuery($sql);
+                $this->dbConnection->ejecutarQuery($sql);
                 header("location:/admin/usuarios"); //redirijo a la página de publicaciones después de editar
             } catch (\PDOException $e) {
                 throw new Exception("ERROR - Se produjo un editar al mostrar los usuarios " . $e->getMessage());

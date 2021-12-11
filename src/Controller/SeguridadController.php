@@ -21,6 +21,7 @@ class SeguridadController
     }
 
     // Ruta: /login
+    // función que muestra la página de login
     public function loginUsuario()
     {
         try {
@@ -53,6 +54,7 @@ class SeguridadController
     }
 
     // Ruta: /logout
+    // función que elimina la sesión
     public function logoutUsuario()
     {
         if (isset($_COOKIE['user'])) {

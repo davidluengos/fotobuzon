@@ -21,7 +21,14 @@ class PalabraProhibidaController
         $this->seguridadService = $seguridadService;
     }
 
+    //
+    //
+    // Funciones desarrolladas para las palabras prohibidas: mostrar, crear y editar. 
+    //
+    //
+
     // Ruta: /admin/palabrasprohibidas
+    // función que muestra las palabras prohibidas en la vista de palabras prohibidas del administrador
     public function mostrarPalabrasProhibidas(): string
     {
         $this->seguridadService->regirigeALoginSiNoEresRol(["Admin"]);
@@ -42,6 +49,7 @@ class PalabraProhibidaController
     }
 
     // Ruta: /admin/palabraprohibida/crear
+    // función que crea las palabras prohibidas en la vista de palabras prohibidas del administrador
     public function crearPalabraProhibida(): string
     {
         $this->seguridadService->regirigeALoginSiNoEresRol(["Admin"]);
@@ -58,6 +66,7 @@ class PalabraProhibidaController
     }
 
     // Ruta: /admin/palabraprohibida/editar?id=id_pp
+    // función que edita las palabras prohibidas en la vista de palabras prohibidas del administrador
     public function editarPalabraProhibida($idPalabra): string
     {
         $this->seguridadService->regirigeALoginSiNoEresRol(["Admin"]);

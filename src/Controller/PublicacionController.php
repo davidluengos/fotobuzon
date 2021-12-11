@@ -25,7 +25,14 @@ class PublicacionController
         $this->seguridadService = $seguridadService;
     }
 
+    //
+    //
+    // Funciones desarrolladas para las publicaciones: mostrar una publicación, mostrar todas las publicaciones, crear, añadir imágenes a una publicación y editar.
+    //
+    //
+
     // Ruta: /admin/publicación/crear
+    // función que crea las publicaciones en la vista de publicaciones del administrador
     public function crearPublicacion(): string
     {
 
@@ -33,7 +40,6 @@ class PublicacionController
         $roles = ['Admin', 'Usuario'];
 
         $this->seguridadService->regirigeALoginSiNoEresRol($roles);
-        // if ($this->seguridadService->obtenerUsuarioLogueado()) {
         $categorias = $this->queryService->getCategorias();
         $fecha_publicacion = date('Y-m-d H:i:s');
         $estado = 1; //Por defecto se establece el estado inicial
@@ -41,7 +47,10 @@ class PublicacionController
 
         if (!empty($_POST['titulo']) & !empty($_POST['descripcion'])) {
             try {
-                $sql = "UPDATE publicaciones SET fecha_publicacion = '$fecha_publicacion', titulo='" . $_POST['titulo'] . "', descripcion='" . $_POST['descripcion'] . "', id_categoria='" . $_POST['categoria'] . "', id_estado='$estado', id_autor='$autor', localizacion='" . $_POST['localizacion'] . "', esta_creada = '1' WHERE id_publicacion=" . $_POST['id_publicacion'] . "";
+                $sql = "UPDATE publicaciones SET fecha_publicacion = '$fecha_publicacion', titulo='" . $_POST['titulo'] . "', 
+                descripcion='" . $_POST['descripcion'] . "', id_categoria='" . $_POST['categoria'] . "', id_estado='$estado', 
+                id_autor='$autor', localizacion='" . $_POST['localizacion'] . "', esta_creada = '1' 
+                WHERE id_publicacion=" . $_POST['id_publicacion'] . "";
                 $this->dbConnection->ejecutarQuery($sql);
                 if ($this->seguridadService->obtenerUsuarioLogueado()->getRol() == 'Admin') {
                     header("location:/admin/publicaciones");
@@ -84,7 +93,8 @@ class PublicacionController
             move_uploaded_file($_FILES['file']['tmp_name'], $ruta_imagen_fisica);
             // Insertar imagen en la base de datos
             $sql = "INSERT INTO imagenes (tipo_imagen, id_objeto, size, mimetype, path_imagen, nombre_imagen)
-        VALUES ('publicacion', $id_publicacion, '" . $_FILES['file']['size'] . "', '" . $_FILES['file']['type'] . "', '$ruta_imagen_navegador',  '" . $_FILES['file']['name'] . "')";
+            VALUES ('publicacion', $id_publicacion, '" . $_FILES['file']['size'] . "', '" . $_FILES['file']['type'] . "', 
+            '$ruta_imagen_navegador',  '" . $_FILES['file']['name'] . "')";
             $this->dbConnection->ejecutarQuery($sql);
             return $_FILES['file']['name'];
         } catch (\Exception $e) {
@@ -93,6 +103,7 @@ class PublicacionController
     }
 
     // Ruta: /admin/publicacion/eliminar
+    // función para eliminar una publicación desde la vista del administrador
     public function eliminarPublicacion($idPublicacion)
     {
         $this->seguridadService->regirigeALoginSiNoEresRol(["Admin"]);
@@ -100,7 +111,7 @@ class PublicacionController
         if ($idPublicacion) {
             try {
                 $sql = "DELETE FROM publicaciones WHERE id_publicacion = $idPublicacion";
-                $publicaciones = $this->dbConnection->ejecutarQuery($sql);
+                $this->dbConnection->ejecutarQuery($sql);
                 header("location:/admin/publicaciones"); //redirijo a la página de publicaciones después de eliminar
             } catch (\Exception $e) {
                 throw new Exception("ERROR - Se produjo un error al eliminar una publicación " . $e->getMessage());
@@ -111,6 +122,7 @@ class PublicacionController
     }
 
     // Ruta: /admin/publicacion/editar?id=$id_publicacion
+    // función para editar una publicación desde la vista del administrador
     public function editarPublicacion($idPublicacion): string
     {
         $this->seguridadService->regirigeALoginSiNoEresRol(["Admin"]);
@@ -165,6 +177,7 @@ class PublicacionController
     }
 
     //Ruta: /admin/publicaciones
+    // función para mostrar las publicaciones desde la vista del administrador
     public function mostrarPublicaciones(): string
     {
         $this->seguridadService->regirigeALoginSiNoEresRol(["Admin"]);
@@ -202,12 +215,9 @@ class PublicacionController
     }
 
     // Ruta: /admin/publicacion/ver?id=$id_publicacion
+    // función que muestra una publicación
     public function verPublicacion($id_publicacion)
     {
-
-        //Probando para mostrar los días de resolución de incidencias
-
-        //
 
         $fechaComentario = date('Y-m-d H:i:s');
         if (!empty($_POST['textoComentario']) && isset($_POST['submit'])) {
@@ -221,7 +231,8 @@ class PublicacionController
             }
 
             try {
-                $sql = "INSERT INTO comentarios (id_publicacion, fecha_comentario, comentario, autor_comentario) VALUES ($id_publicacion, '$fechaComentario', '   " . $_POST['textoComentario']  . "    ', $autor)";
+                $sql = "INSERT INTO comentarios (id_publicacion, fecha_comentario, comentario, autor_comentario) 
+                VALUES ($id_publicacion, '$fechaComentario', '   " . $_POST['textoComentario']  . "    ', $autor)";
                 $this->dbConnection->ejecutarQuery($sql);
                 //aquí tengo que destruir el $_POST porque al recargar la página vuelve a crear el comentario 
                 //(con unset no lo hace, porque sigue teniendo el valor de post)

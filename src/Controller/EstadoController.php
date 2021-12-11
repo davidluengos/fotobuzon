@@ -14,14 +14,21 @@ class EstadoController
     private $dbConnection;
     private $seguridadService;
 
-
     public function __construct(DbConnection $dbC, SeguridadService $seguridadService)
     {
         $this->dbConnection = $dbC;
         $this->seguridadService = $seguridadService;
     }
 
+    //
+    //
+    // Funciones desarrolladas para los estados: mostrar y editar. 
+    // No se contempla en el proyecto que se puedan crear nuevos estados, pues algunas funciones dependen del estado.
+    //
+    //
+
     // Ruta: /admin/estados
+    // función que muestra los estados en la vista de estados del administrador
     public function mostrarEstados(): string
     {
         $this->seguridadService->regirigeALoginSiNoEresRol(["Admin"]);
@@ -42,6 +49,7 @@ class EstadoController
     }
 
     // RUta: /admin/estado/editar?id=id_estado
+    // función que edita los estados en la vista de estados del administrador
     public function editarEstado($idEstado): string
     {
         $this->seguridadService->regirigeALoginSiNoEresRol(["Admin"]);

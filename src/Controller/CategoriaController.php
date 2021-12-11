@@ -23,7 +23,14 @@ class CategoriaController
         $this->seguridadService = $seguridadService;
     }
 
+    //
+    //
+    // Funciones desarrolladas para las categorías: mostrar, crear y editar.
+    //
+    //
+
     // Ruta: /admin/categorias
+    // función para mostrar las categorías en la vista de categorías del administrador
     public function mostrarCategorias(): string
     {
         $this->seguridadService->regirigeALoginSiNoEresRol(["Admin"]);
@@ -44,6 +51,7 @@ class CategoriaController
     }
 
     // Ruta: /admin/categoria/crear
+    // función para crear una categoría en la vista de categorías del administrador
     public function crearCategoria(): string
     {
         $this->seguridadService->regirigeALoginSiNoEresRol(["Admin"]);
@@ -60,10 +68,10 @@ class CategoriaController
     }
 
     // Ruta: /admin/categoria/editar?id=id_categoria
+    // función para editar una categoría en la vista de categorías del administrador
     public function editarCategoria($idCategoria): string
     {
         $this->seguridadService->regirigeALoginSiNoEresRol(["Admin"]);
-
         $sql = "SELECT * FROM categorias WHERE id_categoria = $idCategoria";
         $publicacionArray = $this->dbConnection->ejecutarQueryConUnResultado($sql);
         $categoriaObjeto = new Categoria($publicacionArray);

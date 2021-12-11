@@ -10,6 +10,14 @@
           ?>
         </h2>
       </div>
+      <div class="col-md-8">
+
+          <?php
+
+          use App\Library\MensajeFlash;
+
+          echo MensajeFlash::obtenerMensaje() ?>
+        </div>
       <table class="table  table-hover table-sm">
         <caption>Lista de Estados</caption>
         <thead class="">

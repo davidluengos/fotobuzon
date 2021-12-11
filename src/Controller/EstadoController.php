@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Library\DbConnection;
+use App\Library\MensajeFlash;
 use App\Library\MostrarVista;
 use App\Model\Estado;
 use App\Service\SeguridadService;
@@ -66,6 +67,7 @@ class EstadoController
                     estado = '" . $_POST['estadoEditado'] . "' 
                     WHERE id_estado = " . $idEstado . " ";
                 $this->dbConnection->ejecutarQuery($sql);
+                MensajeFlash::crearMensaje('Estado editado correctamente.', 'success');
                 header("location:/admin/estados"); //redirijo a la página de publicaciones después de editar
             } catch (\PDOException $e) {
                 throw new Exception("ERROR - Se produjo un error al editar los estados " . $e->getMessage());

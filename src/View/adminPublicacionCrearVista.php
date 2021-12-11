@@ -25,12 +25,13 @@ use App\Library\MensajeFlash;
 						</div>
 						<div class="form-group">
 							<select class="input" name="categoria" id="categoria" placeholder="Categoría">
+								<option value=''>-- Seleccione una categoría --</option>
 								<?php
-                                foreach ($datos['categorias'] as $categoria) {
-                                    //para cada item del array $categoria imprimo el nombre con el código como su value
-                                    echo '<option value="' . $categoria->getId_categoria() . '">' . $categoria->getCategoria() . '</option>';
-                                }
-                                ?>
+								foreach ($datos['categorias'] as $categoria) {
+									//para cada item del array $categoria imprimo el nombre con el código como su value
+									echo '<option value="' . $categoria->getId_categoria() . '" ' . (($categoria->getId_categoria() == @$_POST['categoria']) ? 'selected' : '') . '>' . $categoria->getCategoria() . '</option>';
+								}
+								?>
 							</select>
 						</div>
 						<div class="form-group">
@@ -53,7 +54,7 @@ use App\Library\MensajeFlash;
 				<div class="section-title text-center">
 					<h3 class="title">Imágenes</h3>
 				</div>
-				<form action="/publicacion/crear-imagen?id_publicacion=<?php echo $datos['id_publicacion'] ?>" class="dropzone"></form>
+				<form action="/publicacion/crear-imagen?id_publicacion=<?php echo $datos['id_publicacion'] ?>" id="my-dropzone" class="dropzone"></form>
 			</div>
 		</div>
 	</div>

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Library\DbConnection;
+use App\Library\MensajeFlash;
 use App\Library\MostrarVista;
 use App\Model\PalabraProhibida;
 use App\Service\QueriesService;
@@ -12,11 +13,13 @@ use Exception;
 class PalabraProhibidaController
 {
     private $dbConnection;
+    private $queryService;
     private $seguridadService;
 
-    public function __construct(DbConnection $dbC, SeguridadService $seguridadService)
+    public function __construct(DbConnection $dbC, QueriesService $queryService, SeguridadService $seguridadService)
     {
         $this->dbConnection = $dbC;
+        $this->queryService = $queryService;
         $this->seguridadService = $seguridadService;
     }
 
@@ -53,10 +56,19 @@ class PalabraProhibidaController
     {
         $this->seguridadService->regirigeALoginSiNoEresRol(["Admin"]);
         if (!empty($_POST['palabraprohibida'])) {
+            $palabra = $_POST['palabraprohibida'];
+            $existePalabraEnBD = $this->queryService->existePalabraEnBD($palabra);
+            if ($existePalabraEnBD == true) {
+                MensajeFlash::crearMensaje('La palabra prohibida ya está en el sistema.', 'danger');
+                header("location:/admin/palabraprohibida/crear");
+                exit;
+            } 
             try {
                 $sql = "INSERT INTO palabras_prohibidas (nombre_palabra) VALUES ('" . $_POST['palabraprohibida'] . "')";
                 $this->dbConnection->ejecutarQuery($sql);
+                MensajeFlash::crearMensaje('La palabra prohibida ha sido añadida correctamente.', 'success');
                 header("location:/admin/palabrasprohibidas");
+                exit;
             } catch (\PDOException $e) {
                 throw new Exception("ERROR - Se produjo un error al crear las palabras prohibidas " . $e->getMessage());
             }
@@ -78,12 +90,21 @@ class PalabraProhibidaController
         ];
 
         if (!empty($_POST['palabraEditada'])) {
+            $palabra = $_POST['palabraEditada'];
+            $existePalabraEnBD = $this->queryService->existePalabraEnBD($palabra);
+            if ($existePalabraEnBD == true) {
+                MensajeFlash::crearMensaje('La palabra prohibida ya está en el sistema.', 'danger');
+                header("location:/admin/palabraprohibida/editar?id=$idPalabra");
+                exit;
+            } 
             try {
                 $sql = "UPDATE palabras_prohibidas SET 
                     nombre_palabra = '" . $_POST['palabraEditada'] . "' 
                     WHERE id_palabra = " . $idPalabra . " ";
                 $this->dbConnection->ejecutarQuery($sql);
+                MensajeFlash::crearMensaje('La palabra prohibida ha sido actualizada correctamente.', 'success');
                 header("location:/admin/palabrasprohibidas"); //redirijo a la página de publicaciones después de editar
+                exit;
             } catch (\PDOException $e) {
                 throw new Exception("ERROR - Se produjo un error al editar las palabras prohibidas " . $e->getMessage());
             }

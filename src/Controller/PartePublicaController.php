@@ -84,7 +84,10 @@ class PartePublicaController
             }
             if ($esCorrecto) {
                 try {
-                    $sql = "UPDATE publicaciones SET fecha_publicacion = '$fecha_publicacion', titulo='" . $textoTitulo . "', descripcion='" . $textoDescripcion . "', id_categoria='" . $_POST['categoria'] . "', id_estado='$estado', id_autor='$autor', localizacion='" . $textoLocalizacion . "', esta_creada = '1' WHERE id_publicacion=" . $id_publicacion . "";
+                    $sql = "UPDATE publicaciones SET fecha_publicacion = '$fecha_publicacion', titulo='" . $textoTitulo . "', 
+                    descripcion='" . $textoDescripcion . "', id_categoria='" . $_POST['categoria'] . "', id_estado='$estado', 
+                    id_autor='$autor', localizacion='" . $textoLocalizacion . "', esta_creada = '1' 
+                    WHERE id_publicacion=" . $id_publicacion . "";
                     $this->dbConnection->ejecutarQuery($sql);
                     if ($this->seguridadService->obtenerUsuarioLogueado()->getRol() == 'Admin') {
                         header("location:/admin/publicaciones");

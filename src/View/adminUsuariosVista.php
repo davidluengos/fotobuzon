@@ -4,13 +4,20 @@
       <div class="encabezado">
         <h2 class="tituloh2">
           <?php
-          if ($datos['titulo']) {
+
+use App\Library\MensajeFlash;
+
+if ($datos['titulo']) {
               echo $datos['titulo'];
           }
           ?>
         </h2>
           
         <a class="primary-btn cta-btn botonPublicaciones" href="/admin/usuario/crear" >Nuevo Usuario</a>
+      </div>
+      <div class="col-md-8">
+
+        <?php echo MensajeFlash::obtenerMensaje() ?>
       </div>
       <table class="table  table-hover table-sm">
         <caption>Lista de Usuarios</caption>

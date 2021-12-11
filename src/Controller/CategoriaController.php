@@ -4,18 +4,22 @@ namespace App\Controller;
 
 use App\Model\Categoria;
 use App\Library\DbConnection;
+use App\Library\MensajeFlash;
 use App\Library\MostrarVista;
+use App\Service\QueriesService;
 use App\Service\SeguridadService;
 use Exception;
 
 class CategoriaController
 {
     private $dbConnection;
+    private $queryService;
     private $seguridadService;
 
-    public function __construct(DbConnection $dbC, SeguridadService $seguridadService)
+    public function __construct(DbConnection $dbC, QueriesService $queryService, SeguridadService $seguridadService)
     {
         $this->dbConnection = $dbC;
+        $this->queryService = $queryService;
         $this->seguridadService = $seguridadService;
     }
 
@@ -52,9 +56,17 @@ class CategoriaController
     {
         $this->seguridadService->regirigeALoginSiNoEresRol(["Admin"]);
         if (!empty($_POST['categoria'])) {
+            $cat = $_POST['categoria'];
+            $existeCatEnBD = $this->queryService->existeCategoriaEnBD($cat);
+            if ($existeCatEnBD == true) {
+                MensajeFlash::crearMensaje('La categoría ya está en el sistema.', 'danger');
+                header("location:/admin/categorias");
+                exit;
+            } 
             try {
                 $sql = "INSERT INTO categorias (categoria) VALUES ('" . $_POST['categoria'] . "')";
                 $this->dbConnection->ejecutarQuery($sql);
+                MensajeFlash::crearMensaje('La categoría se ha insertado.', 'success');
                 header("location:/admin/categorias");
             } catch (\PDOException $e) {
                 throw new Exception("ERROR - Se produjo un error al crear las categorías " . $e->getMessage());
@@ -76,11 +88,19 @@ class CategoriaController
         ];
 
         if (!empty($_POST['categoriaEditada'])) {
+            $cat = $_POST['categoriaEditada'];
+            $existeCatEnBD = $this->queryService->existeCategoriaEnBD($cat);
+            if ($existeCatEnBD == true) {
+                MensajeFlash::crearMensaje('La categoría ya está en el sistema.', 'danger');
+                header("location:/admin/categorias");
+                exit;
+            } 
             try {
                 $sql = "UPDATE categorias SET 
                     categoria = '" . $_POST['categoriaEditada'] . "' 
                     WHERE id_categoria = " . $idCategoria . " ";
                 $this->dbConnection->ejecutarQuery($sql);
+                MensajeFlash::crearMensaje('La categoría se ha actualizado.', 'success');
                 header("location:/admin/categorias"); //redirijo a la página de publicaciones después de editar
             } catch (\PDOException $e) {
                 throw new Exception("ERROR - Se produjo un error al editar las categorías " . $e->getMessage());

@@ -4,6 +4,14 @@
 			<div class="section-title">
 				<h3 class="title">Registro de nueva Palabra Prohibida</h3>
 			</div>
+			<div class="col-md-8">
+
+				<?php
+
+				use App\Library\MensajeFlash;
+
+				echo MensajeFlash::obtenerMensaje() ?>
+			</div>
 			<form id="contact-form" name="contact-form" action="" method="POST">
 				<div class="col-md-6">
 					<div class="billing-details">

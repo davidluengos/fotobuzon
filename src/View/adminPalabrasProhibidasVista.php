@@ -5,11 +5,19 @@
         <h2 class="tituloh2">
           <?php
           if ($datos['titulo']) {
-              echo $datos['titulo'];
+            echo $datos['titulo'];
           }
           ?>
         </h2>
         <a class="primary-btn cta-btn botonPublicaciones" href="/admin/palabraprohibida/crear">Nueva Palabra Prohibida</a>
+      </div>
+      <div class="col-md-8">
+
+        <?php
+
+        use App\Library\MensajeFlash;
+
+        echo MensajeFlash::obtenerMensaje() ?>
       </div>
       <table class="table  table-hover table-sm">
         <caption>Lista de Palabras Prohibidas</caption>
@@ -24,7 +32,7 @@
           <?php
           /** @var App\Model\Categoria $categoria */
           foreach ($datos['palabras'] as $palabra) {
-              ?>
+          ?>
             <tr>
               <th scope="row"><?php echo $palabra->getId_palabra(); ?></th>
               <td><?php echo $palabra->getPalabra(); ?></td>

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Model\Publicacion;
 use App\Library\DbConnection;
+use App\Library\MensajeFlash;
 use App\Library\MostrarVista;
 use App\Library\UtilesFicheros;
 use App\Service\QueriesService;
@@ -45,31 +46,41 @@ class PublicacionController
         $autor = $this->seguridadService->obtenerUsuarioLogueado()->getId_usuario();
 
         if (!empty($_POST['titulo']) & !empty($_POST['descripcion'])) {
-            try {
-                $sql = "UPDATE publicaciones SET fecha_publicacion = '$fecha_publicacion', titulo='" . $_POST['titulo'] . "', 
+            $id_publicacion = $_POST['id_publicacion'];
+            $esCorrecto = true;
+            $imagenes = $this->queryService->getImagenes($id_publicacion);
+            if (count($imagenes) == 0) {
+                $esCorrecto = false;
+                MensajeFlash::crearMensaje('Por favor, incluya imágenes en la nueva publicación.', 'danger');
+            }
+            if ($esCorrecto) {
+                try {
+                    $sql = "UPDATE publicaciones SET fecha_publicacion = '$fecha_publicacion', titulo='" . $_POST['titulo'] . "', 
                 descripcion='" . $_POST['descripcion'] . "', id_categoria='" . $_POST['categoria'] . "', id_estado='$estado', 
                 id_autor='$autor', localizacion='" . $_POST['localizacion'] . "', esta_creada = '1' 
                 WHERE id_publicacion=" . $_POST['id_publicacion'] . "";
-                $this->dbConnection->ejecutarQuery($sql);
-                if ($this->seguridadService->obtenerUsuarioLogueado()->getRol() == 'Admin') {
-                    header("location:/admin/publicaciones");
-                } else {
-                    header("location:/");
+                    $this->dbConnection->ejecutarQuery($sql);
+                    if ($this->seguridadService->obtenerUsuarioLogueado()->getRol() == 'Admin') {
+                        MensajeFlash::crearMensaje('Publicación creada correctamente.', 'success');
+                        header("location:/admin/publicaciones");
+                        exit;
+                    } else {
+                        header("location:/");
+                    }
+                } catch (\PDOException $e) {
+                    throw new Exception("ERROR - Se produjo un error al crear una publicación " . $e->getMessage());
                 }
-                exit;
-            } catch (\PDOException $e) {
-                throw new Exception("ERROR - Se produjo un error al crear una publicación " . $e->getMessage());
             }
         } else {
             // Creamos una publicación vacía para poder tener un identificador al que asociar las imágenes
             $sql = "INSERT INTO publicaciones (id_autor) VALUES ($autor)";
             $id_publicacion = $this->dbConnection->ejecutarQuery($sql, true);
+        }
             $variablesParaPasarAVista = [ //llevamos el array de objetos 'categorías'
                 'categorias' => $categorias,
                 'id_publicacion' => $id_publicacion
             ];
             return MostrarVista::mostrarVista('adminPublicacionCrearVista.php', $variablesParaPasarAVista);
-        }
     }
 
     // Función para añadir imágenes a la publicación
@@ -105,7 +116,9 @@ class PublicacionController
             try {
                 $sql = "DELETE FROM publicaciones WHERE id_publicacion = $idPublicacion";
                 $this->dbConnection->ejecutarQuery($sql);
+                MensajeFlash::crearMensaje('Publicación eliminada correctamente.', 'success');
                 header("location:/admin/publicaciones"); //redirijo a la página de publicaciones después de eliminar
+                exit;
             } catch (\Exception $e) {
                 throw new Exception("ERROR - Se produjo un error al eliminar una publicación " . $e->getMessage());
             }
@@ -160,6 +173,7 @@ class PublicacionController
                     VALUES ($idPublicacion, $categoria, $estadoInicial, $estadoFinal, '$fecha_cambio', $diff->days)";
                     $this->dbConnection->ejecutarQuery($sql2);
                 }
+                MensajeFlash::crearMensaje('Publicación editada correctamente.', 'success');
                 header("location:/admin/publicaciones"); //redirijo a la página de publicaciones después de editar
             } catch (\PDOException $e) {
                 throw new Exception("ERROR - Se produjo un error editando las publicaciones " . $e->getMessage());

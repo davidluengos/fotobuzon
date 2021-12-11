@@ -94,6 +94,7 @@ class QueriesService
         }
     }
 
+    // servicio que devuelve el nombre de una categoría dado su identificador
     public function getNombreCategoria(int $id_categoria = null): string
     {
         if ($id_categoria == null) {
@@ -109,6 +110,7 @@ class QueriesService
         }
     }
 
+    // servicio que devuelve el nombre de un estado dado su identificador
     public function getNombreEstado(int $id_estado = null): string
     {
         if ($id_estado == null) {
@@ -123,6 +125,8 @@ class QueriesService
             throw new Exception("ERROR - No se pudo obtener los estados " . $e->getMessage());
         }
     }
+
+    // servicio que devuelve el nombre de un autor dado su identificador
     public function getNombreAutor(int $id_autor): string
     {
         try {
@@ -134,6 +138,7 @@ class QueriesService
         }
     }
 
+    // servicio que devuelve las 10 últimas publicaciones para mostrar en la portada
     public function getUltimasPublicaciones(): array
     {
         try {
@@ -149,6 +154,7 @@ class QueriesService
         }
     }
 
+    // servicio que devuelve las publicaciones de una categoría
     public function getPublicacionesDeCategoria($id_categoria): array
     {
         try {
@@ -170,6 +176,7 @@ class QueriesService
         }
     }
 
+    // servicio que devuelve una publicación
     public function getPublicacion($id_publicacion): Publicacion
     {
         try {
@@ -208,6 +215,7 @@ class QueriesService
         }
     }
 
+    // servicio que obtiene las imágenes de una publicación
     public function getImagenes($id_publicacion)
     {
         try {
@@ -222,6 +230,73 @@ class QueriesService
         }
     }
 
+    // devuelve el promedio de días de resolución por categorías cuando el estado es 4 (resuelto)
+    public function getDiasPromedioResolucionIncidencias($id_categoria): ?int
+    {
+        try {
+            $sql = "SELECT AVG(diasdesdepublicacion) as mediaDiasPublicacion FROM cambios_estado WHERE estado_final = 4 AND id_categoria = $id_categoria";
+            $resultado = $this->dbConnection->ejecutarQueryConUnResultado($sql);
+            if ($resultado) {
+                return $resultado['mediaDiasPublicacion'];
+            }
+            return null;
+        } catch (\Exception $e) {
+            throw new Exception("ERROR - No se pudo obtener ningún valor " . $e->getMessage());
+        }
+    }
+
+    // comprueba si el correo ya existe en base de datos
+    public function existeCorreoEnBD($mail)
+    {
+        try {
+            $sql = "SELECT * FROM usuarios WHERE email = '$mail'";
+            $resultado = $this->dbConnection->ejecutarQueryConUnResultado($sql);
+            if ($resultado) {
+                return true;
+            }
+            return false;
+        } catch (\Exception $e) {
+            throw new Exception("ERROR - No se pudo obtener ningún valor " . $e->getMessage());
+        }
+    }
+    // comprueba si la palabra prohibida ya existe en base de datos
+    public function existePalabraEnBD($palabra)
+    {
+        try {
+            $sql = "SELECT * FROM palabras_prohibidas WHERE nombre_palabra = '$palabra'";
+            $resultado = $this->dbConnection->ejecutarQueryConUnResultado($sql);
+            if ($resultado) {
+                return true;
+            }
+            return false;
+        } catch (\Exception $e) {
+            throw new Exception("ERROR - No se pudo obtener ningún valor " . $e->getMessage());
+        }
+    }
+    // comprueba si el correo ya existe en base de datos
+    public function existeCategoriaEnBD($categoria)
+    {
+        try {
+            $sql = "SELECT * FROM categorias WHERE categoria = '$categoria'";
+            $resultado = $this->dbConnection->ejecutarQueryConUnResultado($sql);
+            if ($resultado) {
+                return true;
+            }
+            return false;
+        } catch (\Exception $e) {
+            throw new Exception("ERROR - No se pudo obtener ningún valor " . $e->getMessage());
+        }
+    }
+
+
+
+
+
+    //
+    //
+    // Funciones no utilizadas
+    
+    // contamos los comentarios que hay en una publicación
     public function getContarComentariosDePublicacion($id_publicacion)
     {
         try {
@@ -233,6 +308,7 @@ class QueriesService
         }
     }
 
+    // obtenemos el nombre de una categoría 
     public function getNombreCategoriaEnPublicacion(int $id_publicacion)
     {
         try {
@@ -244,6 +320,7 @@ class QueriesService
         }
     }
 
+    // obtenemos el nombre de un estado 
     public function getNombreEstadoDePublicacion($id_publicacion)
     {
         try {
@@ -255,6 +332,7 @@ class QueriesService
         }
     }
 
+    // obtenemos el nombre de un autor
     public function getNombreAutorDePublicacion($id_publicacion)
     {
         try {
@@ -294,34 +372,6 @@ class QueriesService
             return null;
         } catch (\Exception $e) {
             throw new Exception("ERROR - No se pudo obtener ninguna fecha " . $e->getMessage());
-        }
-    }
-
-    public function getDiasPromedioResolucionIncidencias($id_categoria): ?int
-    {
-        try {
-            $sql = "SELECT AVG(diasdesdepublicacion) as mediaDiasPublicacion FROM cambios_estado WHERE estado_final = 4 AND id_categoria = $id_categoria";
-            $resultado = $this->dbConnection->ejecutarQueryConUnResultado($sql);
-            if ($resultado) {
-                return $resultado['mediaDiasPublicacion'];
-            }
-            return null;
-        } catch (\Exception $e) {
-            throw new Exception("ERROR - No se pudo obtener ningún valor " . $e->getMessage());
-        }
-    }
-
-    public function existeCorreoEnBD($mail)
-    {
-        try {
-            $sql = "SELECT * FROM usuarios WHERE email = '$mail'";
-            $resultado = $this->dbConnection->ejecutarQueryConUnResultado($sql);
-            if ($resultado) {
-                return true;
-            }
-            return false;
-        } catch (\Exception $e) {
-            throw new Exception("ERROR - No se pudo obtener ningún valor " . $e->getMessage());
         }
     }
 }

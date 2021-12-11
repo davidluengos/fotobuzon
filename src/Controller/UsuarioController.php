@@ -4,18 +4,22 @@ namespace App\Controller;
 
 use App\Model\Usuario;
 use App\Library\DbConnection;
+use App\Library\MensajeFlash;
 use App\Library\MostrarVista;
+use App\Service\QueriesService;
 use App\Service\SeguridadService;
 use Exception;
 
 class UsuarioController
 {
     private $dbConnection;
+    private $queryService;
     private $seguridadService;
 
-    public function __construct(DbConnection $dbC, SeguridadService $seguridadService)
+    public function __construct(DbConnection $dbC, QueriesService $queryService,SeguridadService $seguridadService)
     {
         $this->dbConnection = $dbC;
+        $this->queryService = $queryService;
         $this->seguridadService = $seguridadService;
     }
 
@@ -54,17 +58,27 @@ class UsuarioController
         $this->seguridadService->regirigeALoginSiNoEresRol(["Admin"]);
         $rol = 'Usuario';
         if (!empty($_POST['nombre']) & !empty($_POST['apellidos'])) {
+            $correo = $_POST['email'];
+            $existeMailEnBD = $this->queryService->existeCorreoEnBD($correo);
+            if ($existeMailEnBD == true) {
+                MensajeFlash::crearMensaje('Email ya registrado en el sistema. No se ha registrado el usuario.', 'danger');
+                header("location:/admin/usuarios");
+                exit;
+            } 
             try {
-                $sql = "INSERT INTO usuarios (rol, nombre, apellidos, email, telefono, direccion, codigo_postal, municipio, provincia)
-                    VALUES ('$rol','" . $_POST['nombre'] . "','" . $_POST['apellidos'] . "','" . $_POST['email'] . "','" . $_POST['telefono'] . "',
-                    '" . $_POST['direccion'] . "','" . $_POST['cpostal'] . "','" . $_POST['municipio'] . "','" . $_POST['provincia'] . "');";
+                $sql = "INSERT INTO usuarios (rol, nombre, apellidos, email, password,  telefono, direccion, codigo_postal, municipio, provincia)
+                    VALUES ('$rol','" . $_POST['nombre'] . "','" . $_POST['apellidos'] . "','" . $_POST['email'] . "','" . md5($_POST['password']) . "',
+                    '" . $_POST['telefono'] . "','" . $_POST['direccion'] . "','" . $_POST['cpostal'] . "','" . $_POST['municipio'] . "',
+                    '" . $_POST['provincia'] . "');";
                 $this->dbConnection->ejecutarQuery($sql);
+                MensajeFlash::crearMensaje('Usuario registrado correctamente.', 'success');
                 header("location:/admin/usuarios");
                 exit;
             } catch (\PDOException $e) {
-                throw new Exception("ERROR - Se produjo un error al crear los usuarios " . $e->getMessage());
+                throw new Exception("ERROR - Se produjo un error al insertar un usuario " . $e->getMessage());
             }
         } else {
+            
             return MostrarVista::mostrarVista('adminUsuarioCrearVista.php');
         }
     }
@@ -95,6 +109,7 @@ class UsuarioController
                     provincia = '" . $_POST['provinciaEditada'] . "' 
                     WHERE id_usuario = " . $idUsuario . " ";
                 $this->dbConnection->ejecutarQuery($sql);
+                MensajeFlash::crearMensaje('Usuario editado correctamente.', 'success');
                 header("location:/admin/usuarios"); //redirijo a la página de publicaciones después de editar
             } catch (\PDOException $e) {
                 throw new Exception("ERROR - Se produjo un editar al mostrar los usuarios " . $e->getMessage());

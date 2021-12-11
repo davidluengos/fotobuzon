@@ -14,6 +14,7 @@ class SeguridadService
         $this->dbConnection = $dbC;
     }
 
+    // devuelve el usuario conectado
     public function obtenerUsuarioLogueado() :?Usuario
     {
         if (!isset($_COOKIE['user'])) {
@@ -30,7 +31,7 @@ class SeguridadService
         return null;
     }
 
-
+    // redirige al login si no existe un rol
     public function regirigeALoginSiNoEresRol(array $roles) :void
     {
         $rolUsuarioConectado = $this->obtenerUsuarioLogueado() ? $this->obtenerUsuarioLogueado()->getRol() : null;

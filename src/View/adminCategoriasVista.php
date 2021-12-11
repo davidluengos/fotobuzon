@@ -5,11 +5,19 @@
         <h2 class="tituloh2">
           <?php
           if ($datos['titulo']) {
-              echo $datos['titulo'];
+            echo $datos['titulo'];
           }
           ?>
         </h2>
         <a class="primary-btn cta-btn botonPublicaciones" href="/admin/categoria/crear">Nueva Categoría</a>
+        <div class="col-md-8">
+
+          <?php
+
+          use App\Library\MensajeFlash;
+
+          echo MensajeFlash::obtenerMensaje() ?>
+        </div>
         <table class="table  table-hover table-sm">
           <caption>Lista de Categorías</caption>
           <thead class="">
@@ -24,7 +32,7 @@
             <?php
             /** @var App\Model\Categoria $categoria */
             foreach ($datos['categorias'] as $categoria) {
-                ?>
+            ?>
               <tr>
                 <th scope="row"><?php echo $categoria->getId_Categoria(); ?></th>
                 <td><?php echo $categoria->getCategoria(); ?></td>

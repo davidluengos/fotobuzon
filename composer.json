@@ -4,8 +4,10 @@
             "App\\": "src/"
         }
     },
+    "config":{
+        "platform-check": false
+    },
     "require": {
-        "php": ">=7.3",
         "friendsofphp/php-cs-fixer": "^3.3"
     },
     "require-dev": {

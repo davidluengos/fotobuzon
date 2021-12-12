@@ -97,6 +97,9 @@ try{
         case "admin/palabraprohibida/editar":
             echo $palabraProhibidaController->editarPalabraProhibida($_GET['id']);
             break;
+        case "admin/palabraprohibida/eliminar":
+            echo $palabraProhibidaController->eliminarPalabraProhibida($id);
+            break;    
         case "admin/estados":
             echo $estadoController->mostrarEstados();
             break;

@@ -142,7 +142,9 @@ class PartePublicaController
                 //aquí tengo que destruir el $_POST porque al recargar la página vuelve a crear el comentario
                 //(con unset no lo hace, porque sigue teniendo el valor de post)
                 //así que redirijo a la misma publicación para vaciar POST
+                MensajeFlash::crearMensaje('Comentario realizado con éxito.', 'success');
                 header("location:/publicacion/ver?id=$id_publicacion");
+                exit;
             } catch (\PDOException $e) {
                 throw new Exception("ERROR - No se pudo insertar el comentario " . $e->getMessage());
             }

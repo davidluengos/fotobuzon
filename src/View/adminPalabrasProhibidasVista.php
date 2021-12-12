@@ -38,6 +38,11 @@
               <td><?php echo $palabra->getPalabra(); ?></td>
               <td>
                 <a href="/admin/palabraprohibida/editar?id=<?php echo $palabra->getId_palabra(); ?>"><i class="fa fa-edit"></i></a>
+          </td><td>
+                <form action="/admin/palabraprohibida/eliminar" method="post">
+                    <input type="hidden" name="eliminarporpost" value="<?php echo $palabra->getId_palabra(); ?>">
+                    <i style='cursor:pointer;' class="fa fa-trash hoverthash" onclick="ConfirmDelete($(this).closest('form'))"></i>
+                  </form>
               </td>
             </tr>
           <?php

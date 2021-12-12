@@ -111,4 +111,26 @@ class PalabraProhibidaController
         }
         return MostrarVista::mostrarVista('adminPalabraProhibidaEditarVista.php', $variablesParaPasarAVista);
     }
+
+
+    // Ruta: /admin/palabraprohibida/eliminar
+    // función para eliminar una publicación desde la vista del administrador
+    public function eliminarPalabraProhibida($idPalabra)
+    {
+        $this->seguridadService->regirigeALoginSiNoEresRol(["Admin"]);
+        $idPalabra = $_POST['eliminarporpost'];
+        if ($idPalabra) {
+            try {
+                $sql = "DELETE FROM palabras_prohibidas WHERE id_palabra = $idPalabra";
+                $this->dbConnection->ejecutarQuery($sql);
+                MensajeFlash::crearMensaje('Palabra eliminada correctamente.', 'success');
+                header("location:/admin/palabrasprohibidas"); 
+                exit;
+            } catch (\Exception $e) {
+                throw new Exception("ERROR - Se produjo un error al eliminar una publicación " . $e->getMessage());
+            }
+        }
+        $variablesParaPasarAVista = [];
+        return MostrarVista::mostrarVista('adminPublicacionesVista.php', $variablesParaPasarAVista);
+    }
 }

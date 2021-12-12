@@ -190,7 +190,7 @@ function validarCrearPublicacion(){
 
 function ConfirmDelete(form)
 {
-  var x = confirm("¿Seguro que quieres borrar la publicación?");
+  var x = confirm("¿Seguro que quieres eliminar?");
   if(x){
     form.submit();
   }

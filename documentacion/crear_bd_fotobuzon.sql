@@ -1,11 +1,19 @@
+CREATE DATABASE IF NOT EXISTS fotobuzondb DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci;
+USE fotobuzondb;
+
+
+CREATE USER foto6bzn IDENTIFIED BY 'fb2021DAW';
+GRANT ALL PRIVILEGES ON fotobuzondb.* TO foto6bzn; 
+
+
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-12-2021 a las 19:16:48
--- Versión del servidor: 10.4.11-MariaDB
--- Versión de PHP: 7.4.4
+-- Tiempo de generación: 12-12-2021 a las 07:40:50
+-- Versión del servidor: 10.4.22-MariaDB
+-- Versión de PHP: 7.4.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -17,26 +25,9 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
-
-
-
-
-
-
-
-
-
 --
--- Base de datos: 'fotobuzondb' 
+-- Base de datos: `fotobuzondb`
 --
-
-CREATE DATABASE IF NOT EXISTS fotobuzondb DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci;
-USE fotobuzondb;
-
-
-CREATE USER fotobzn2021 IDENTIFIED BY 'fb2021DAW';
-GRANT ALL PRIVILEGES ON fotobuzondb.* TO fotobzn2021; 
-
 
 -- --------------------------------------------------------
 
@@ -47,7 +38,6 @@ GRANT ALL PRIVILEGES ON fotobuzondb.* TO fotobzn2021;
 CREATE TABLE `cambios_estado` (
   `id_cambio` int(11) NOT NULL,
   `id_publicacion` int(11) NOT NULL,
-  `fechapublicacion` datetime NOT NULL,
   `id_categoria` int(11) NOT NULL,
   `estado_inicial` int(11) NOT NULL,
   `estado_final` int(11) NOT NULL,
@@ -59,10 +49,24 @@ CREATE TABLE `cambios_estado` (
 -- Volcado de datos para la tabla `cambios_estado`
 --
 
-INSERT INTO `cambios_estado` (`id_cambio`, `id_publicacion`, `fechapublicacion`, `id_categoria`, `estado_inicial`, `estado_final`, `fecha_cambio`, `diasdesdepublicacion`) VALUES
-(28, 77, '2021-11-15 11:12:41', 2, 1, 2, '2021-11-17 14:02:18', 2),
-(29, 77, '2021-11-15 11:12:41', 2, 2, 3, '2021-12-06 14:46:33', 21),
-(30, 77, '2021-11-15 11:12:41', 2, 3, 4, '2021-12-06 14:49:11', 21);
+INSERT INTO `cambios_estado` (`id_cambio`, `id_publicacion`, `id_categoria`, `estado_inicial`, `estado_final`, `fecha_cambio`, `diasdesdepublicacion`) VALUES
+(28, 77, 2, 1, 2, '2021-11-17 14:02:18', 2),
+(29, 77, 2, 2, 3, '2021-12-01 14:46:33', 16),
+(30, 77, 2, 3, 4, '2021-12-06 14:49:11', 21),
+(31, 128, 4, 1, 2, '2021-12-07 21:09:21', 6),
+(32, 103, 3, 1, 2, '2021-12-07 21:09:36', 7),
+(33, 100, 1, 1, 2, '2021-12-07 21:09:44', 12),
+(34, 95, 2, 1, 2, '2021-12-07 21:09:53', 13),
+(35, 85, 6, 1, 5, '2021-12-07 21:10:02', 14),
+(36, 128, 4, 2, 3, '2021-12-08 13:29:53', 7),
+(38, 190, 3, 1, 5, '2021-12-12 06:45:16', 0),
+(39, 79, 3, 1, 5, '2021-12-12 06:52:11', 19),
+(40, 100, 1, 2, 3, '2021-12-12 07:23:08', 16),
+(41, 100, 1, 3, 4, '2021-12-12 07:23:31', 16),
+(42, 90, 2, 1, 2, '2021-11-25 07:24:02', 2),
+(43, 90, 2, 2, 3, '2021-11-29 07:24:10', 6),
+(44, 90, 2, 3, 4, '2021-12-01 07:24:19', 8),
+(45, 128, 4, 3, 4, '2021-12-12 07:29:18', 10);
 
 -- --------------------------------------------------------
 
@@ -125,7 +129,13 @@ INSERT INTO `comentarios` (`id_comentario`, `id_publicacion`, `fecha_comentario`
 (64, 95, '2021-11-24 08:28:16', '   La obra está en garantía todavía... se llama al contratista y a arreglarlo...    ', 5),
 (65, 85, '2021-11-28 21:16:25', '   Pobrecito!    ', 5),
 (73, 100, '2021-11-29 17:16:39', '   Hola, Javier. Las canastas han sido repuestas esta misma mañana. Un saludo.    ', 1),
-(84, 100, '2021-11-29 17:30:29', '   Bien, ya era hora de que hicieran algo en las pistas.    ', 11);
+(84, 100, '2021-11-29 17:30:29', '   Bien, ya era hora de que hicieran algo en las pistas.    ', 11),
+(93, 128, '2021-12-03 13:27:44', '   Es lamentable cómo se trata el mobiliario. Esto lo pagamos entre todos, debemos tener más cuidado.    ', 7),
+(94, 128, '2021-12-04 10:29:01', '   Esto no se puede consentir, no sé qué hace la gente para destrozar así las cosas.    ', 13),
+(95, 128, '2021-12-09 13:30:39', '   En el día de hoy se ha ordenado la reparación de los bancos, que tendrá lugar en los próximos días.    ', 1),
+(96, 190, '2021-12-12 06:38:42', '   Las escaleras están fatal, hay dos en medio de la calle, pero cabe decir que enfrente del colegio virgen de la montaña y al lado de la biblioteca hay dos calles accesibles sin escaleras. Espero que la señora se recupere a la mayor brevedad.    ', 13),
+(98, 190, '2021-12-12 06:43:18', '   Este tipo de escaleras en el siglo XXI no deberían existir, hay que destruirlas y hacer rampa. Deseo no se haya hecho mucho daño y tenga una pronta recuperación.    ', 27),
+(99, 79, '2021-12-12 06:52:37', '   No se contempla ninguna actuación por el momento.    ', 1);
 
 -- --------------------------------------------------------
 
@@ -170,27 +180,11 @@ CREATE TABLE `imagenes` (
 --
 
 INSERT INTO `imagenes` (`id_imagen`, `tipo_imagen`, `id_objeto`, `size`, `mimetype`, `path_imagen`, `nombre_imagen`) VALUES
-(1, 'publicacion', 67, 30579, 'image/jpeg', '../web/uploads/67/e6e328bfe4.jpg', 'Camiseta Castra Servilia.jpg'),
-(2, 'publicacion', 67, 128439, 'image/jpeg', '../web/uploads/67/8f8d7e85ac.jpg', '1523548715_409896_1523548833_noticia_normal.jpg'),
-(3, 'publicacion', 67, 29122, 'image/jpeg', '../web/uploads/67/d54580e7b3.jpg', 'Camiseta Legendas.jpg'),
-(4, 'publicacion', 68, 128439, 'image/jpeg', '/uploads/68/036adc371e.jpg', '1523548715_409896_1523548833_noticia_normal.jpg'),
-(5, 'publicacion', 68, 30579, 'image/jpeg', '/uploads/68/b2b69dcb03.jpg', 'Camiseta Castra Servilia.jpg'),
-(6, 'publicacion', 68, 29122, 'image/jpeg', '/uploads/68/26127b9cee.jpg', 'Camiseta Legendas.jpg'),
-(7, 'publicacion', 69, 30579, 'image/jpeg', '/uploads/69/d25fe14dd1.jpg', 'Camiseta Castra Servilia.jpg'),
-(8, 'publicacion', 69, 128439, 'image/jpeg', '/uploads/69/a54cd7ead7.jpg', '1523548715_409896_1523548833_noticia_normal.jpg'),
-(9, 'publicacion', 69, 29122, 'image/jpeg', '/uploads/69/c0936a1606.jpg', 'Camiseta Legendas.jpg'),
-(10, 'publicacion', 71, 5094498, 'image/jpeg', '/uploads/71/d91f2b15e2.jpg', 'P8080307_editada.jpg'),
-(11, 'publicacion', 74, 30579, 'image/jpeg', '/uploads/74/f1537286b9.jpg', 'Camiseta Castra Servilia.jpg'),
-(12, 'publicacion', 74, 128439, 'image/jpeg', '/uploads/74/3b9547ad03.jpg', '1523548715_409896_1523548833_noticia_normal.jpg'),
-(13, 'publicacion', 74, 29122, 'image/jpeg', '/uploads/74/759ae594db.jpg', 'Camiseta Legendas.jpg'),
 (14, 'publicacion', 77, 144944, 'image/jpeg', '/uploads/77/c098025af4.jpg', '257662425_4583232965088680_7356578715461652967_n.jpg'),
 (15, 'publicacion', 77, 180553, 'image/jpeg', '/uploads/77/dfe0e0cdd1.jpg', '254997021_4784062378324578_1639508885296212097_n.jpg'),
 (16, 'publicacion', 77, 226148, 'image/jpeg', '/uploads/77/b2003f6950.jpg', '254921100_4784062961657853_1665459555481892384_n.jpg'),
 (17, 'publicacion', 77, 189422, 'image/jpeg', '/uploads/77/5e71e57356.jpg', '248523472_4784062774991205_6411779153014601764_n.jpg'),
-(18, 'publicacion', 78, 112136, 'image/jpeg', '/uploads/78/29b66ad22d.jpg', '257861805_4412945572108300_7599929288247079014_n.jpg'),
-(19, 'publicacion', 78, 112136, 'image/jpeg', '/uploads/78/861b6a588a.jpg', '257861805_4412945572108300_7599929288247079014_n.jpg'),
 (20, 'publicacion', 79, 112136, 'image/jpeg', '/uploads/79/bebf1c724b.jpg', '257861805_4412945572108300_7599929288247079014_n.jpg'),
-(21, 'publicacion', 81, 102519, 'image/jpeg', '/uploads/81/3ab52c74a2.jpg', '25955711366_n.jpg'),
 (22, 'publicacion', 85, 102519, 'image/jpeg', '/uploads/85/bbd1f92160.jpg', '25955711366_n.jpg'),
 (24, 'publicacion', 90, 173388, 'image/jpeg', '/uploads/90/e06758aafd.jpg', '252445240_4803353233032963_1118759865620941807_n.jpg'),
 (25, 'publicacion', 90, 191615, 'image/jpeg', '/uploads/90/d7c3d40df6.jpg', '252207789_4803353393032947_2329794098406632763_n.jpg'),
@@ -201,14 +195,13 @@ INSERT INTO `imagenes` (`id_imagen`, `tipo_imagen`, `id_objeto`, `size`, `mimety
 (30, 'publicacion', 103, 634141, 'image/jpeg', '/uploads/103/b7ebec914d.jpg', '256881188_1699895760215685_4768101275407159498_n.jpg'),
 (31, 'publicacion', 103, 599676, 'image/jpeg', '/uploads/103/9565822fe5.jpg', '257281841_1699895776882350_41617220163283303_n.jpg'),
 (32, 'publicacion', 103, 467260, 'image/jpeg', '/uploads/103/37ab30d77e.jpg', '257967511_821_n.jpg'),
-(33, 'publicacion', 126, 385618, 'image/jpeg', '/uploads/126/94418df45b.jpg', '256800084_4467911259982692_8634092700414196835_n.jpg'),
-(34, 'publicacion', 126, 342971, 'image/jpeg', '/uploads/126/48fc2f075d.jpg', '256798029_4467910913316060_4228544121727834704_n.jpg'),
-(35, 'publicacion', 126, 336767, 'image/jpeg', '/uploads/126/7a0b1063d9.jpg', '257248696_4467911039982714_2936538977757328357_n.jpg'),
 (36, 'publicacion', 128, 342971, 'image/jpeg', '/uploads/128/96e21e05c5.jpg', '256798029_4467910913316060_4228544121727834704_n.jpg'),
 (37, 'publicacion', 128, 385618, 'image/jpeg', '/uploads/128/1197f6718b.jpg', '256800084_4467911259982692_8634092700414196835_n.jpg'),
 (38, 'publicacion', 128, 336767, 'image/jpeg', '/uploads/128/9d11b921b8.jpg', '257248696_4467911039982714_2936538977757328357_n.jpg'),
-(39, 'publicacion', 154, 342971, 'image/jpeg', '/uploads/154/dec6cdb42f.jpg', '256798029_4467910913316060_4228544121727834704_n.jpg'),
-(40, 'publicacion', 154, 385618, 'image/jpeg', '/uploads/154/9e04c53db0.jpg', '256800084_4467911259982692_8634092700414196835_n.jpg');
+(52, 'publicacion', 166, 805374, 'image/jpeg', '/uploads/166/a828f68e19.jpg', '265207028_10225023175223033_4083211118410441138_n.jpg'),
+(53, 'publicacion', 166, 818081, 'image/jpeg', '/uploads/166/3bd34d65e0.jpg', '264476138_10225023172182957_7234617628874324881_n.jpg'),
+(54, 'publicacion', 166, 161974, 'image/jpeg', '/uploads/166/c803e9bb2a.jpg', '266013237_10225023167302835_7398237134498182285_n.jpg'),
+(69, 'publicacion', 190, 1090194, 'image/jpeg', '/uploads/190/b0c3b724f3.jpg', '2571989165997_n.jpg');
 
 -- --------------------------------------------------------
 
@@ -229,7 +222,14 @@ INSERT INTO `palabras_prohibidas` (`id_palabra`, `nombre_palabra`) VALUES
 (1, 'tonto'),
 (2, 'tontaina'),
 (3, 'tonta'),
-(4, 'tontino');
+(4, 'tontino'),
+(5, 'tontina'),
+(6, 'tontito'),
+(7, 'tontitas'),
+(8, 'tontainas'),
+(9, 'tonteo'),
+(10, 'idiota'),
+(11, 'idioto');
 
 -- --------------------------------------------------------
 
@@ -255,13 +255,15 @@ CREATE TABLE `publicaciones` (
 
 INSERT INTO `publicaciones` (`id_publicacion`, `fecha_publicacion`, `titulo`, `descripcion`, `id_categoria`, `id_estado`, `id_autor`, `localizacion`, `esta_creada`) VALUES
 (77, '2021-11-15 11:12:41', 'Restos de botellón en la Sierrilla', 'Este domingo paseando por los parques con los niños me encontré con restos de botellón en la zona de “recreo” en la Sierrilla que ya fue incendiada hace 2 años. Una pena que tratemos así nuestra ciudad.', 2, 4, 11, 'Parque de la Sierrilla', 1),
-(79, '2021-11-22 11:52:35', 'Coches mal aparcados', 'En la plaza 8 de septiembre los coches no respetan la escasa acera existente. Deberían tener un poco de empatía, pues por ahí no pueden pasar cochecitos o sillas de ruedas, e incluso a duras penas pasa la gente a pie.', 3, 1, 6, 'Plaza 8 de septiembre', 1),
-(85, '2021-11-23 10:42:01', 'Perro atado durante más de tres horas', 'Perro olvidado/abandonado en el Supermercados Extremadura de la Calle Camino Llano 34. Lleva el pobre ahí atado más de tres horas. ¿Alguien lo conoce?', 6, 1, 6, 'Camino Llano 999', 1),
-(90, '2021-11-23 16:19:59', 'Valla rota en la ribera', 'El otro día paseando por la ribera vimos que la valla de madera que separa la calzada de la Ronda San Francisco está caída, y puede representar un peligro para las personas que pasen por ahí.', 2, 1, 15, 'Ronda San Francisco', 1),
-(95, '2021-11-24 08:23:00', 'Mal estado del nuevo carril bici', 'Este es el estado en que se encuentra ya el carril bici del Parque del Príncipe recién terminado. El dineral gastado para dos bicicletas al día que pasan por allí, ¿a ustedes les parece este gasto necesario?', 2, 1, 17, 'Parque del Príncipe', 1),
-(100, '2021-11-25 17:14:21', 'Canastas rotas en La Madrila', 'Hola! Estaría bien que arreglasen las canastas de las pistas deportivas de La Madrila, pues llevan así desde el verano y cada vez que vamos los amigos nos es imposible jugar a baloncesto. Gracias.', 1, 1, 7, 'La Madrila', 1),
-(103, '2021-11-30 16:18:07', 'Baches en la calzada', 'Hace ya unas semanas que arreglaron la calle Sierpes, pero han dejado algunas zonas bastante mal, los vecinos seguimos a la espera de que terminen de reparar todas las zonas antes de que haya algún accidente.', 3, 1, 5, 'Calle Sierpes', 1),
-(128, '2021-12-01 17:08:06', 'Bancos en mal estado', 'Varios bancos del paseo central del barrio de Cáceres el Viejo se encuentran en muy mal estado, debido a golpes de vehículos que aparcan junto a la multitienda que está próxima. Por favor, arreglen en cuanto sea posible.', 4, 1, 13, 'Cáceres el Viejo', 1);
+(79, '2021-11-22 11:52:35', 'Coches mal aparcados', 'En la plaza 8 de septiembre los coches no respetan la escasa acera existente. Deberían tener un poco de empatía, pues por ahí no pueden pasar cochecitos o sillas de ruedas, e incluso a duras penas pasa la gente a pie.', 3, 5, 6, 'Plaza 8 de septiembre', 1),
+(85, '2021-11-23 10:42:01', 'Perro atado durante más de tres horas', 'Perro olvidado/abandonado en el Supermercados Extremadura de la Calle Camino Llano 34. Lleva el pobre ahí atado más de tres horas. ¿Alguien lo conoce?', 6, 5, 6, 'Camino Llano 999', 1),
+(90, '2021-11-23 16:19:59', 'Valla rota en la ribera', 'El otro día paseando por la ribera vimos que la valla de madera que separa la calzada de la Ronda San Francisco está caída, y puede representar un peligro para las personas que pasen por ahí.', 2, 4, 15, 'Ronda San Francisco', 1),
+(95, '2021-11-24 08:23:00', 'Mal estado del nuevo carril bici', 'Este es el estado en que se encuentra ya el carril bici del Parque del Príncipe recién terminado. El dineral gastado para dos bicicletas al día que pasan por allí, ¿a ustedes les parece este gasto necesario?', 2, 2, 17, 'Parque del Príncipe', 1),
+(100, '2021-11-25 17:14:21', 'Canastas rotas en La Madrila', 'Hola! Estaría bien que arreglasen las canastas de las pistas deportivas de La Madrila, pues llevan así desde el verano y cada vez que vamos los amigos nos es imposible jugar a baloncesto. Gracias.', 1, 4, 7, 'La Madrila', 1),
+(103, '2021-11-30 16:18:07', 'Baches en la calzada', 'Hace ya unas semanas que arreglaron la calle Sierpes, pero han dejado algunas zonas bastante mal, los vecinos seguimos a la espera de que terminen de reparar todas las zonas antes de que haya algún accidente.', 3, 2, 5, 'Calle Sierpes', 1),
+(128, '2021-12-01 17:08:06', 'Bancos en mal estado', 'Varios bancos del paseo central del barrio de Cáceres el Viejo se encuentran en muy mal estado, debido a golpes de vehículos que aparcan junto a la multitienda que está próxima. Por favor, arreglen en cuanto sea posible.', 4, 4, 13, 'Cáceres el Viejo', 1),
+(166, '2021-12-11 16:41:01', 'Arqueta sin rejilla en el parque', 'Llevo observando varios días la falta de protección de está arqueta en el paseo principal del Parque del Príncipe.\r\nPara evitar daños no deseados, ¿no sería posible o bien proceder a poner su reja o señalizar ya sea con cinta, con cono  o con otro medio su peligrosidad?\r\nEspero pronta resolución por el bien de los usuarios. Gracias a quien proceda.', 2, 1, 13, 'Parque del Príncipe', 1),
+(190, '2021-12-12 06:37:50', 'Estaleras en mal estado', 'Esta mañana se ha caido una señora de 81 años con su muleta por las escaleras que estan enfrente de tambo de Alfonso IX, todas las mañanas tiene que bajar por ahí a por su pan y ni siquiera hay una rampa están pesosas y más para las personas mayores, a ver si a quien correspondan toman nota.', 3, 5, 33, 'Casas Baratas', 1);
 
 -- --------------------------------------------------------
 
@@ -288,24 +290,29 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id_usuario`, `rol`, `nombre`, `apellidos`, `email`, `password`, `telefono`, `direccion`, `codigo_postal`, `municipio`, `provincia`) VALUES
-(1, 'Admin', 'Admin', 'Ayuntamiento', 'admin@mail.com', '1234', '666999888', 'C/ de la Aventura 22', '10816', 'Guijo de Galisteo', 'Cáceres'),
-(2, 'Usuario', 'Cristina', 'Domínguez Benito', 'cristina@mail.com', '1234', '666111222', 'Calle de la Higuerilla 99', '10001', 'Cáceres', 'Cáceres'),
-(3, 'Usuario', 'Agustín', 'Zambrano García', 'agus@mail.com', '1234', '924300101', 'Avda. Extremadura 3, 1A', '06800', 'Mérida', 'Badajoz'),
-(4, 'Admin', 'Paco', 'Morcillo García', 'paco@mail.com', '1234', '123456789', 'Av. Cervantes 55', '10005', 'Cáceres', 'Cáceres'),
-(5, 'Usuario', 'Pepe', 'Martínez', 'pepe@mail.com', '1234', '100020003', 'Calle Extremadura 22', '10195', 'Cáceres', 'Cáceres'),
-(6, 'Usuario', 'Carlos', 'Romero', 'carlos@mail.com', '1234', '123456789', 'Calle de la paz', '45663', 'Valladolid', 'Valladolid'),
-(7, 'Usuario', 'Javier', 'Mostazo', 'javier@mail.com', '1234', '123456789', 'Calle de la nube', '45663', 'Simancas', 'Valladolid'),
-(8, 'Usuario', 'Fernando', 'Sánchez Galindo', 'fernando@mail.com', '1234', '555969696', 'Calle Virgen de los Antolines', '10816', 'Guijo de Galisteo', 'Cáceres'),
-(9, 'Admin', 'David', 'Luengo', 'david@mail.com', '1234', '666000111', 'Calle Los Fresnos', '10004', 'Cáceres', 'Cáceres'),
-(10, 'Usuario', 'Susana', 'Pérez Montes', 'susana@mail.com', '1234', '123456789', 'Av. Extremadura 22', '10004', 'Cáceres', 'Cáceres'),
-(11, 'Usuario', 'María', 'Gómez González', 'maria@mail.com', '1234', '456789123', 'Calle Paloma 33', '06800', 'Mérida', 'Badajoz'),
-(12, 'Usuario', 'Alicia', 'Santos Benavides', 'alicia@mail.com', '1234', '987987987', 'Calle Gil Cordero 26', '10001', 'Cáceres', 'Cáceres'),
-(13, 'Usuario', 'Ana', 'González Miranda', 'ana@mail.com', '1234', '123456789', 'Avda. Portugal 22', '10001', 'Cáceres', 'Cáceres'),
-(14, 'Usuario', 'Sandra', 'López Montero', 'sandra@mail.com', '1234', '456789456', 'Calle Badalona 24', '10005', 'Cáceres', 'Cáceres'),
-(15, 'Usuario', 'Vanesa', 'Pérez Espada', 'vanesa@mail.com', '1234', '666999333', 'Calle de la Higuerilla 11', '10004', 'Cáceres', 'Cáceres'),
-(16, 'Usuario', 'Santiago', 'Hernández Gil', 'santiago@mail.com', '1234', '963852741', 'Calle Hernando de Soto 22', '10002', 'Cáceres', 'Cáceres'),
-(17, 'Usuario', 'Laura', 'Muriel Pérez', 'laura@mail.com', '1234', '486153000', 'Calle de la Bondad 43', '10002', 'Cáceres', 'Cáceres'),
-(22, 'Usuario', 'Manuel', 'Romero Suárez', 'manuel@mail.com', '1234', '623447855', 'Calle Buenaventura 23', '06800', 'Mérida', 'Badajoz');
+(1, 'Admin', 'Admin', 'Ayuntamiento', 'admin@mail.com', '81dc9bdb52d04dc20036dbd8313ed055', '666999888', 'C/ de la Aventura 22', '10816', 'Guijo de Galisteo', 'Cáceres'),
+(2, 'Usuario', 'Cristina', 'Domínguez Benito', 'cristina@mail.com', '81dc9bdb52d04dc20036dbd8313ed055', '666111222', 'Calle de la Higuerilla 99', '10001', 'Cáceres', 'Cáceres'),
+(3, 'Usuario', 'Agustín', 'Zambrano García', 'agus@mail.com', '81dc9bdb52d04dc20036dbd8313ed055', '924300101', 'Avda. Extremadura 3, 1A', '06800', 'Mérida', 'Badajoz'),
+(4, 'Admin', 'Paco', 'Morcillo García', 'paco@mail.com', '81dc9bdb52d04dc20036dbd8313ed055', '123456789', 'Av. Cervantes 55', '10005', 'Cáceres', 'Cáceres'),
+(5, 'Usuario', 'Pepe', 'Martínez', 'pepe@mail.com', '81dc9bdb52d04dc20036dbd8313ed055', '100020003', 'Calle Extremadura 22', '10195', 'Cáceres', 'Cáceres'),
+(6, 'Usuario', 'Carlos', 'Romero', 'carlos@mail.com', '81dc9bdb52d04dc20036dbd8313ed055', '123456789', 'Calle de la paz', '45663', 'Valladolid', 'Valladolid'),
+(7, 'Usuario', 'Javier', 'Mostazo', 'javier@mail.com', '81dc9bdb52d04dc20036dbd8313ed055', '123456789', 'Calle de la nube', '45663', 'Simancas', 'Valladolid'),
+(8, 'Usuario', 'Fernando', 'Sánchez Galindo', 'fernando@mail.com', '81dc9bdb52d04dc20036dbd8313ed055', '555969696', 'Calle Virgen de los Antolines', '10816', 'Guijo de Galisteo', 'Cáceres'),
+(9, 'Admin', 'David', 'Luengo', 'david@mail.com', '81dc9bdb52d04dc20036dbd8313ed055', '666000111', 'Calle Los Fresnos', '10004', 'Cáceres', 'Cáceres'),
+(10, 'Usuario', 'Susana', 'Pérez Montes', 'susana@mail.com', '81dc9bdb52d04dc20036dbd8313ed055', '123456789', 'Av. Extremadura 22', '10004', 'Cáceres', 'Cáceres'),
+(11, 'Usuario', 'María', 'Gómez González', 'maria@mail.com', '81dc9bdb52d04dc20036dbd8313ed055', '456789123', 'Calle Paloma 33', '06800', 'Mérida', 'Badajoz'),
+(12, 'Usuario', 'Alicia', 'Santos Benavides', 'alicia@mail.com', '81dc9bdb52d04dc20036dbd8313ed055', '987987987', 'Calle Gil Cordero 26', '10001', 'Cáceres', 'Cáceres'),
+(13, 'Usuario', 'Ana', 'González Miranda', 'ana@mail.com', '81dc9bdb52d04dc20036dbd8313ed055', '123456789', 'Avda. Portugal 22', '10001', 'Cáceres', 'Cáceres'),
+(14, 'Usuario', 'Sandra', 'López Montero', 'sandra@mail.com', '81dc9bdb52d04dc20036dbd8313ed055', '456789456', 'Calle Badalona 24', '10005', 'Cáceres', 'Cáceres'),
+(15, 'Usuario', 'Vanesa', 'Pérez Espada', 'vanesa@mail.com', '81dc9bdb52d04dc20036dbd8313ed055', '666999333', 'Calle de la Higuerilla 11', '10004', 'Cáceres', 'Cáceres'),
+(16, 'Usuario', 'Santiago', 'Hernández Gil', 'santiago@mail.com', '81dc9bdb52d04dc20036dbd8313ed055', '963852741', 'Calle Hernando de Soto 22', '10002', 'Cáceres', 'Cáceres'),
+(17, 'Usuario', 'Laura', 'Muriel Pérez', 'laura@mail.com', '81dc9bdb52d04dc20036dbd8313ed055', '486153000', 'Calle de la Bondad 43', '10002', 'Cáceres', 'Cáceres'),
+(22, 'Usuario', 'Manuel', 'Romero Suárez', 'manuel@mail.com', '81dc9bdb52d04dc20036dbd8313ed055', '623447855', 'Calle Buenaventura 23', '06800', 'Mérida', 'Badajoz'),
+(27, 'Usuario', 'Pedro', 'Gómez Magro', 'pedro@mail.com', '81dc9bdb52d04dc20036dbd8313ed055', '612612612', 'Calle Gil Cordero 21', '10001', 'Cáceres', 'Cáceres'),
+(28, 'Usuario', 'Beatriz', 'Parra Santano', 'beatriz@mail.com', '81dc9bdb52d04dc20036dbd8313ed055', '987987987', 'Calle Buenavista 23', '06800', 'Mérida', 'Badajoz'),
+(29, 'Usuario', 'Gonzalo', 'Gómez Magro', 'gonzalo@mail.com', '81dc9bdb52d04dc20036dbd8313ed055', '654987987', 'Calle Buenavista 23', '10001', 'Cáceres', 'Cáceres'),
+(33, 'Usuario', 'Jose', 'Fernández Vázquez', 'jose@mail.com', '81dc9bdb52d04dc20036dbd8313ed055', '654654654', 'Calle Buenaventura 23', '10001', 'Cáceres', 'Cáceres'),
+(34, 'Usuario', 'Pilar', 'Sánchez Pérez', 'pilar@mail.com', '81dc9bdb52d04dc20036dbd8313ed055', '927112233', 'Virgen de los Antolines 124', '10001', 'Cáceres', 'Cáceres');
 
 --
 -- Índices para tablas volcadas
@@ -372,19 +379,19 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `cambios_estado`
 --
 ALTER TABLE `cambios_estado`
-  MODIFY `id_cambio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id_cambio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT de la tabla `categorias`
 --
 ALTER TABLE `categorias`
-  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `comentarios`
 --
 ALTER TABLE `comentarios`
-  MODIFY `id_comentario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
+  MODIFY `id_comentario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
 
 --
 -- AUTO_INCREMENT de la tabla `estados`
@@ -396,25 +403,25 @@ ALTER TABLE `estados`
 -- AUTO_INCREMENT de la tabla `imagenes`
 --
 ALTER TABLE `imagenes`
-  MODIFY `id_imagen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id_imagen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
 -- AUTO_INCREMENT de la tabla `palabras_prohibidas`
 --
 ALTER TABLE `palabras_prohibidas`
-  MODIFY `id_palabra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_palabra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `publicaciones`
 --
 ALTER TABLE `publicaciones`
-  MODIFY `id_publicacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=155;
+  MODIFY `id_publicacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=191;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- Restricciones para tablas volcadas
